@@ -1,0 +1,5 @@
+-e .[dev,latex]
+pytest>=6.0
+black>=22.0
+isort>=5.0
+flake8>=3.9
