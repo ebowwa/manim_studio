@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: manim_studio
+Version: 0.1.0
+Requires-Dist: manim>=0.17.3
+Requires-Dist: Pillow>=9.0.0
+Requires-Dist: numpy>=1.21.0
+Requires-Dist: pydub>=0.25.1
+Requires-Dist: importlib-metadata>=4.0.0
