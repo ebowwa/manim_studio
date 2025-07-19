@@ -16,6 +16,10 @@ import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from src.manim_studio.core import Config, SceneBuilder, Timeline, AssetManager
 from src.manim_studio.core.config import SceneConfig, AnimationConfig, EffectConfig
+from src.manim_studio.core.timeline_enhanced import (
+    EnhancedTimeline, InterpolationType, Keyframe, TrackType
+)
+from src.manim_studio.core.timeline_presets import TimelinePresets
 from src.manim_studio.cli import render_scene
 
 # Configure logging
@@ -29,6 +33,8 @@ class ManimStudioServer:
         self.server = Server("manim-studio")
         self.current_scene: Optional[Dict[str, Any]] = None
         self.scenes: Dict[str, Dict[str, Any]] = {}
+        self.timeline: Optional[EnhancedTimeline] = None
+        self.timeline_presets = TimelinePresets()
         self.setup_handlers()
         
     def setup_handlers(self):
@@ -241,6 +247,55 @@ class ManimStudioServer:
                         },
                         "required": ["path"]
                     }
+                ),
+                types.Tool(
+                    name="create_timeline",
+                    description="Create an enhanced timeline with layers and tracks",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "duration": {"type": "number", "description": "Timeline duration in seconds", "default": 10.0},
+                            "fps": {"type": "number", "description": "Frames per second", "default": 60.0}
+                        }
+                    }
+                ),
+                types.Tool(
+                    name="add_keyframe",
+                    description="Add a keyframe to the timeline",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "layer": {"type": "string", "description": "Layer name", "default": "Main"},
+                            "track": {"type": "string", "description": "Track name", "default": "objects"},
+                            "property": {"type": "string", "description": "Property to animate"},
+                            "time": {"type": "number", "description": "Time in seconds"},
+                            "value": {"description": "Value at this keyframe"},
+                            "interpolation": {
+                                "type": "string",
+                                "enum": ["linear", "ease_in", "ease_out", "ease_in_out", "spring", "step"],
+                                "description": "Interpolation type",
+                                "default": "linear"
+                            }
+                        },
+                        "required": ["property", "time", "value"]
+                    }
+                ),
+                types.Tool(
+                    name="apply_timeline_preset",
+                    description="Apply a timeline preset",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "preset_name": {
+                                "type": "string",
+                                "enum": ["fade_in_out", "title_sequence", "data_reveal", "kinetic_typography", 
+                                        "educational_diagram", "social_media_post", "smooth_transition", "logo_animation"],
+                                "description": "Preset to apply"
+                            },
+                            "parameters": {"type": "object", "description": "Preset parameters (optional)"}
+                        },
+                        "required": ["preset_name"]
+                    }
                 )
             ]
         
@@ -448,6 +503,83 @@ class ManimStudioServer:
                 }
             except Exception as e:
                 return {"status": "error", "message": str(e)}
+        
+        elif name == "create_timeline":
+            duration = arguments.get("duration", 10.0)
+            fps = arguments.get("fps", 60.0)
+            
+            self.timeline = EnhancedTimeline(duration=duration, fps=fps)
+            
+            return {
+                "status": "success",
+                "message": f"Created timeline with duration {duration}s at {fps} fps",
+                "layers": [layer.name for layer in self.timeline.layers]
+            }
+        
+        elif name == "add_keyframe":
+            if not self.timeline:
+                return {"status": "error", "message": "No timeline created"}
+            
+            layer_name = arguments.get("layer", "Main")
+            track_name = arguments.get("track", "objects")
+            property_name = arguments["property"]
+            time = arguments["time"]
+            value = arguments["value"]
+            interp_str = arguments.get("interpolation", "linear")
+            
+            # Map interpolation string to enum
+            interp_map = {
+                "linear": InterpolationType.LINEAR,
+                "ease_in": InterpolationType.EASE_IN,
+                "ease_out": InterpolationType.EASE_OUT,
+                "ease_in_out": InterpolationType.EASE_IN_OUT,
+                "spring": InterpolationType.SPRING,
+                "step": InterpolationType.STEP
+            }
+            interpolation = interp_map.get(interp_str, InterpolationType.LINEAR)
+            
+            # Add keyframe
+            keyframe = self.timeline.add_keyframe(
+                layer_name, track_name, property_name,
+                time, value, interpolation
+            )
+            
+            if keyframe:
+                return {
+                    "status": "success",
+                    "keyframe": {
+                        "time": time,
+                        "value": value,
+                        "interpolation": interp_str,
+                        "property": property_name
+                    }
+                }
+            else:
+                return {"status": "error", "message": "Failed to add keyframe"}
+        
+        elif name == "apply_timeline_preset":
+            if not self.timeline:
+                return {"status": "error", "message": "No timeline created"}
+            
+            preset_name = arguments["preset_name"]
+            parameters = arguments.get("parameters", {})
+            
+            preset = self.timeline_presets.get_preset(preset_name)
+            if not preset:
+                return {"status": "error", "message": f"Preset '{preset_name}' not found"}
+            
+            preset.apply(self.timeline, parameters)
+            
+            return {
+                "status": "success",
+                "message": f"Applied preset '{preset_name}'",
+                "preset_info": {
+                    "name": preset.name,
+                    "category": preset.category.value,
+                    "duration": preset.duration,
+                    "description": preset.description
+                }
+            }
         
         else:
             return {"status": "error", "message": f"Unknown tool: {name}"}
