@@ -1,0 +1,90 @@
+# Example scene configuration for Manim Studio
+name: "MagicalShowcase"
+description: "A showcase of configurable magical effects"
+duration: 15.0
+background_color: "#0a0a0a"
+resolution: [1920, 1080]
+fps: 60
+
+# Asset definitions
+assets:
+  logo: "assets/images/logo.png"
+  background: "assets/images/background.jpg"
+  sparkle_texture: "assets/textures/sparkle.png"
+
+# Objects in the scene
+objects:
+  title:
+    type: text
+    text: "Magical Effects Demo"
+    params:
+      gradient: ["#4A90E2", "#9B59B6"]
+      scale: 1.5
+      weight: BOLD
+      position: [0, 3, 0]
+  
+  subtitle:
+    type: text
+    text: "Powered by Manim Studio"
+    params:
+      color: "#FFFFFF"
+      scale: 0.8
+      position: [0, 2, 0]
+
+# Effects configuration
+effects:
+  - type: particle_system
+    start_time: 2.0
+    params:
+      n_emitters: 3
+      particles_per_second: 20
+      particle_lifetime: 3.0
+      velocity_range: [1, 4]
+      particle_color: "#FFD700"
+      particle_radius: 0.03
+  
+  - type: magical_circle
+    start_time: 5.0
+    params:
+      radius: 2.5
+      n_layers: 3
+      rune_count: 12
+      symbols: ["⚗", "🜍", "⚖", "🜎", "☿", "🜔"]
+      rune_style: "star"
+      rotation_speed: 0.3
+      pulse_amplitude: 0.05
+      pulse_frequency: 0.5
+      reveal_style: "spiral"
+      glow: true
+      color_scheme:
+        outer_circle: "#4A90E2"
+        inner_circles: "#7B68EE"
+        runes: "#9B59B6"
+        symbols: "#FFFFFF"
+        glow: "#4A90E2"
+
+# Animation timeline
+animations:
+  # Title animations
+  - target: title
+    animation_type: write
+    start_time: 0.0
+    duration: 2.0
+  
+  - target: subtitle
+    animation_type: fadein
+    start_time: 0.5
+    duration: 1.5
+    params:
+      shift: [0, 0.5, 0]
+  
+  # Title fade out
+  - target: title
+    animation_type: fadeout
+    start_time: 8.0
+    duration: 1.0
+  
+  - target: subtitle
+    animation_type: fadeout
+    start_time: 8.0
+    duration: 1.0

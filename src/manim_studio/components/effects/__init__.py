@@ -6,6 +6,7 @@ high-quality visual effects in Manim animations.
 """
 
 from .base_effect import BaseEffect
+from .effect_registry import EffectRegistry, register_effect
 from .particle_system import ParticleSystem
 from .magical_circle import MagicalCircle
 from .text_effects import TextEffects
@@ -13,6 +14,8 @@ from .transitions import EffectTransitions
 
 __all__ = [
     'BaseEffect',
+    'EffectRegistry',
+    'register_effect',
     'ParticleSystem',
     'MagicalCircle',
     'TextEffects',

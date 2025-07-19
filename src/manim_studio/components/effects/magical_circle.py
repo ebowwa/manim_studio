@@ -4,8 +4,10 @@ from typing import Dict, List, Optional, Union
 import numpy as np
 from manim import *
 from .base_effect import BaseEffect
+from .effect_registry import register_effect
 
 
+@register_effect("magical_circle")
 class MagicalCircle(BaseEffect):
     """Creates a magical circle effect with rotating elements."""
     
@@ -14,12 +16,18 @@ class MagicalCircle(BaseEffect):
         'n_circles': 3,
         'n_runes': 8,
         'rotation_speed': 0.5,
+        'symbols': ["⚗", "🜍", "⚖", "🜎"],
+        'rune_style': 'star',
         'color_scheme': {
             'outer': BLUE_A,
             'inner': BLUE_C,
             'runes': BLUE_E,
             'symbols': WHITE,
-        }
+        },
+        'glow': False,
+        'pulse_amplitude': 0.0,
+        'pulse_frequency': 1.0,
+        'reveal_style': 'fade'
     }
     
     def __init__(self, **kwargs):
@@ -71,42 +79,51 @@ class MagicalCircle(BaseEffect):
     def _create_rune(self) -> VMobject:
         """Create a single rune symbol."""
         colors = self.get_config('color_scheme')
+        rune_style = self.get_config('rune_style', 'star')
         
-        # Create a random rune-like shape
-        n_points = np.random.randint(3, 7)
-        points = []
-        for i in range(n_points):
-            angle = i * TAU / n_points + np.random.uniform(-0.2, 0.2)
-            radius = np.random.uniform(0.2, 0.4)
-            points.append([
-                radius * np.cos(angle),
-                radius * np.sin(angle),
-                0
-            ])
-        
-        rune = VMobject(stroke_color=colors['runes'])
-        rune.set_points_smoothly([*points, points[0]])
-        return rune
+        if rune_style == 'star':
+            return Text("✦", color=colors['runes']).scale(0.5)
+        elif rune_style == 'dot':
+            return Dot(radius=0.1, color=colors['runes'])
+        elif rune_style == 'triangle':
+            return Triangle(color=colors['runes']).scale(0.3)
+        elif rune_style == 'custom':
+            # Create a random rune-like shape
+            n_points = np.random.randint(3, 7)
+            points = []
+            for i in range(n_points):
+                angle = i * TAU / n_points + np.random.uniform(-0.2, 0.2)
+                radius = np.random.uniform(0.2, 0.4)
+                points.append([
+                    radius * np.cos(angle),
+                    radius * np.sin(angle),
+                    0
+                ])
+            
+            rune = VMobject(stroke_color=colors['runes'])
+            rune.set_points_smoothly([*points, points[0]])
+            return rune
+        else:
+            return Text("*", color=colors['runes']).scale(0.5)
     
     def _create_symbols(self) -> VGroup:
         """Create inner magical symbols."""
         colors = self.get_config('color_scheme')
+        symbols = self.get_config('symbols')
+        radius = self.get_config('radius')
         
-        # Create a pentagram
-        pentagram = RegularPolygon(
-            n=5,
-            stroke_color=colors['symbols'],
-            fill_color=colors['symbols'],
-            fill_opacity=0.2
-        )
+        symbol_group = VGroup()
+        n_symbols = min(len(symbols), 8)
         
-        # Create a circle around it
-        circle = Circle(
-            stroke_color=colors['symbols'],
-            stroke_width=1
-        )
+        for i, symbol in enumerate(symbols[:n_symbols]):
+            angle = i * TAU / n_symbols
+            position = radius * 0.6 * np.array([np.cos(angle), np.sin(angle), 0])
+            
+            sym = Text(symbol, color=colors['symbols']).scale(0.4)
+            sym.move_to(position)
+            symbol_group.add(sym)
         
-        return VGroup(pentagram, circle)
+        return symbol_group
     
     def animate(self, scene: Scene) -> None:
         """Animate the magical circle.

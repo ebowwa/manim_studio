@@ -1,0 +1,163 @@
+{
+  "name": "BookTrailer",
+  "description": "Animated book trailer with dynamic effects",
+  "duration": 30.0,
+  "background_color": "#000000",
+  "resolution": [1920, 1080],
+  "fps": 60,
+  
+  "assets": {
+    "cover": "umbra_forest.png",
+    "character1": "lunar_lily.png",
+    "academy": "ashborne_academy.png",
+    "antagonist": "vampire.png",
+    "battle": "battle_scene.png"
+  },
+  
+  "objects": {
+    "book_title": {
+      "type": "text",
+      "text": "The Chronicles of Shadow",
+      "params": {
+        "gradient": ["#1a1a2e", "#16213e"],
+        "scale": 2.0,
+        "weight": "BOLD",
+        "position": [0, 0, 0]
+      }
+    },
+    
+    "author_name": {
+      "type": "text",
+      "text": "by A. Mystique",
+      "params": {
+        "color": "#eaeaea",
+        "scale": 1.0,
+        "position": [0, -1.5, 0]
+      }
+    },
+    
+    "cover_image": {
+      "type": "image",
+      "asset": "cover",
+      "params": {
+        "scale": 0.8,
+        "position": [0, 0, 0]
+      }
+    },
+    
+    "quote": {
+      "type": "text",
+      "text": "\"Where shadows dance, heroes are born\"",
+      "params": {
+        "color": "#c4b5fd",
+        "scale": 0.9,
+        "font": "italic",
+        "position": [0, -3, 0]
+      }
+    }
+  },
+  
+  "effects": [
+    {
+      "type": "particle_system",
+      "start_time": 0.0,
+      "params": {
+        "n_emitters": 1,
+        "particles_per_second": 30,
+        "particle_lifetime": 4.0,
+        "velocity_range": [0.5, 2],
+        "particle_color": "#6366f1",
+        "particle_radius": 0.02
+      }
+    },
+    
+    {
+      "type": "magical_circle",
+      "start_time": 10.0,
+      "params": {
+        "radius": 3.0,
+        "n_layers": 2,
+        "rune_count": 8,
+        "symbols": ["📖", "✨", "🌙", "⚔️"],
+        "rotation_speed": 0.2,
+        "reveal_style": "create",
+        "color_scheme": {
+          "outer_circle": "#6366f1",
+          "inner_circles": "#4c1d95",
+          "runes": "#c4b5fd",
+          "symbols": "#ffffff"
+        }
+      }
+    }
+  ],
+  
+  "animations": [
+    {
+      "target": "book_title",
+      "animation_type": "write",
+      "start_time": 1.0,
+      "duration": 2.5
+    },
+    
+    {
+      "target": "author_name",
+      "animation_type": "fadein",
+      "start_time": 2.5,
+      "duration": 1.5,
+      "params": {
+        "shift": [0, 0.3, 0]
+      }
+    },
+    
+    {
+      "target": "book_title",
+      "animation_type": "fadeout",
+      "start_time": 6.0,
+      "duration": 1.0
+    },
+    
+    {
+      "target": "author_name",
+      "animation_type": "fadeout",
+      "start_time": 6.0,
+      "duration": 1.0
+    },
+    
+    {
+      "target": "cover_image",
+      "animation_type": "fadein",
+      "start_time": 7.0,
+      "duration": 2.0,
+      "params": {
+        "scale": 1.2
+      }
+    },
+    
+    {
+      "target": "cover_image",
+      "animation_type": "scale",
+      "start_time": 9.0,
+      "duration": 3.0,
+      "params": {
+        "factor": 0.6
+      }
+    },
+    
+    {
+      "target": "cover_image",
+      "animation_type": "move",
+      "start_time": 9.0,
+      "duration": 3.0,
+      "params": {
+        "to": [-3, 0, 0]
+      }
+    },
+    
+    {
+      "target": "quote",
+      "animation_type": "write",
+      "start_time": 15.0,
+      "duration": 3.0
+    }
+  ]
+}

@@ -4,6 +4,7 @@ from typing import List, Tuple, Optional
 import numpy as np
 from manim import *
 from .base_effect import BaseEffect
+from .effect_registry import register_effect
 
 
 class Particle(Dot):
@@ -134,6 +135,7 @@ class ParticleEmitter:
         return new_particles
 
 
+@register_effect("particle_system")
 class ParticleSystem(BaseEffect):
     """Advanced particle system with physics and emission control."""
     
