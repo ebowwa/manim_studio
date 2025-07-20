@@ -1,27 +1,27 @@
-"""Demo showcasing the enhanced timeline system."""
+"""Demo showcasing the composer timeline system."""
 
 from manim import *
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.manim_studio.core.timeline_enhanced import (
-    EnhancedTimeline, InterpolationType, Keyframe
+from src.manim_studio.core.composer_timeline import (
+    ComposerTimeline, InterpolationType, Keyframe
 )
 from src.manim_studio.components.timeline_visualizer import TimelineVisualizer
 from src.manim_studio.components.keyframe_editor import KeyframeEditor
 from src.manim_studio.core.timeline_presets import TimelinePresets, PresetCategory
 from src.manim_studio.utils.timeline_debugger import TimelineDebugger
 
-class EnhancedTimelineDemo(Scene):
-    """Demonstrates enhanced timeline features."""
+class ComposerTimelineDemo(Scene):
+    """Demonstrates composer timeline features."""
     
     def construct(self):
-        # Create enhanced timeline
-        timeline = EnhancedTimeline(duration=10.0, fps=60.0)
+        # Create composer timeline
+        timeline = ComposerTimeline(duration=10.0, fps=60.0)
         
         # Add some test objects
-        title = Text("Enhanced Timeline Demo", font_size=48)
+        title = Text("Composer Timeline Demo", font_size=48)
         subtitle = Text("Layers, Tracks, and Keyframes", font_size=24)
         subtitle.next_to(title, DOWN)
         
@@ -129,7 +129,7 @@ class TimelinePresetsDemo(Scene):
     
     def construct(self):
         # Create timeline and presets
-        timeline = EnhancedTimeline(duration=5.0)
+        timeline = ComposerTimeline(duration=5.0)
         presets = TimelinePresets()
         
         # Create test objects
@@ -181,7 +181,7 @@ class KeyframeEditorDemo(Scene):
     
     def construct(self):
         # Create timeline
-        timeline = EnhancedTimeline()
+        timeline = ComposerTimeline()
         track = timeline.get_layer("Main").get_track("objects")
         
         # Add some keyframes
@@ -228,5 +228,5 @@ class KeyframeEditorDemo(Scene):
 
 if __name__ == "__main__":
     # Run demos
-    scene = EnhancedTimelineDemo()
+    scene = ComposerTimelineDemo()
     scene.render()

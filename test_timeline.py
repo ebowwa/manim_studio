@@ -1,11 +1,11 @@
-"""Direct test of enhanced timeline without circular imports."""
+"""Direct test of composer timeline without circular imports."""
 
 from manim import *
 import sys
 sys.path.insert(0, 'src')
 
 # Import only what we need
-from manim_studio.core.timeline_enhanced import EnhancedTimeline, InterpolationType, Keyframe
+from manim_studio.core.composer_timeline import ComposerTimeline, InterpolationType, Keyframe
 
 class TimelineTest(Scene):
     def construct(self):
@@ -19,7 +19,7 @@ class TimelineTest(Scene):
         self.add(circle, square)
         
         # Create timeline
-        timeline = EnhancedTimeline(duration=5.0, fps=30)
+        timeline = ComposerTimeline(duration=5.0, fps=30)
         
         # Get main layer and track
         main_layer = timeline.get_layer("Main")

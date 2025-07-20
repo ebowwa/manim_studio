@@ -2,12 +2,12 @@
 
 from manim import *
 from typing import Dict, List, Any, Optional
-from ..core.timeline_enhanced import EnhancedTimeline, TimelineLayer, TimelineTrack, TrackType
+from ..core.composer_timeline import ComposerTimeline, TimelineLayer, TimelineTrack, TrackType
 
 class TimelineVisualizer(VGroup):
     """Visual representation of the timeline for debugging and editing."""
     
-    def __init__(self, timeline: EnhancedTimeline, width: float = 12, height: float = 6, **kwargs):
+    def __init__(self, timeline: ComposerTimeline, width: float = 12, height: float = 6, **kwargs):
         super().__init__(**kwargs)
         self.timeline = timeline
         self.width = width

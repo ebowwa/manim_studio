@@ -6,8 +6,8 @@ from enum import Enum
 import json
 from pathlib import Path
 
-from .timeline_enhanced import (
-    EnhancedTimeline, TimelineTrack, TrackType, 
+from .composer_timeline import (
+    ComposerTimeline, TimelineTrack, TrackType, 
     InterpolationType, Keyframe
 )
 
@@ -30,11 +30,11 @@ class TimelinePreset:
     description: str
     duration: float
     parameters: Dict[str, Any]
-    setup_function: Callable[[EnhancedTimeline, Dict[str, Any]], None]
+    setup_function: Callable[[ComposerTimeline, Dict[str, Any]], None]
     tags: List[str] = None
     preview_image: Optional[str] = None
     
-    def apply(self, timeline: EnhancedTimeline, params: Dict[str, Any] = None):
+    def apply(self, timeline: ComposerTimeline, params: Dict[str, Any] = None):
         """Apply this preset to a timeline."""
         # Merge default parameters with provided ones
         final_params = self.parameters.copy()
@@ -209,7 +209,7 @@ class TimelinePresets:
     
     # Preset Setup Functions
     
-    def _setup_fade_in_out(self, timeline: EnhancedTimeline, params: Dict[str, Any]):
+    def _setup_fade_in_out(self, timeline: ComposerTimeline, params: Dict[str, Any]):
         """Setup fade in/out animation."""
         fade_in_dur = params["fade_in_duration"]
         hold_dur = params["hold_duration"]
@@ -231,7 +231,7 @@ class TimelinePresets:
                     fade_in_dur + hold_dur + fade_out_dur, 0, InterpolationType.LINEAR
                 ))
     
-    def _setup_title_sequence(self, timeline: EnhancedTimeline, params: Dict[str, Any]):
+    def _setup_title_sequence(self, timeline: ComposerTimeline, params: Dict[str, Any]):
         """Setup title sequence animation."""
         # Title track
         title_track = timeline.get_layer("Main").get_track("text")
@@ -251,7 +251,7 @@ class TimelinePresets:
                 effects_track.add_keyframe("emit_rate", Keyframe(1, 50, InterpolationType.EASE_OUT))
                 effects_track.add_keyframe("emit_rate", Keyframe(4, 10, InterpolationType.LINEAR))
     
-    def _setup_data_reveal(self, timeline: EnhancedTimeline, params: Dict[str, Any]):
+    def _setup_data_reveal(self, timeline: ComposerTimeline, params: Dict[str, Any]):
         """Setup data visualization reveal."""
         num_points = params["data_points"]
         reveal_style = params["reveal_style"]
@@ -283,7 +283,7 @@ class TimelinePresets:
                 main_track.add_keyframe(f"data_{i}_scale_y", 
                     Keyframe(1.5, 1, InterpolationType.EASE_OUT))
     
-    def _setup_kinetic_typography(self, timeline: EnhancedTimeline, params: Dict[str, Any]):
+    def _setup_kinetic_typography(self, timeline: ComposerTimeline, params: Dict[str, Any]):
         """Setup kinetic typography animation."""
         text_lines = params["text_lines"]
         style = params["animation_style"]
@@ -315,7 +315,7 @@ class TimelinePresets:
                 text_track.add_keyframe(f"line_{i}_reveal", 
                     Keyframe(start_time + 1, 1, InterpolationType.LINEAR))
     
-    def _setup_educational_diagram(self, timeline: EnhancedTimeline, params: Dict[str, Any]):
+    def _setup_educational_diagram(self, timeline: ComposerTimeline, params: Dict[str, Any]):
         """Setup educational diagram animation."""
         steps = params["steps"]
         pause = params["pause_between_steps"]
@@ -348,7 +348,7 @@ class TimelinePresets:
             
             current_time += pause
     
-    def _setup_social_media(self, timeline: EnhancedTimeline, params: Dict[str, Any]):
+    def _setup_social_media(self, timeline: ComposerTimeline, params: Dict[str, Any]):
         """Setup social media animation."""
         platform = params["platform"]
         loop = params["loop"]
@@ -373,7 +373,7 @@ class TimelinePresets:
             main_track.add_keyframe("opacity", Keyframe(14.5, 1, InterpolationType.EASE_IN))
             main_track.add_keyframe("opacity", Keyframe(15, 0, InterpolationType.LINEAR))
     
-    def _setup_smooth_transition(self, timeline: EnhancedTimeline, params: Dict[str, Any]):
+    def _setup_smooth_transition(self, timeline: ComposerTimeline, params: Dict[str, Any]):
         """Setup smooth transition between scenes."""
         transition_type = params["transition_type"]
         overlap = params["overlap"]
@@ -396,7 +396,7 @@ class TimelinePresets:
             scene2_track.add_keyframe("opacity", 
                 Keyframe(2, 1, InterpolationType.EASE_IN_OUT))
     
-    def _setup_logo_animation(self, timeline: EnhancedTimeline, params: Dict[str, Any]):
+    def _setup_logo_animation(self, timeline: ComposerTimeline, params: Dict[str, Any]):
         """Setup logo animation."""
         reveal_style = params["reveal_style"]
         

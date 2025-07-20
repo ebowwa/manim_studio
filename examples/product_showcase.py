@@ -1,23 +1,23 @@
-"""Product showcase animation using the enhanced timeline system."""
+"""Product showcase animation using the composer timeline system."""
 
 from manim import *
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.manim_studio.core.timeline_enhanced import (
-    EnhancedTimeline, InterpolationType, Keyframe, TrackType
+from src.manim_studio.core.composer_timeline import (
+    ComposerTimeline, InterpolationType, Keyframe, TrackType, TimelineTrack
 )
 from src.manim_studio.components.timeline_visualizer import TimelineVisualizer
 from src.manim_studio.core.timeline_presets import TimelinePresets
 from src.manim_studio.utils.timeline_debugger import TimelineDebugger
 
 class ProductShowcase(Scene):
-    """Professional product showcase using enhanced timeline."""
+    """Professional product showcase using composer timeline."""
     
     def construct(self):
         # Create timeline
-        timeline = EnhancedTimeline(duration=15.0, fps=60.0)
+        timeline = ComposerTimeline(duration=15.0, fps=60.0)
         
         # === CREATE SCENE OBJECTS ===
         
@@ -74,11 +74,20 @@ class ProductShowcase(Scene):
         bg_layer = timeline.get_layer("Background")
         
         # Create specific tracks
-        logo_track = main_layer.add_track(TimelineTrack("logo", TrackType.ANIMATION))
-        text_track = main_layer.add_track(TimelineTrack("text", TrackType.ANIMATION))
-        cards_track = main_layer.add_track(TimelineTrack("cards", TrackType.ANIMATION))
-        particle_track = effects_layer.add_track(TimelineTrack("particles", TrackType.EFFECT))
-        camera_track = timeline.add_layer("Camera").add_track(TimelineTrack("main_camera", TrackType.CAMERA))
+        logo_track = TimelineTrack("logo", TrackType.ANIMATION)
+        main_layer.add_track(logo_track)
+        
+        text_track = TimelineTrack("text", TrackType.ANIMATION)
+        main_layer.add_track(text_track)
+        
+        cards_track = TimelineTrack("cards", TrackType.ANIMATION)
+        main_layer.add_track(cards_track)
+        
+        particle_track = TimelineTrack("particles", TrackType.EFFECT)
+        effects_layer.add_track(particle_track)
+        
+        camera_layer = timeline.add_layer("Camera", ["main_camera"])
+        camera_track = camera_layer.get_track("main_camera")
         
         # === ANIMATE LOGO ENTRANCE (0-3s) ===
         
@@ -201,7 +210,7 @@ class ProductShowcase(Scene):
             
             logo.set_opacity(logo_opacity)
             logo.scale(logo_scale / (logo.width / 3))  # Normalize scale
-            logo.rotate(logo_rotation - logo.get_angle())
+            logo.rotate(logo_rotation, about_point=logo.get_center())
             logo.move_to(UP * logo_y)
             if current_time >= 12:
                 logo.scale(final_scale / (logo.width / 3))
@@ -287,7 +296,7 @@ class DataVisualizationTimeline(Scene):
     
     def construct(self):
         # Create timeline with presets
-        timeline = EnhancedTimeline(duration=10.0)
+        timeline = ComposerTimeline(duration=10.0)
         presets = TimelinePresets()
         
         # Apply data reveal preset

@@ -16,8 +16,8 @@ import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from src.manim_studio.core import Config, SceneBuilder, Timeline, AssetManager
 from src.manim_studio.core.config import SceneConfig, AnimationConfig, EffectConfig
-from src.manim_studio.core.timeline_enhanced import (
-    EnhancedTimeline, InterpolationType, Keyframe, TrackType
+from src.manim_studio.core.composer_timeline import (
+    ComposerTimeline, InterpolationType, Keyframe, TrackType
 )
 from src.manim_studio.core.timeline_presets import TimelinePresets
 from src.manim_studio.cli import render_scene
@@ -33,7 +33,7 @@ class ManimStudioServer:
         self.server = Server("manim-studio")
         self.current_scene: Optional[Dict[str, Any]] = None
         self.scenes: Dict[str, Dict[str, Any]] = {}
-        self.timeline: Optional[EnhancedTimeline] = None
+        self.timeline: Optional[ComposerTimeline] = None
         self.timeline_presets = TimelinePresets()
         self.setup_handlers()
         
@@ -250,7 +250,7 @@ class ManimStudioServer:
                 ),
                 types.Tool(
                     name="create_timeline",
-                    description="Create an enhanced timeline with layers and tracks",
+                    description="Create a composer timeline with layers and tracks",
                     inputSchema={
                         "type": "object",
                         "properties": {
@@ -508,7 +508,7 @@ class ManimStudioServer:
             duration = arguments.get("duration", 10.0)
             fps = arguments.get("fps", 60.0)
             
-            self.timeline = EnhancedTimeline(duration=duration, fps=fps)
+            self.timeline = ComposerTimeline(duration=duration, fps=fps)
             
             return {
                 "status": "success",

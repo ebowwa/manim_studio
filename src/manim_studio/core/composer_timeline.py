@@ -1,4 +1,4 @@
-"""Enhanced timeline system with layers, tracks, and advanced choreography."""
+"""Composer timeline system with layers, tracks, and advanced choreography."""
 
 from typing import Any, Callable, Dict, List, Optional, Union, Tuple
 from dataclasses import dataclass, field
@@ -194,8 +194,8 @@ class TimelineMarker:
     duration: float = 0.0
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-class EnhancedTimeline:
-    """Enhanced timeline with layers, tracks, and advanced features."""
+class ComposerTimeline:
+    """Composer timeline with layers, tracks, and advanced features for choreographing animations."""
     
     def __init__(self, duration: float = 10.0, fps: float = 60.0):
         self.duration = duration

@@ -1,12 +1,12 @@
-"""Simple test of the enhanced timeline system."""
+"""Simple test of the composer timeline system."""
 
 from manim import *
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.manim_studio.core.timeline_enhanced import (
-    EnhancedTimeline, InterpolationType, Keyframe
+from src.manim_studio.core.composer_timeline import (
+    ComposerTimeline, InterpolationType, Keyframe
 )
 
 class SimpleTimelineTest(Scene):
@@ -14,7 +14,7 @@ class SimpleTimelineTest(Scene):
     
     def construct(self):
         # Create timeline
-        timeline = EnhancedTimeline(duration=6.0, fps=30.0)
+        timeline = ComposerTimeline(duration=6.0, fps=30.0)
         
         # Create objects
         circle = Circle(radius=1, color=BLUE, fill_opacity=0.5)

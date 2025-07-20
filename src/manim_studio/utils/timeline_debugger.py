@@ -8,8 +8,8 @@ import time
 from pathlib import Path
 
 from manim import *
-from ..core.timeline_enhanced import (
-    EnhancedTimeline, TimelineEvent, TimelineLayer, 
+from ..core.composer_timeline import (
+    ComposerTimeline, TimelineEvent, TimelineLayer, 
     TimelineTrack, Keyframe, InterpolationType
 )
 
@@ -17,12 +17,12 @@ from ..core.timeline_enhanced import (
 class TimelineBreakpoint:
     """Breakpoint for timeline debugging."""
     time: float
-    condition: Optional[Callable[[EnhancedTimeline], bool]] = None
+    condition: Optional[Callable[[ComposerTimeline], bool]] = None
     enabled: bool = True
     hit_count: int = 0
     label: str = ""
     
-    def should_break(self, timeline: EnhancedTimeline) -> bool:
+    def should_break(self, timeline: ComposerTimeline) -> bool:
         """Check if should break at this point."""
         if not self.enabled:
             return False
@@ -47,14 +47,14 @@ class TimelineLog:
 class TimelineDebugger:
     """Debugger for timeline development and troubleshooting."""
     
-    def __init__(self, timeline: EnhancedTimeline):
+    def __init__(self, timeline: ComposerTimeline):
         self.timeline = timeline
         self.breakpoints: List[TimelineBreakpoint] = []
         self.logs: List[TimelineLog] = []
         self.step_mode = False
         self.playback_speed = 1.0
         self.performance_metrics: Dict[str, List[float]] = {}
-        self.watches: Dict[str, Callable[[EnhancedTimeline], Any]] = {}
+        self.watches: Dict[str, Callable[[ComposerTimeline], Any]] = {}
         self.start_time = time.time()
         
         # Debug overlay
@@ -81,7 +81,7 @@ class TimelineDebugger:
         if breakpoint in self.breakpoints:
             self.breakpoints.remove(breakpoint)
     
-    def add_watch(self, name: str, expression: Callable[[EnhancedTimeline], Any]):
+    def add_watch(self, name: str, expression: Callable[[ComposerTimeline], Any]):
         """Add a watch expression."""
         self.watches[name] = expression
     

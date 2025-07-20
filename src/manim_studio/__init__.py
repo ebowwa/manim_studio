@@ -8,8 +8,8 @@ __author__ = "ebowwa"
 from manim_studio.scenes.base_scene import StudioScene
 from manim_studio.components.base_components import *
 from manim_studio.core import Config, SceneBuilder, Timeline, AssetManager
-from manim_studio.core.timeline_enhanced import (
-    EnhancedTimeline, TimelineLayer, TimelineTrack, 
+from manim_studio.core.composer_timeline import (
+    ComposerTimeline, TimelineLayer, TimelineTrack, 
     Keyframe, InterpolationType, TrackType
 )
 from manim_studio.core.timeline_presets import TimelinePresets, PresetCategory
@@ -26,8 +26,8 @@ __all__ = [
     'AssetManager',
     'EffectRegistry',
     'register_effect',
-    # Enhanced Timeline
-    'EnhancedTimeline',
+    # Composer Timeline
+    'ComposerTimeline',
     'TimelineLayer',
     'TimelineTrack',
     'Keyframe',
