@@ -1,142 +1,187 @@
-# Manim Studio
+# Manim Studio v2.0 - Scalable Animation Framework
 
-A reusable framework for creating animated videos using Manim, perfect for book trailers and promotional content.
+A configuration-driven framework for creating animated videos using Manim. Now with improved scalability, modularity, and ease of use.
 
-## System Requirements
+## What's New in v2.0
 
-### Required System Dependencies
+### 🚀 Configuration-Driven Scenes
+Create complex animations using YAML or JSON configuration files instead of hardcoding everything:
 
-1. **LaTeX** (required for text rendering)
-   ```bash
-   # Install BasicTeX (recommended, smaller size)
-   brew install --cask basictex
-   
-   # Add LaTeX binaries to PATH
-   export PATH="/Library/TeX/texbin:$PATH"
-   
-   # Install required LaTeX packages
-   sudo tlmgr update --self
-   sudo tlmgr install standalone preview doublestroke mathtools amsmath babel-english
-   sudo tlmgr install dvisvgm dvipng xetex
-   sudo tlmgr install type1cm tex-gyre latex-bin dvips geometry graphics graphics-def hyperref
-   sudo texhash
-   
-   # OR install full MacTeX (larger, includes more features)
-   # brew install --cask mactex
-   ```
+```yaml
+name: "MyAnimation"
+duration: 10.0
+background_color: "#000000"
 
-2. **Python 3.7+**
-   - macOS comes with Python, but you can install the latest version:
-   ```bash
-   brew install python
-   ```
+objects:
+  title:
+    type: text
+    text: "Hello World"
+    params:
+      gradient: ["#FF6B6B", "#4ECDC4"]
+      scale: 1.5
 
-### Optional Dependencies
+effects:
+  - type: particle_system
+    start_time: 2.0
+    params:
+      n_emitters: 3
+      particle_color: "#FFD700"
 
-- **FFmpeg** (for video encoding, usually installed automatically with Manim)
-  ```bash
-  brew install ffmpeg
-  ```
-
-## Project Structure
-
-```
-manim_studio/
-├── src/
-│   └── manim_studio/
-│       ├── resources/        # Input resources for animations
-│       │   ├── images/      # Source images
-│       │   ├── textures/    # Effect textures
-│       │   └── fonts/       # Custom fonts
-│       ├── components/      # Animation components
-│       ├── scenes/         # Scene definitions
-│       └── utils/          # Utility functions
-├── tests/                  # Test files
-├── docs/                   # Documentation
-├── examples/               # Example scenes
-└── output/                # Generated content (formerly media/)
-    ├── videos/           # Rendered animations
-    ├── images/           # Generated images
-    └── tex/              # Generated LaTeX files
+animations:
+  - target: title
+    animation_type: write
+    start_time: 0.0
+    duration: 2.0
 ```
 
-## Directory Purposes
+### 🎬 Timeline System
+Choreograph complex animation sequences with precise timing control:
 
-- `resources/`: Source files used to create animations (images, textures, fonts)
-- `output/`: Generated files from Manim (videos, images, LaTeX)
+```python
+timeline = Timeline()
+timeline.add_event(0.0, show_title)
+timeline.add_animation(2.0, FadeIn(subtitle))
+timeline.add_sequence(5.0, effect_sequence)
+timeline.play(scene)
+```
 
-## Setup
+### 📦 Asset Management
+Centralized asset loading with automatic caching and placeholders:
 
-1. Install system dependencies (if not already installed):
-   ```bash
-   # Install Homebrew if you haven't already
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   
-   # Install BasicTeX
-   brew install --cask basictex
-   ```
+```python
+assets = AssetManager("./project")
+logo = assets.load_image("logo.png")
+data = assets.load_data("config.json")
+```
 
-2. Create and activate a virtual environment:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
+### 🎨 Effect Registry
+Extensible effect system with plugin architecture:
 
-3. Install Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+```python
+@register_effect("custom_effect")
+class CustomEffect(BaseEffect):
+    def create(self):
+        # Your effect logic
+        pass
+```
 
-4. Install in development mode:
-   ```bash
-   pip install -e .
-   ```
+### 🔧 CLI Tool
+Render scenes directly from configuration files:
+
+```bash
+manim-studio render config.yaml --quality high --preview
+```
+
+## Installation
+
+```bash
+pip install -e .
+```
 
 ## Quick Start
 
-Run the test animation:
-```bash
-./test_and_run.sh
+1. **Create a configuration file** (`my_scene.yaml`):
+```yaml
+name: "QuickDemo"
+duration: 5.0
+
+objects:
+  message:
+    type: text
+    text: "Welcome to Manim Studio!"
+    params:
+      color: "#FFFFFF"
+      scale: 1.2
+
+animations:
+  - target: message
+    animation_type: write
+    start_time: 0.0
+    duration: 2.0
 ```
 
-## Creating Your Own Animations
-
-1. Place your source images in `src/manim_studio/resources/images/`
-2. Create a new scene in `src/manim_studio/scenes/`
-3. Run your scene:
+2. **Render the scene**:
 ```bash
-PYTHONPATH=$PWD/src manim src/manim_studio/scenes/your_scene.py YourScene -pql
+python -m manim_studio.cli my_scene.yaml --preview
 ```
 
-## Required Resources
+## Architecture Improvements
 
-The following images should be placed in `src/manim_studio/resources/images/`:
-- umbra_forest.png
-- lunar_lily.png
-- ashborne_academy.png
-- vampire.png
-- battle_scene.png
+### Before (v1.0)
+- Hardcoded scene definitions
+- Fixed effect parameters
+- Limited reusability
+- Difficult to scale
 
-## Output Files
+### After (v2.0)
+- Configuration-driven
+- Dynamic effect system
+- Modular components
+- Easy to extend and maintain
 
-- All generated content will be in the `output/` directory
-- Do not commit the `output/` directory to version control
+## Features
 
-## Troubleshooting
+- **Configuration Files**: Define scenes in YAML/JSON
+- **Timeline System**: Precise animation choreography
+- **Asset Pipeline**: Automatic asset loading and caching
+- **Effect Registry**: Plugin-based effect system
+- **Scene Builder**: Dynamic scene generation from configs
+- **CLI Interface**: Command-line rendering tool
 
-### Common Issues
+## Example: Book Trailer
 
-1. **LaTeX Not Found**
-   ```
-   LaTeX is not installed...
-   ```
-   Solution: Install BasicTeX using the command in the System Requirements section.
+Create a book trailer with multiple effects:
 
-2. **FFmpeg Missing**
-   Solution: Install FFmpeg using `brew install ffmpeg`
+```json
+{
+  "name": "BookTrailer",
+  "duration": 30.0,
+  "objects": {
+    "title": {
+      "type": "text",
+      "text": "The Chronicles of Shadow"
+    }
+  },
+  "effects": [
+    {
+      "type": "magical_circle",
+      "params": {
+        "radius": 3.0,
+        "rotation_speed": 0.2,
+        "symbols": ["📖", "✨", "🌙", "⚔️"]
+      }
+    }
+  ]
+}
+```
 
-3. **Python Dependencies**
-   Solution: Make sure you're in the virtual environment and run:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## Extending the Framework
+
+### Custom Effects
+```python
+from manim_studio import register_effect, BaseEffect
+
+@register_effect("lightning")
+class LightningEffect(BaseEffect):
+    def create(self):
+        # Create lightning visuals
+        pass
+    
+    def animate(self, scene):
+        # Animate the effect
+        pass
+```
+
+### Custom Object Types
+Add new object types to the scene builder for specialized content.
+
+## Documentation
+
+- [Configuration Guide](docs/configuration.md)
+- [Timeline System](docs/timeline.md)
+- [Creating Effects](docs/effects.md)
+- [Asset Management](docs/assets.md)
+
+## License
+
+MIT License
