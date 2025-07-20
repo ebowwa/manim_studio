@@ -35,6 +35,7 @@ ENV/
 # IDE specific
 .vscode/
 .idea/
+.claude/
 *.sublime-project
 *.sublime-workspace
 
@@ -51,3 +52,6 @@ media/
 .DS_Store
 .AppleDouble
 .LSOverride
+
+/.claude/
+/manim_studio.egg-info/
