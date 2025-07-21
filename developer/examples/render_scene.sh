@@ -15,16 +15,16 @@ render_scene() {
     
     case $quality in
         "low")
-            PYTHONPATH=$PWD/src manim $scene_file $scene_class -pql  # 480p
+            PYTHONPATH=$PWD/src manim $scene_file $scene_class -pql --media_dir user-data  # 480p
             ;;
         "medium")
-            PYTHONPATH=$PWD/src manim $scene_file $scene_class -pqm  # 720p
+            PYTHONPATH=$PWD/src manim $scene_file $scene_class -pqm --media_dir user-data  # 720p
             ;;
         "high")
-            PYTHONPATH=$PWD/src manim $scene_file $scene_class -pqh  # 1080p
+            PYTHONPATH=$PWD/src manim $scene_file $scene_class -pqh --media_dir user-data  # 1080p
             ;;
         "4k")
-            PYTHONPATH=$PWD/src manim $scene_file $scene_class -pqk  # 4K
+            PYTHONPATH=$PWD/src manim $scene_file $scene_class -pqk --media_dir user-data  # 4K
             ;;
         *)
             echo "Invalid quality setting. Use: low, medium, high, or 4k"
@@ -44,16 +44,16 @@ echo -e "${GREEN}Example 1: Render in low quality (480p)${NC}"
 render_scene "src/manim_studio/scenes/lyras_alchemy.py" "LyrasAlchemyScene" "low"
 
 echo -e "${GREEN}Example 2: Render specific animations (use -n flag)${NC}"
-PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql -n 0,5
+PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql -n 0,5 --media_dir user-data
 
 echo -e "${GREEN}Example 3: Skip to last frame (use -s flag)${NC}"
-PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql -s
+PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql -s --media_dir user-data
 
 echo -e "${GREEN}Example 4: Save as GIF${NC}"
-PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql --format=gif
+PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql --format=gif --media_dir user-data
 
 echo -e "${GREEN}Example 5: Custom resolution${NC}"
-PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql --resolution=1920,1080
+PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql --resolution=1920,1080 --media_dir user-data
 
 echo -e "${BLUE}All rendered videos can be found in the user-data directory${NC}"
 echo -e "${BLUE}Usage: ./render_scene.sh${NC}"

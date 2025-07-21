@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 """Test the improved timeline layer system with proper z-indexing."""
 
+# Configure Manim to use user-data directory
+from src.config.manim_config import config
+
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))

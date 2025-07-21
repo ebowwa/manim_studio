@@ -1,0 +1,101 @@
+ticket_id: "0000"
+title: "Project Naming Conventions Analysis and Guidelines"
+type: "documentation"
+status: "completed"
+priority: "low"
+created_date: "2025-07-21"
+tags:
+  - naming-conventions
+  - project-structure
+  - documentation
+  - code-standards
+
+description: |
+  Analysis of how the project name "manim_studio" is used across the codebase
+  in its various forms and establishing guidelines for consistent usage.
+
+findings:
+  usage_statistics:
+    manim_studio: 354  # snake_case - Python package name
+    manim-studio: 39   # kebab-case - CLI commands
+    ManimStudio: 9     # PascalCase - Class names
+    "Manim Studio": 84 # Title case - Human-readable text
+
+  usage_patterns:
+    manim_studio:
+      - purpose: "Python package and module naming"
+      - locations:
+        - "setup.py package name"
+        - "All Python import statements"
+        - "Module file paths"
+        - "Internal configuration references"
+      - example: "from manim_studio.core import SceneBuilder"
+    
+    manim-studio:
+      - purpose: "Command-line interface and external tools"
+      - locations:
+        - "CLI entry point in setup.py"
+        - "Command examples in documentation"
+        - "Discord community URL"
+        - "Logger names in MCP servers"
+      - example: "manim-studio config.yaml --preview"
+    
+    ManimStudio:
+      - purpose: "Class naming convention"
+      - locations:
+        - "Server class names (ManimStudioServer)"
+        - "Social media handles (@ManimStudio)"
+      - example: "class ManimStudioServer:"
+    
+    "Manim Studio":
+      - purpose: "Human-readable display text"
+      - locations:
+        - "README headers and descriptions"
+        - "UI text in animations"
+        - "Documentation titles"
+        - "Comments and docstrings"
+      - example: "title = Text('Manim Studio v2.0')"
+
+guidelines:
+  - rule: "Use snake_case (manim_studio) for all Python code"
+    reason: "PEP 8 compliance and Python convention"
+    
+  - rule: "Use kebab-case (manim-studio) for CLI commands"
+    reason: "Unix command convention"
+    
+  - rule: "Use PascalCase (ManimStudio) for class names only"
+    reason: "Python class naming convention"
+    
+  - rule: "Use title case (Manim Studio) for user-facing text"
+    reason: "Better readability in documentation and UI"
+
+implementation_notes:
+  - "Current usage is already well-organized and follows best practices"
+  - "No major refactoring needed, just maintain consistency"
+  - "Consider adding a style guide to the developer documentation"
+
+tracking_tool:
+  script_name: "track_project_name.sh"
+  location: "/Users/ebowwa/apps/manim_studio/track_project_name.sh"
+  purpose: "Automated tracking of all project name variations across the codebase"
+  features:
+    - "Searches for all naming variations (snake_case, kebab-case, PascalCase, Title Case)"
+    - "Generates detailed report in project_name_mentions.txt"
+    - "Shows occurrence counts and file locations"
+    - "Lists files with most mentions"
+    - "Excludes binary files and common directories (.git, node_modules, etc.)"
+  usage: "./track_project_name.sh"
+  output_file: "project_name_mentions.txt"
+
+search_keywords:
+  - naming
+  - conventions
+  - manim_studio
+  - manim-studio
+  - ManimStudio
+  - project name
+  - style guide
+  - snake_case
+  - kebab-case
+  - PascalCase
+  - code standards

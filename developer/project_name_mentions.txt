@@ -1,0 +1,533 @@
+Project Name Tracking Report
+===========================
+Generated on: Mon Jul 21 14:28:08 PDT 2025
+
+
+Pattern: Snake case (manim_studio)
+----------------------------------------
+./project_specific_hacks.yaml:318:  insights_for_manim_studio:
+./developer/tests/test_and_run.sh:31:echo -e "Example: PYTHONPATH=\$PWD/src manim src/manim_studio/scenes/your_scene.py YourScene -pql --media_dir user-data"
+./developer/docs/ADDITIONAL_PATTERNS.md:216:These patterns represent years of refinement in creating high-quality mathematical animations. By incorporating them into manim_studio, you'll have a professional-grade animation platform capable of producing content at the highest level.
+./developer/docs/roadmap/3d-asset-support.md:26:#### 2. Asset Manager (`src/manim_studio/core/asset_manager.py`)
+./developer/docs/roadmap/3d-asset-support.md:42:#### 3. Scene Builder (`src/manim_studio/core/scene_builder.py`)
+./developer/docs/rendering.md:48:PYTHONPATH=/path/to/manim_studio/src python3 -m manim examples/magical_effects_demo.py MagicalEffectsDemo -pql
+./developer/docs/rendering.md:79:INFO     Previewed File at: '/path/to/manim_studio/media/videos/magical_effects_demo/480p15/MagicalEffectsDemo.mp4'
+./developer/docs/INSTRUCTIONS.md:9:cd /Users/ebowwa/apps/manim_studio
+./developer/docs/INSTRUCTIONS.md:75:cd /Users/ebowwa/apps/manim_studio
+./developer/docs/frame_extraction.md:49:from manim_studio.core import FrameExtractionMixin
+./developer/docs/frame_extraction.md:69:from manim_studio.core import auto_extract_frames
+./developer/docs/frame_extraction.md:128:from manim_studio.core import SceneConfig, SceneBuilder
+./developer/examples/project_hacks_visualization.py:14:        yaml_path = Path("/Users/ebowwa/apps/manim_studio/project_specific_hacks.yaml")
+./developer/examples/project_hacks_visualization.py:312:        for insight in analysis_data['insights_for_manim_studio']:
+./developer/examples/project_hacks_visualization.py:346:            "These insights inform the development of manim_studio",
+./developer/examples/composer_timeline_demo.py:8:from src.manim_studio.core.composer_timeline import (
+./developer/examples/composer_timeline_demo.py:11:from src.manim_studio.components.timeline_visualizer import TimelineVisualizer
+./developer/examples/composer_timeline_demo.py:12:from src.manim_studio.components.keyframe_editor import KeyframeEditor
+./developer/examples/composer_timeline_demo.py:13:from src.manim_studio.core.timeline_presets import TimelinePresets, PresetCategory
+./developer/examples/composer_timeline_demo.py:14:from src.manim_studio.utils.timeline_debugger import TimelineDebugger
+./developer/examples/product_showcase.py:8:from src.manim_studio.core.composer_timeline import (
+./developer/examples/product_showcase.py:11:from src.manim_studio.components.timeline_visualizer import TimelineVisualizer
+./developer/examples/product_showcase.py:12:from src.manim_studio.core.timeline_presets import TimelinePresets
+./developer/examples/product_showcase.py:13:from src.manim_studio.utils.timeline_debugger import TimelineDebugger
+./developer/examples/skull_effects_demo.py:8:from src.manim_studio.components.effects import (
+./developer/examples/simple_timeline_test.py:8:from src.manim_studio.core.composer_timeline import (
+./developer/examples/frame_extraction_demo.py:13:from src.manim_studio.core.config import SceneConfig, AnimationConfig
+./developer/examples/frame_extraction_demo.py:14:from src.manim_studio.core.scene_builder import SceneBuilder
+./developer/examples/frame_extraction_demo.py:15:from src.manim_studio.core.render_hooks import auto_extract_frames
+./developer/examples/frame_extraction_demo.py:142:    from src.manim_studio.core.render_hooks import FrameExtractionMixin
+./developer/examples/demo_layer_system.py:18:    "src/manim_studio/core/timeline/composer_timeline.py"
+./developer/examples/demo_layer_system.py:27:exec(open("src/manim_studio/core/timeline/layer_manager.py").read().replace(
+./developer/examples/render_scene.sh:44:render_scene "src/manim_studio/scenes/lyras_alchemy.py" "LyrasAlchemyScene" "low"
+./developer/examples/render_scene.sh:47:PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql -n 0,5 --media_dir user-data
+./developer/examples/render_scene.sh:50:PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql -s --media_dir user-data
+./developer/examples/render_scene.sh:53:PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql --format=gif --media_dir user-data
+./developer/examples/render_scene.sh:56:PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql --resolution=1920,1080 --media_dir user-data
+./xiaoxiae_visual_polish_techniques.yaml:6:  source: "/Users/ebowwa/apps/manim_studio/examples/inspiration/videos"
+./xiaoxiae_visual_polish_techniques.yaml:176:# Key Insights for manim_studio
+./.claude/settings.local.json:12:      "Bash(PYTHONPATH=/Users/ebowwa/apps/manim_studio/src /Users/ebowwa/.pyenv/shims/python3 /Users/ebowwa/apps/manim_studio/interfaces/mcp/clean_server.py)"
+./README.md:46:git clone https://github.com/ebowwa/manim_studio.git
+./README.md:47:cd manim_studio
+./README.md:208:from manim_studio import AICreator
+./README.md:239:- **GitHub Discussions**: [Ask questions](https://github.com/ebowwa/manim_studio/discussions)
+./README.md:272:git clone https://github.com/YOUR_USERNAME/manim_studio.git
+./README.md:273:cd manim_studio
+./README.md:293:- Special thanks to all our [contributors](https://github.com/ebowwa/manim_studio/graphs/contributors)
+./setup.py:4:    name="manim_studio",
+./setup.py:11:    url="https://github.com/ebowwa/manim_studio",
+./setup.py:13:        "Bug Tracker": "https://github.com/ebowwa/manim_studio/issues",
+./setup.py:14:        "Documentation": "https://github.com/ebowwa/manim_studio/tree/main/docs",
+./setup.py:15:        "Source Code": "https://github.com/ebowwa/manim_studio",
+./user-data/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/1185818338_3392323226_223132457.mp4'
+./user-data/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/624642324_3906377670_4178369489.mp4'
+./user-data/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/624642324_4084324965_1228453209.mp4'
+./user-data/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/624642324_3089145163_2751840195.mp4'
+./user-data/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/partial_movie_file_list.txt:6:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/624642324_1662280814_2751840195.mp4'
+./user-data/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/partial_movie_file_list.txt:7:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/quick_demo/480p15/partial_movie_files/QuickDemo/624642324_388825082_2415872863.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/2016333726_1265601479_223132457.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_667144672_1078846235.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_2568971784_4270020691.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_2425468985_1666280314.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:6:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_4207961807_301631154.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:7:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_2078599582_916850834.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:8:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_2365817835_3983982330.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:9:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_3839648749_4137176677.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:10:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_4247107814_2258296507.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:11:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_247191821_3102695512.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:12:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_1991611560_691969773.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:13:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_3001078445_3266736718.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:14:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_4247107814_320611208.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:15:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_1974400499_3837400581.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:16:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_1546295323_3282659717.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:17:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_224824893_284024372.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:18:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_1298731087_2600153794.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:19:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_2945685932_690584945.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:20:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_369593158_2362407341.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:21:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_667144672_2404604467.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:22:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_867819903_1096984237.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:23:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_635525855_1096984237.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:24:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_4247107814_1084098618.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:25:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_2254524470_4103649398.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:26:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_1050772212_223132457.mp4'
+./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt:27:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/720p30/partial_movie_files/SkullEffectsDemo/543634251_4247107814_3077591276.mp4'
+./user-data/media/videos/camera_scenes/480p15/partial_movie_files/SimpleTest/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/480p15/partial_movie_files/SimpleTest/2737499832_2832034339_4237344639.mp4'
+./user-data/media/videos/camera_scenes/480p15/partial_movie_files/SimpleTest/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/480p15/partial_movie_files/SimpleTest/4103585348_2341082278_2571935950.mp4'
+./user-data/media/videos/camera_scenes/480p15/partial_movie_files/SimpleTest/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/480p15/partial_movie_files/SimpleTest/4103585348_2338798415_682991029.mp4'
+./user-data/media/videos/camera_scenes/480p15/partial_movie_files/SimpleTest/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/480p15/partial_movie_files/SimpleTest/4103585348_667144672_2759888290.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/1605815566_2517900504_505379435.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_130603938_239775636.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_2341082278_2445171946.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_1729426535_2871045850.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:6:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_3269238971_1060464235.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:7:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_1605911361_46773905.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:8:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_3480222238_880335712.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:9:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_4223824409_3406458275.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:10:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_4221996377_992758807.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:11:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_2110808151_1872748728.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:12:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_1532483113_992441324.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:13:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_2914860449_3239676701.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:14:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_1802560870_2078422865.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:15:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_737303052_398137468.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:16:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_205401194_2842859034.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:17:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_667144672_3381128866.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt:18:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/4103387532_1176740688_1379311054.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/1956498394_1843794400_3965690909.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_1091365628_2565115996.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2341082278_1473433334.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_3965087611_368110049.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:6:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2490216600_2438454586.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:7:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_116062167_2006071862.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:8:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_1695345921_560086855.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:9:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_896405926_2872928705.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:10:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2341082278_713078410.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:11:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2988441267_3065310053.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:12:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2341082278_1400108202.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:13:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2870513753_3473919285.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:14:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2341082278_4108781245.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:15:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_1253502896_2455684726.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:16:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2341082278_3317716024.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:17:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_980726807_2157427261.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:18:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_1066410707_311867515.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:19:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2341082278_1136279557.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:20:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2350136011_81283414.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:21:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_4058407472_1007431667.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:22:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_3277843349_3853913927.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:23:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2341082278_3855628058.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:24:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_216909258_2039155181.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:25:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_4241428001_2490362925.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:26:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_1015847814_3218357035.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:27:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2595096850_798829366.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:28:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_3075340194_2026626957.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:29:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2453148730_1156537918.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:30:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2353212971_1170773892.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:31:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_599623878_3846168632.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:32:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_3447600357_380300478.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:33:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_3426457336_3044885316.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:34:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_2086484865_2614244668.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:35:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_945124639_3920760318.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt:36:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/3516917519_667144672_2283361791.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/1956498394_4120035912_223132457.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_2323254048_2967217881.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_3812814595_600599721.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_1077913341_3887211903.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:6:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_2592706764_498199253.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:7:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_667144672_2205050716.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:8:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_3764969928_3071543997.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:9:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_2919148706_1125656479.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:10:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_667144672_2329312324.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:11:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_286130180_2489719374.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:12:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_297076436_3768908315.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:13:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_4148341180_3768908315.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:14:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_667144672_1622479438.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:15:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_2855964158_2898243701.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:16:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_2057113319_2750094693.mp4'
+./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt:17:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/3516917519_3163221738_71207970.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/HelloWorld/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/HelloWorld/2719588187_435161154_223132457.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/3529212410_3354407320_223132457.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/3040924799_1835465300_2346066016.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/3040924799_1234942095_2200087778.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/3040924799_710637152_1895458374.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/partial_movie_file_list.txt:6:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/3040924799_3644220659_3321269374.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/partial_movie_file_list.txt:7:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/3040924799_950566683_1036923505.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/partial_movie_file_list.txt:8:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/3040924799_1674733499_1036923505.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/partial_movie_file_list.txt:9:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/3040924799_462443366_4179658478.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/partial_movie_file_list.txt:10:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/3040924799_4071516364_3988638046.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/partial_movie_file_list.txt:11:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleBoundaryDemo/3040924799_1789113002_484785596.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/295392455_2449613945_2465332748.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1367516463_1303967259.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_758142028_1665621937.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_673188490_2896807296.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:6:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_503598060_2755065524.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:7:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_880252790_3107312802.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:8:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_589007596_3049843219.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:9:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1340253269_108994197.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:10:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1886874849_3405251530.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:11:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1340253269_1939808721.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:12:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_2288128646_540399949.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:13:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1340253269_2445771075.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:14:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_2312563546_3419356524.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:15:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1521855597_1686364607.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:16:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1521855597_1735568480.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:17:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_842402212_1126976971.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:18:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1340253269_1410498519.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:19:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_4108289836_4059572653.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:20:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_570250148_4147595635.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:21:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1990691080_4194016887.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:22:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1264085772_1556694306.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:23:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1981547259_2168518848.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:24:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_4088883915_1779678251.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:25:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_78164202_4271029337.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:26:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_3427663088_3324130489.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:27:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1340253269_3628679165.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:28:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_2364099621_382449146.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:29:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1340253269_3135548512.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:30:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_977595260_1270510109.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:31:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1340253269_3484822226.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:32:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_2449935248_3440648621.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:33:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1521855597_2056942394.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:34:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1127195581_209826642.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:35:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_252470168_1207027522.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:36:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1521855597_1655902861.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:37:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1007185373_2047680734.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:38:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1521855597_1083941987.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:39:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_45578701_2662607990.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:40:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1521855597_601781816.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:41:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_771755881_2452277004.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:42:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1699525669_3477915567.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:43:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_3781917893_2795384057.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:44:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1590004032_1315429645.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:45:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_3539969735_2782731816.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:46:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_817278000_1186357715.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:47:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1972520764_3691720409.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:48:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1811603811_2895196341.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:49:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_619419389_2015158269.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:50:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1250307734_291239154.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:51:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1565397328_3495176516.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:52:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_956695583_3057060424.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:53:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1257428265_813799408.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:54:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_599493512_1819035964.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:55:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1340253269_4177570779.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:56:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_2409817485_1345825524.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:57:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1340253269_2053135936.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:58:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_2609438371_1233243847.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:59:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1127195581_3299567176.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:60:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1521855597_3246522981.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:61:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_2043401521_680442635.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:62:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1127195581_324286954.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:63:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_3448878317_1671101069.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:64:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1127195581_4293019719.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:65:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_22576001_1128689858.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:66:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1521855597_1832932039.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:67:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_391120561_2721481622.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:68:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1340253269_1063768849.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:69:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_2432628226_3279333387.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:70:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_2828796083_4264594531.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:71:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_2904039761_2203208008.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:72:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1308634580_2555839135.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:73:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_2898385515_50784034.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:74:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1340253269_324037281.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:75:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_3456727961_802954806.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:76:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1127195581_3541422171.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:77:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_3496089289_1039546624.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:78:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_1764056725_381871565.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt:79:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/518667978_3382177091_3796086389.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3529212410_3482999348_223132457.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_667144672_2759996332.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_1463778692_1806015981.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_1926887671_3586382724.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:6:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_675227057_3539995756.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:7:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_2088214449_3539995756.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:8:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_2959200170_3539995756.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:9:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_4247107814_3560706156.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:10:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_3373020412_996610810.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:11:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_3088954783_2240813217.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:12:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_4186835463_663634792.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:13:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_4166842112_1285219253.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:14:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_2960166555_1140828187.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:15:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_446466041_924710037.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:16:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_3954493351_1509853085.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:17:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_4247107814_520189671.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:18:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_4177586885_1088448176.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:19:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_2704287517_1645887364.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:20:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_3581626001_2598526044.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:21:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_2680087622_3118381759.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:22:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_43334196_2876422101.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:23:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_389993616_2358810818.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:24:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_1110034107_2216078032.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt:25:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/3040924799_4166842112_2902351522.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/3977891868_822762254_223132457.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_4071516364_495459974.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_2032901549_1101682277.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_1825274344_1666280314.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:6:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_1919578246_382513383.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:7:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_3745411247_2075870926.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:8:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_4071516364_655238367.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:9:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_2374824513_340627057.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:10:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_3005747412_691969773.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:11:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_1234984032_1689239553.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:12:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_2529652757_3149784347.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:13:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_4071516364_1330533826.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:14:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_1300937851_156425756.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:15:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_1682989699_1493408794.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:16:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_2264798402_828453561.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:17:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_592780297_2508032650.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:18:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_2341082278_2017519794.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:19:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_733057167_281666434.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:20:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_2341082278_2898807268.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:21:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_1907218944_1417316941.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:22:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_2341082278_238280337.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:23:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_2167568206_2306558908.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:24:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_2822527329_4116489507.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:25:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_810117967_3349847544.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:26:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_3645524295_2033882744.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:27:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_3140704462_2679121161.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:28:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_3803569303_2790586737.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt:29:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/2852726489_356412926_3650264400.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LayerDemo/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LayerDemo/3529212410_2872842549_2124610917.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LayerDemo/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LayerDemo/3040924799_3840613109_3989882178.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LayerDemo/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LayerDemo/3040924799_4247107814_3139999350.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LayerDemo/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LayerDemo/3040924799_383503334_625463687.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LayerDemo/partial_movie_file_list.txt:6:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LayerDemo/3040924799_4247107814_3976168574.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LayerDemo/partial_movie_file_list.txt:7:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LayerDemo/3040924799_27272742_144779206.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LayerDemo/partial_movie_file_list.txt:8:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LayerDemo/3040924799_4247107814_644093303.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LayerDemo/partial_movie_file_list.txt:9:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LayerDemo/3040924799_2763098558_3118682708.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LayerDemo/partial_movie_file_list.txt:10:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LayerDemo/3040924799_1883597533_2597221812.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LayerDemo/partial_movie_file_list.txt:11:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LayerDemo/3040924799_4247107814_1796498417.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/2719588187_2449613945_2329251851.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_3911349234_1208503656.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_758142028_550701819.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:5:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_3803884282_4166170078.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:6:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_758142028_3841400199.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:7:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_3390503810_2359631321.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:8:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_1212198888_806640679.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:9:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_570250148_3542324324.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:10:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_2618302757_2853228487.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:11:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_570250148_3996525730.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:12:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_570250148_3416119397.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:13:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_2945978925_2965921337.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:14:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_758142028_1208767365.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:15:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_3440883886_3641425500.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:16:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_1154407807_4046233275.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:17:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_1521855597_1978950308.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:18:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_3716581983_178473045.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:19:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_1340253269_3310277549.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:20:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_1521855597_3335196385.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:21:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_3796196145_4241791027.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:22:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_1521855597_2805519731.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt:23:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/LyrasAlchemy/3575621376_4041120177_3448855390.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleTest/partial_movie_file_list.txt:2:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleTest/2719588187_3312863061_223132457.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleTest/partial_movie_file_list.txt:3:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleTest/3575621376_4249682336_1658509250.mp4'
+./user-data/media/videos/1080p60/partial_movie_files/SimpleTest/partial_movie_file_list.txt:4:file 'file:/Users/ebowwa/apps/manim_studio/media/videos/1080p60/partial_movie_files/SimpleTest/3575621376_1924622884_3514819803.mp4'
+./FINAL_EXTRACTION_SUMMARY.md:5:We've conducted a comprehensive analysis of xiaoxiae's professional-quality Manim videos repository and extracted **every valuable pattern, technique, and system** that can enhance your manim_studio platform.
+./FINAL_EXTRACTION_SUMMARY.md:119:This extraction provides your manim_studio platform with:
+./interfaces/mcp/mcp_config.json:52:        "args": ["/Users/ebowwa/apps/manim_studio/interfaces/mcp/server.py"],
+./interfaces/mcp/mcp_config.json:54:          "PYTHONPATH": "/Users/ebowwa/apps/manim_studio"
+./interfaces/mcp/clean_server.py:25:manim_studio_root = Path(__file__).parent.parent.parent
+./interfaces/mcp/clean_server.py:26:sys.path.insert(0, str(manim_studio_root / "src"))
+./interfaces/mcp/server.py:16:manim_studio_root = Path(__file__).parent.parent.parent
+./interfaces/mcp/server.py:17:sys.path.insert(0, str(manim_studio_root / "src"))
+./interfaces/mcp/fixed_server.py:17:manim_studio_root = Path(__file__).parent.parent.parent
+./interfaces/mcp/fixed_server.py:18:sys.path.insert(0, str(manim_studio_root / "src"))
+./interfaces/mcp/README.md:80:      "args": ["/path/to/manim_studio/interfaces/mcp/server.py"]
+./test_rate_functions.py:32:            '/Users/ebowwa/apps/manim_studio/src/core/timeline/easing.py'
+./test_rate_functions.py:93:            '/Users/ebowwa/apps/manim_studio/src/core/timeline/rate_function_bridge.py'
+./test_rate_functions.py:160:            '/Users/ebowwa/apps/manim_studio/src/core/timeline/composer_timeline.py'
+./src/core/cache.py:41:            self.cache_dir = Path.home() / '.manim_studio_cache'
+./src/manim_studio.egg-info/SOURCES.txt:43:src/manim_studio.egg-info/PKG-INFO
+./src/manim_studio.egg-info/SOURCES.txt:44:src/manim_studio.egg-info/SOURCES.txt
+./src/manim_studio.egg-info/SOURCES.txt:45:src/manim_studio.egg-info/dependency_links.txt
+./src/manim_studio.egg-info/SOURCES.txt:46:src/manim_studio.egg-info/entry_points.txt
+./src/manim_studio.egg-info/SOURCES.txt:47:src/manim_studio.egg-info/requires.txt
+./src/manim_studio.egg-info/SOURCES.txt:48:src/manim_studio.egg-info/top_level.txt
+./src/components/effects/indication_effects.py:3:Adapted from manimlib.animation.indication for compatibility with manim_studio
+
+
+Pattern: Kebab case (manim-studio)
+----------------------------------------
+./developer/docs/INSTRUCTIONS.md:20:manim-studio scenes/your_scene.yaml -q l -p
+./developer/docs/INSTRUCTIONS.md:31:manim-studio scenes/complete_alchemy_story.yaml -q l -p
+./developer/docs/INSTRUCTIONS.md:35:manim-studio scenes/complete_alchemy_story.yaml -q l
+./developer/docs/INSTRUCTIONS.md:49:manim-studio scenes/complete_alchemy_story.yaml -q l --fps 15
+./developer/docs/INSTRUCTIONS.md:53:manim-studio scenes/complete_alchemy_story.yaml -q l -o my_video.mp4
+./developer/docs/INSTRUCTIONS.md:60:manim-studio scenes/complete_alchemy_story.yaml -q l > render.log 2>&1 &
+./developer/docs/INSTRUCTIONS.md:66:ps aux | grep manim-studio
+./developer/docs/INSTRUCTIONS.md:104:# Reinstall manim-studio
+./developer/scripts/render_yaml_scene.sh:18:    cmd="manim-studio $config_file"
+./developer/scripts/render_yaml_scene.sh:66:# Check if manim-studio is installed
+./developer/scripts/render_yaml_scene.sh:67:if ! command -v manim-studio &> /dev/null; then
+./developer/scripts/render_yaml_scene.sh:68:    echo -e "${YELLOW}manim-studio command not found. Installing...${NC}"
+./README.md:43:pip install manim-studio
+./README.md:51:**Quick Start without Installation**: You can also run Manim Studio directly without installing by using `python main.py` instead of `manim-studio` in all examples.
+./README.md:80:manim-studio hello_world.yaml --preview
+./README.md:94:manim-studio ai "Create a beautiful visualization of the Pythagorean theorem"
+./README.md:238:- **Discord**: [Join our community](https://discord.gg/manim-studio)
+./README.md:240:- **Stack Overflow**: Tag your questions with `manim-studio`
+./setup.py:16:        "Discord": "https://discord.gg/manim-studio",
+./setup.py:75:            'manim-studio=src.cli:main',
+./user-data/scenes/README.md:88:manim-studio scenes/your_scene.yaml -q h -p
+./main.py:8:    manim-studio config.yaml
+./CLAUDE.md:19:   - The `manim-studio` CLI in `src/cli.py` sets `"media_dir": "user-data"` by default
+./interfaces/mcp/mcp_config.json:2:  "name": "manim-studio",
+./interfaces/mcp/mcp_config.json:50:      "manim-studio": {
+./interfaces/mcp/clean_server.py:17:logger = logging.getLogger("manim-studio-mcp")
+./interfaces/mcp/clean_server.py:51:        self.server = Server("manim-studio")
+./interfaces/mcp/clean_server.py:468:                    server_name="manim-studio",
+./interfaces/mcp/server.py:35:logger = logging.getLogger("manim-studio-mcp")
+./interfaces/mcp/server.py:41:        self.server = Server("manim-studio")
+./interfaces/mcp/server.py:606:                    server_name="manim-studio",
+./interfaces/mcp/fixed_server.py:44:logger = logging.getLogger("manim-studio-mcp")
+./interfaces/mcp/fixed_server.py:50:        self.server = Server("manim-studio")
+./interfaces/mcp/fixed_server.py:300:                    server_name="manim-studio",
+./interfaces/mcp/README.md:78:    "manim-studio": {
+./interfaces/mcp/simple_server.py:16:logger = logging.getLogger("manim-studio-mcp-simple")
+./interfaces/mcp/simple_server.py:22:        self.server = Server("manim-studio-simple")
+./interfaces/mcp/simple_server.py:167:                    server_name="manim-studio-simple",
+./src/manim_studio.egg-info/entry_points.txt:2:manim-studio = src.cli:main
+
+
+Pattern: PascalCase (ManimStudio)
+----------------------------------------
+./README.md:241:- **Twitter**: [@ManimStudio](https://twitter.com/ManimStudio)
+./interfaces/mcp/clean_server.py:47:class ManimStudioServer:
+./interfaces/mcp/clean_server.py:481:        server = ManimStudioServer()
+./interfaces/mcp/server.py:37:class ManimStudioServer:
+./interfaces/mcp/server.py:619:        server = ManimStudioServer()
+./interfaces/mcp/fixed_server.py:46:class ManimStudioServer:
+./interfaces/mcp/fixed_server.py:313:        server = ManimStudioServer()
+./interfaces/mcp/simple_server.py:18:class SimpleManimStudioServer:
+./interfaces/mcp/simple_server.py:180:        server = SimpleManimStudioServer()
+
+
+Pattern: Title case with space (Manim Studio)
+----------------------------------------
+./developer/tests/test_and_run.sh:9:echo -e "${GREEN}Setting up Manim Studio environment...${NC}"
+./developer/docs/ENHANCEMENT_PLAN.md:1:# Manim Studio Enhancement Plan
+./developer/docs/ENHANCEMENT_PLAN.md:165:This enhancement plan will significantly improve the quality and capabilities of our Manim Studio platform, bringing it to the level of professional educational content creators.
+./developer/docs/roadmap/3d-asset-support.md:4:This document outlines the technical roadmap for adding 3D asset loading support (GLB, OBJ, STL) to Manim Studio.
+./developer/docs/roadmap/3d-asset-support.md:254:The Manim Studio codebase is exceptionally well-positioned for 3D asset support. The modular architecture, existing 3D capabilities, and extensible configuration system make this a **high-feasibility enhancement** that would significantly expand the framework's capabilities.
+./developer/docs/rendering.md:1:# Rendering Manim Studio Demos
+./developer/docs/rendering.md:3:This guide explains how to render the demo animations in Manim Studio.
+./developer/docs/rendering.md:9:- Manim Studio package installed in development mode
+./developer/docs/game_ai_potential.md:1:# Manim Studio for Video Game AI
+./developer/docs/game_ai_potential.md:5:Manim Studio is a professional animation framework with sophisticated timeline and layering systems that could be adapted for video game AI applications.
+./developer/docs/INSTRUCTIONS.md:1:# Manim Studio - Rendering Instructions
+./developer/docs/INSTRUCTIONS.md:5:To render YAML scenes in Manim Studio, follow these steps:
+./developer/docs/frame_extraction.md:3:The frame extraction feature in Manim Studio allows you to automatically extract frames from your animations during or after rendering. This is useful for:
+./developer/examples/cache_demo.py:1:"""Demo script to test caching functionality in Manim Studio."""
+./developer/examples/cache_demo.py:60:        title = Text("Manim Studio Cache Demo", font_size=48)
+./developer/examples/frame_extraction_demo.py:2:"""Demo of frame extraction feature in Manim Studio.
+./developer/examples/effects_showcase.py:13:            "Manim Studio Effects",
+./developer/scripts/render_yaml_scene.sh:73:echo -e "${GREEN}=== Manim Studio YAML Scene Renderer ===${NC}"
+./docs/MATRIX_VISION.md:5:### ✅ What Manim Studio Already Has
+./docs/MATRIX_VISION.md:220:Based on the current architecture and goals of Manim Studio, the recommended implementation order is:
+./docs/MATRIX_VISION.md:235:This vision transforms Manim Studio from an animation framework into a complete mathematical universe simulation engine. The infrastructure described here isn't about specific examples or content - it's about building the fundamental systems that make anything possible.
+./README.md:1:# Manim Studio - The Future of Interactive Mathematical Content
+./README.md:8:**The least friction way to create stunning mathematical animations** - Manim Studio is building the foundation for the Netflix of mathematical content: an interactive, AI-powered platform where creators and viewers merge into one experience.
+./README.md:13:## 🌟 What Makes Manim Studio Different
+./README.md:51:**Quick Start without Installation**: You can also run Manim Studio directly without installing by using `python main.py` instead of `manim-studio` in all examples.
+./README.md:64:    text: "Welcome to Manim Studio!"
+./README.md:97:# Install the MCP server and Claude will have access to all Manim Studio capabilities
+./README.md:184:## 🛠️ Why Creators Choose Manim Studio
+./README.md:299:Manim Studio isn't just another animation tool - it's the beginning of a new era where:
+./configs/cache_example.yaml:3:description: "Demonstrates caching functionality in Manim Studio"
+./configs/cache_example.yaml:26:    text: "Manim Studio with Caching"
+./configs/frame_extraction_example.yaml:27:        text: "Manim Studio"
+./configs/example_scene.yaml:1:# Example scene configuration for Manim Studio
+./configs/example_scene.yaml:38:    text: "Powered by Manim Studio"
+./configs/simple_test.json:22:      "text": "Manim Studio v2.0",
+./user-data/scenes/hello_world.yaml:7:    text: "Welcome to Manim Studio!"
+./user-data/scenes/README.md:1:# Manim Studio Scenes
+./user-data/scenes/README.md:3:This directory contains scene definitions for Manim Studio animations. We use a **YAML-first approach** for defining scenes, making it easier to create and modify animations without writing Python code.
+./user-data/scenes/simple_demo.yaml:13:    text: "Welcome to Manim Studio"
+./camera_scenes.py:34:        title = Text("Manim Studio v2.0", font_size=60)
+./main.py:2:"""Main entry point for Manim Studio.
+./main.py:4:This file allows running Manim Studio directly with:
+./CLAUDE.md:1:# Manim Studio - Project Guidelines for Claude
+./interfaces/mcp/mcp_config.json:5:  "author": "Manim Studio Team",
+./interfaces/mcp/clean_server.py:1:"""Clean MCP Server for Manim Studio - no stdout pollution."""
+./interfaces/mcp/clean_server.py:24:# Import Manim Studio components
+./interfaces/mcp/clean_server.py:48:    """MCP Server for Manim Studio animation creation."""
+./interfaces/mcp/clean_server.py:479:    logger.info("Starting Manim Studio MCP Server...")
+./interfaces/mcp/server.py:1:"""MCP Server for Manim Studio - enables AI assistants to create animations."""
+./interfaces/mcp/server.py:14:# Import Manim Studio components
+./interfaces/mcp/server.py:38:    """MCP Server for Manim Studio animation creation."""
+./interfaces/mcp/server.py:618:        logger.info("Starting Manim Studio MCP Server...")
+./interfaces/mcp/fixed_server.py:1:"""Fixed MCP Server for Manim Studio - properly formatted JSON schemas."""
+./interfaces/mcp/fixed_server.py:15:# Import Manim Studio components
+./interfaces/mcp/fixed_server.py:47:    """MCP Server for Manim Studio animation creation."""
+./interfaces/mcp/fixed_server.py:312:        logger.info("Starting Manim Studio MCP Server...")
+./interfaces/mcp/advanced_tools.py:1:"""Advanced MCP tools for Manim Studio with timeline and composition features."""
+./interfaces/mcp/example_client.py:1:"""Example MCP client for Manim Studio - demonstrates how to use the MCP server."""
+./interfaces/mcp/README.md:1:# Manim Studio MCP Server
+./interfaces/mcp/simple_server.py:1:"""Simple MCP Server for Manim Studio - minimal version for testing."""
+./interfaces/mcp/simple_server.py:19:    """Simplified MCP Server for Manim Studio."""
+./interfaces/mcp/simple_server.py:179:        logger.info("Starting Simple Manim Studio MCP Server...")
+./src/scenes/__init__.py:2:Scene definitions for Manim Studio.
+./src/core/config.py:1:"""Configuration system for Manim Studio."""
+./src/core/asset_manager.py:1:"""Asset management system for Manim Studio."""
+./src/core/cache.py:1:"""Caching system for Manim Studio."""
+./src/core/cache.py:15:    """Manages caching for Manim Studio operations."""
+./src/core/__init__.py:1:"""Core functionality for Manim Studio."""
+./src/core/timeline/rate_function_bridge.py:2:Unified Rate Function Bridge for Manim Studio
+./src/core/timeline/__init__.py:1:"""Timeline module for Manim Studio."""
+./src/__init__.py:2:Manim Studio - A framework for creating animated videos using Manim
+./src/utils/__init__.py:1:"""Utility modules for Manim Studio."""
+./src/components/effects/blur_effects.py:1:"""Blur and focus effects for Manim Studio."""
+./src/components/effects/__init__.py:2:Manim Studio Effects System
+./src/components/effects/skull_effects.py:1:"""Skull-themed effects and components for Manim Studio."""
+./src/components/effects/wave_effects.py:1:"""Wave and ripple effects for Manim Studio."""
+./src/components/effects/indication_effects.py:2:Indication Effects for Manim Studio
+./src/components/effects/indication_effects.py:18:# Manim Studio imports
+./src/components/effects/morph_effects.py:1:"""Morphing and shape transformation effects for Manim Studio."""
+./src/components/effects/glow_effects.py:1:"""Glow and lighting effects for Manim Studio."""
+./src/components/effects/base_effect.py:1:"""Base class for all effects in the Manim Studio system."""
+./src/cli.py:1:"""Command-line interface for Manim Studio."""
+./src/cli.py:13:        description="Manim Studio - Configuration-driven animation creation",
+./src/assets/README.md:3:This directory contains all the source assets used in Manim Studio animations.
+
+
+Configuration Files
+==================
+
+setup.py:
+4:    name="manim_studio",
+
+Summary
+=======
+
+Occurrences by pattern:
+  manim_studio:      354 occurrences
+  manim-studio:       39 occurrences
+  ManimStudio:        9 occurrences
+  Manim Studio:       84 occurrences
+
+Files with project name mentions:
+  78 ./user-data/media/videos/1080p60/partial_movie_files/CompleteAlchemyStory/partial_movie_file_list.txt
+  35 ./user-data/media/videos/camera_scenes/720p30/partial_movie_files/Camera2DShowcase/partial_movie_file_list.txt
+  28 ./user-data/media/videos/1080p60/partial_movie_files/SimpleEasingDemo/partial_movie_file_list.txt
+  26 ./user-data/media/videos/720p30/partial_movie_files/SkullEffectsDemo/partial_movie_file_list.txt
+  24 ./user-data/media/videos/1080p60/partial_movie_files/ImprovedSkullShowcase/partial_movie_file_list.txt
+  22 ./user-data/media/videos/1080p60/partial_movie_files/LyrasAlchemy/partial_movie_file_list.txt
+  21 ./README.md
+  17 ./user-data/media/videos/camera_scenes/720p30/partial_movie_files/JourneyOfDiscovery/partial_movie_file_list.txt
+  16 ./user-data/media/videos/camera_scenes/720p30/partial_movie_files/CinematicShowcase/partial_movie_file_list.txt
+  12 ./developer/docs/INSTRUCTIONS.md

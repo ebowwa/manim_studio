@@ -28,4 +28,4 @@ pip install --upgrade pip
 pip install -e .
 
 echo -e "${GREEN}Setup complete! You can now run your Manim scenes.${NC}"
-echo -e "Example: PYTHONPATH=\$PWD/src manim src/manim_studio/scenes/your_scene.py YourScene -pql"
+echo -e "Example: PYTHONPATH=\$PWD/src manim src/manim_studio/scenes/your_scene.py YourScene -pql --media_dir user-data"

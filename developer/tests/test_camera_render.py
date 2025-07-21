@@ -3,6 +3,9 @@
 Simple test script to render camera configuration scenes
 """
 
+# Configure Manim to use user-data directory
+from src.config.manim_config import config
+
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))

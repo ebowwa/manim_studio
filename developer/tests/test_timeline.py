@@ -1,5 +1,8 @@
 """Direct test of composer timeline without circular imports."""
 
+# Configure Manim to use user-data directory
+from src.config.manim_config import config
+
 from manim import *
 import sys
 sys.path.insert(0, 'src')

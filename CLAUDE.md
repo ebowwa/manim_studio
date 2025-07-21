@@ -1,3 +1,47 @@
+# Manim Studio - Project Guidelines for Claude
+
+## MCP Script Preservation
+
+All MCP-generated scripts are now automatically saved to prevent losing work. The system:
+
+1. **Saves scripts permanently** to `/user-data/mcp-scripts/` with timestamps
+2. **Avoids duplicates** by checking content hash before saving
+3. **Creates metadata files** (.json) alongside each script with scene configuration
+4. **Recovery tool** available at `interfaces/mcp/recover_scripts.py`:
+   - List all saved scripts: `python interfaces/mcp/recover_scripts.py`
+   - Render a specific script: `python interfaces/mcp/recover_scripts.py <number>`
+
+## Important Configuration: Media Directory
+
+All Manim output should be directed to the `user-data` directory, NOT the default `media` directory.
+
+### How this is enforced:
+
+1. **Python Config Module**: `src/config/manim_config.py`
+   - This module must be imported BEFORE any Manim imports
+   - It sets the media directory to `user-data`
+   - All test files have been updated to import this first
+
+2. **Shell Scripts**: 
+   - All shell scripts that run manim commands must include `--media_dir user-data`
+   - This includes render scripts in `developer/scripts/` and `developer/examples/`
+
+3. **CLI Override**: 
+   - The `manim-studio` CLI in `src/cli.py` sets `"media_dir": "user-data"` by default
+
+### If you see media/ being created:
+- Check that the file imports `from src.config.manim_config import config` before any Manim imports
+- For shell scripts, ensure `--media_dir user-data` is included in the manim command
+- The `media/` directory is already in `.gitignore` so it won't be committed
+
+
+## Project Structure
+
+- Main source code: `src/`
+- Tests: `developer/tests/`
+- Examples: `developer/examples/`
+- Scripts: `developer/scripts/`
+- User data output: `user-data/`
 # Manim Studio - Rendering Instructions
 
 ## Quick Start

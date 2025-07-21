@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 """Standalone test of the improved timeline layer system."""
 
+# Configure Manim to use user-data directory
+from src.config.manim_config import config
+
 from manim import *
 import numpy as np
 import sys

@@ -216,7 +216,6 @@ video.render()
 - **Live Preview**: See changes in real-time
 - **Hot Reload**: Edit configs while rendering
 - **Smart Caching**: Re-render only what changed
-- **Cloud Rendering**: Offload heavy computation
 
 ## 📖 Documentation
 

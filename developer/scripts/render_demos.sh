@@ -18,7 +18,7 @@ render_demo() {
 
     echo -e "${BLUE}Rendering $scene_name from $scene_file${NC}"
     source "$PROJECT_ROOT/venv/bin/activate" && \
-    PYTHONPATH=$PROJECT_ROOT/src python3 -m manim "$scene_file" "$scene_name" -p"$quality"
+    PYTHONPATH=$PROJECT_ROOT/src python3 -m manim "$scene_file" "$scene_name" -p"$quality" --media_dir "$MEDIA_DIR"
 }
 
 # Render magical effects demo

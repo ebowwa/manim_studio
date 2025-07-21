@@ -49,7 +49,7 @@
     "mcpServers": {
       "manim-studio": {
         "command": "/Users/ebowwa/.pyenv/shims/python3",
-        "args": ["/Users/ebowwa/apps/manim_studio/interfaces/mcp/server.py"],
+        "args": ["/Users/ebowwa/apps/manim_studio/interfaces/mcp/clean_server.py"],
         "env": {
           "PYTHONPATH": "/Users/ebowwa/apps/manim_studio"
         }

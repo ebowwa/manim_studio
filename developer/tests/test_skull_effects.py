@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 """Test script for skull effects - run from project root."""
 
+# Configure Manim to use user-data directory
+from src.config.manim_config import config
+
 import sys
 import os
 

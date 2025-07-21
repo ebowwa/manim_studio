@@ -1,6 +1,9 @@
 """
 Test script for indication effects
 """
+# Configure Manim to use user-data directory
+from src.config.manim_config import config
+
 from manim import *
 from src.components.effects.indication_effects import *
 
