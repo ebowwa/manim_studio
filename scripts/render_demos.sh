@@ -7,7 +7,7 @@ NC='\033[0m' # No Color
 
 # Directory setup
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-MEDIA_DIR="$PROJECT_ROOT/media/videos"
+MEDIA_DIR="$PROJECT_ROOT/user-data"
 EXAMPLES_DIR="$PROJECT_ROOT/examples"
 
 # Function to render a demo scene

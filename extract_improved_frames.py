@@ -4,7 +4,7 @@
 import cv2
 import os
 
-video_path = "media/videos/1080p60/ImprovedSkullShowcase.mp4"
+video_path = "user-data/1080p60/ImprovedSkullShowcase.mp4"
 output_dir = "improved_skull_frames"
 
 os.makedirs(output_dir, exist_ok=True)

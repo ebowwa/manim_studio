@@ -1,7 +1,7 @@
 """Example of using the configuration system programmatically."""
 
 from manim import *
-from manim_studio.core import Config, SceneBuilder
+from src.core import Config, SceneBuilder
 from pathlib import Path
 
 
@@ -26,7 +26,7 @@ def render_from_config(config_path: str):
 
 def create_custom_config():
     """Create a configuration programmatically."""
-    from manim_studio.core.config import SceneConfig, EffectConfig, AnimationConfig
+    from src.core.config import SceneConfig, EffectConfig, AnimationConfig
     
     # Create scene configuration
     scene = SceneConfig(

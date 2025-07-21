@@ -8,8 +8,8 @@ import os
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
-from manim_studio.core.timeline import ComposerTimeline
-from manim_studio.core.timeline.auto_layered_scene import AutoLayeredScene
+from src.core.timeline import ComposerTimeline
+from src.core.timeline.auto_layered_scene import AutoLayeredScene
 
 
 class AutoLayerDemo(AutoLayeredScene):

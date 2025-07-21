@@ -1,7 +1,7 @@
 """Demo script to test caching functionality in Manim Studio."""
 
 from manim import *
-from manim_studio.core import AssetManager, get_cache, configure_cache
+from src.core import AssetManager, get_cache, configure_cache
 import time
 
 

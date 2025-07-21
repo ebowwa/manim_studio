@@ -8,11 +8,11 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 # Import only what we need directly
-from manim_studio.core.timeline.composer_timeline import ComposerTimeline, TimelineLayer
-from manim_studio.core.timeline.layer_manager import LayerManager, create_layered_scene
-from manim_studio.components.effects.skull_effects_v2 import ImprovedSkullEffect
-from manim_studio.components.effects.glow_effects import GlowEffect
-from manim_studio.components.effects.environment_effects import BokehEffect
+from src.core.timeline.composer_timeline import ComposerTimeline, TimelineLayer
+from src.core.timeline.layer_manager import LayerManager, create_layered_scene
+from src.components.effects.skull_effects_v2 import ImprovedSkullEffect
+from src.components.effects.glow_effects import GlowEffect
+from src.components.effects.environment_effects import BokehEffect
 
 
 class LayerSystemDemo(Scene):

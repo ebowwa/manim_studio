@@ -12,4 +12,4 @@ fi
 manim -qh examples/effects_showcase.py EffectsShowcase
 
 # Open the rendered video (macOS specific)
-open media/videos/effects_showcase/1080p60/EffectsShowcase.mp4
+open user-data/effects_showcase/1080p60/EffectsShowcase.mp4

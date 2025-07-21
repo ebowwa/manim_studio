@@ -1,7 +1,7 @@
 """Demonstration of improved 2D layering system."""
 
 from manim import *
-from manim_studio.core.layer_manager import LayerManager
+from src.core.layer_manager import LayerManager
 
 class LayeringDemo(Scene):
     """Demonstrates proper 2D layering with the LayerManager."""

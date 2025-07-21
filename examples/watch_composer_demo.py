@@ -4,7 +4,7 @@ from manim import *
 import sys
 sys.path.insert(0, 'src')
 
-from manim_studio.core.timeline.composer_timeline import ComposerTimeline, InterpolationType, Keyframe
+from src.core.timeline.composer_timeline import ComposerTimeline, InterpolationType, Keyframe
 
 class WatchComposerDemo(Scene):
     def construct(self):

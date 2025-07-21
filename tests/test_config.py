@@ -1,4 +1,4 @@
-"""Tests for configuration models in manim_studio.core.config"""
+"""Tests for configuration models in src.core.config"""
 
 import pytest
 import json
@@ -6,7 +6,7 @@ import tempfile
 from pathlib import Path
 from typing import Dict, Any
 
-from manim_studio.core.config import EffectConfig, AnimationConfig, SceneConfig, Config, CameraConfig
+from src.core.config import EffectConfig, AnimationConfig, SceneConfig, Config, CameraConfig
 
 
 class TestEffectConfig:

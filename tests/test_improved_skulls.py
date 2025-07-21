@@ -6,7 +6,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 from manim import *
-from manim_studio.components.effects import (
+from src.components.effects import (
     ImprovedSkullEffect,
     GlowEffect,
     NeonEffect,

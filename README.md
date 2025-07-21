@@ -1,23 +1,38 @@
-# Manim Studio - Professional Animation Framework for Python
+# Manim Studio - The Future of Interactive Mathematical Content
 
 [![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)](https://www.python.org/downloads/)
 [![Manim Version](https://img.shields.io/badge/manim-0.17.3%2B-green)](https://www.manim.community/)
 [![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-**Create stunning mathematical animations and visualizations with code** - Manim Studio is a powerful, configuration-driven framework built on top of Manim that makes creating professional animated videos accessible to everyone.
+**The least friction way to create stunning mathematical animations** - Manim Studio is building the foundation for the Netflix of mathematical content: an interactive, AI-powered platform where creators and viewers merge into one experience.
 
-🎬 **Perfect for**: Educational content, data visualization, mathematical animations, video production, motion graphics, and creative coding.
+🚀 **Current Focus**: Zero-friction animation generation through configuration files and AI
+🎮 **Future Vision**: Interactive mathematical experiences, real-time exploration, and community-driven content platform
 
-## 🌟 Key Features
+## 🌟 What Makes Manim Studio Different
 
-- **📝 Configuration-Driven**: Create complex animations using simple YAML/JSON files - no programming required
-- **⏱️ Advanced Timeline System**: Choreograph animations with millisecond precision
-- **🎨 70+ Built-in Effects**: Particles, transitions, morphing, and more
-- **🔌 Plugin Architecture**: Extend with custom effects and components
-- **📦 Asset Management**: Automatic loading, caching, and placeholder generation
-- **🚀 CLI Tool**: Render videos directly from command line
-- **🎯 Production-Ready**: Used for educational videos, presentations, and content creation
+### Today: The Least Friction Animation Generator
+- **📝 Zero-Code Creation**: YAML/JSON configs - anyone can animate
+- **🤖 AI-Powered**: MCP interface lets AI create animations for you
+- **🎓 Educational Focus**: Pre-built templates from top math YouTubers
+- **⚡ Instant Results**: No setup, no learning curve, just create
+
+### Tomorrow: Interactive Mathematical Universe
+- **🎮 Real-Time Interaction**: Explore math like a video game
+- **🌐 Content Platform**: Share, remix, and collaborate on animations
+- **🧠 AI Co-Creator**: Generate custom educational content on demand
+- **♾️ Infinite Content**: User-generated mathematical experiences
+
+## 💡 Current Capabilities
+
+- **Advanced Timeline System**: Professional choreography with easing library
+- **100+ Visual Effects**: Particles, magical circles, morphing, transitions
+- **Algorithm Visualizers**: Sorting, graph traversal, data structures
+- **Educational Templates**: Code reveal, mathematical proofs, step-by-step
+- **3D Math Utilities**: Vector3D, Matrix4x4, spatial transformations
+- **Smart Boundaries**: Animations that respect video frame limits
+- **Asset Management**: Automatic caching and optimization
 
 ## 🚀 Quick Start
 
@@ -32,6 +47,8 @@ git clone https://github.com/ebowwa/manim_studio.git
 cd manim_studio
 pip install -e .
 ```
+
+**Quick Start without Installation**: You can also run Manim Studio directly without installing by using `python main.py` instead of `manim-studio` in all examples.
 
 ### Create Your First Animation
 
@@ -56,17 +73,53 @@ animations:
     duration: 2.0
 ```
 
-```
-
 2. **Render your animation**:
 
 ```bash
-manim-studio render hello_world.yaml --preview
+# Using the installed CLI command
+manim-studio hello_world.yaml --preview
+
+# Or run directly with Python (no installation needed)
+python main.py hello_world.yaml --preview
 ```
 
 3. **Watch your creation come to life!** 🎉
 
+## 🧪 New: AI-Powered Creation
+
+Let AI create animations for you using our MCP interface:
+
+```bash
+# Ask AI to create an animation
+manim-studio ai "Create a beautiful visualization of the Pythagorean theorem"
+
+# Or use with Claude Desktop
+# Install the MCP server and Claude will have access to all Manim Studio capabilities
+```
+
 ## 📚 Examples
+
+### Algorithm Visualization (New!)
+
+```yaml
+name: "BubbleSort"
+duration: 10.0
+
+objects:
+  array:
+    type: algorithm_visualizer
+    algorithm: bubble_sort
+    data: [5, 2, 8, 1, 9, 3]
+    params:
+      show_code: true
+      highlight_comparisons: true
+
+animations:
+  - target: array
+    animation_type: run_algorithm
+    start_time: 1.0
+    duration: 8.0
+```
 
 ### Mathematical Visualization
 
@@ -128,60 +181,42 @@ animations:
     duration: 3.0
 ```
 
-## 🛠️ Advanced Features
+## 🛠️ Why Creators Choose Manim Studio
 
-### Timeline System
-
-Create complex, synchronized animations with the Timeline API:
-
-```python
-from manim_studio import Timeline, Scene
-
-timeline = Timeline()
-timeline.add_event(0.0, lambda: show_title())
-timeline.add_animation(2.0, FadeIn(subtitle))
-timeline.add_parallel([
-    (3.0, animation1),
-    (3.0, animation2),
-    (3.5, animation3)
-])
-timeline.play(scene)
+### 🎯 Zero Learning Curve
+```yaml
+# This is all you need to create professional animations
+name: "MyFirstAnimation"
+objects:
+  title:
+    type: text
+    text: "E = mc²"
+animations:
+  - target: title
+    animation_type: write
 ```
 
-### Custom Effects
+### 🧩 Pre-Built Excellence
+- **xiaoxiae Integration**: Production techniques from 100k+ subscriber math channels
+- **Algorithm Library**: Sorting, graphs, data structures - all animated
+- **Effect Collection**: 100+ effects that just work
+- **Smart Defaults**: Professional output without configuration
 
-Extend Manim Studio with your own effects:
-
+### 🤖 AI-First Design
 ```python
-from manim_studio import register_effect, BaseEffect
+# Let AI create entire educational videos
+from manim_studio import AICreator
 
-@register_effect("glitch")
-class GlitchEffect(BaseEffect):
-    def create(self):
-        # Create glitch visual elements
-        return self.elements
-    
-    def animate(self, scene, duration=1.0):
-        # Define glitch animation
-        scene.play(self.glitch_animation, run_time=duration)
+creator = AICreator()
+video = creator.generate("Explain quicksort with beautiful animations")
+video.render()
 ```
 
-### Asset Management
-
-```python
-from manim_studio import AssetManager
-
-# Initialize asset manager
-assets = AssetManager("./project_assets")
-
-# Load with automatic caching
-logo = assets.load_image("logo.png")
-data = assets.load_data("animation_config.json")
-audio = assets.load_audio("background_music.mp3")
-
-# Automatic placeholder generation if asset missing
-texture = assets.load_image("missing.jpg", placeholder=True)
-```
+### ⚡ Instant Gratification
+- **Live Preview**: See changes in real-time
+- **Hot Reload**: Edit configs while rendering
+- **Smart Caching**: Re-render only what changed
+- **Cloud Rendering**: Offload heavy computation
 
 ## 📖 Documentation
 
@@ -205,14 +240,28 @@ texture = assets.load_image("missing.jpg", placeholder=True)
 - **Stack Overflow**: Tag your questions with `manim-studio`
 - **Twitter**: [@ManimStudio](https://twitter.com/ManimStudio)
 
-## 🚧 Roadmap
+## 🚧 Roadmap: Building the Future
 
+### Phase 1: Frictionless Creation (Current)
+- [x] Configuration-driven animations
+- [x] Educational templates from top creators
+- [x] AI integration via MCP
 - [ ] Web-based configuration editor
-- [ ] Real-time preview system
-- [ ] GPU acceleration support
-- [ ] Export to various formats (GIF, WebM, etc.)
-- [ ] Integration with popular video editors
-- [ ] AI-powered animation suggestions
+- [ ] One-click deploy to social media
+
+### Phase 2: Interactive Platform (Q2 2025)
+- [ ] Real-time preview and editing
+- [ ] GPU acceleration for instant rendering
+- [ ] Community marketplace for effects
+- [ ] Collaborative animation projects
+- [ ] Version control for animations
+
+### Phase 3: Mathematical Metaverse (Q4 2025)
+- [ ] Real-time interactive math exploration
+- [ ] Multiplayer mathematical experiences
+- [ ] AI tutors using custom animations
+- [ ] VR/AR mathematical visualization
+- [ ] Blockchain-based content ownership
 
 ## 🤲 Contributing
 
@@ -245,6 +294,15 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
-**Made with ❤️ by the Manim Studio community**
+## 🎬 Join the Revolution
 
-*Keywords: manim, animation, python, video, visualization, mathematical animation, educational content, motion graphics, data visualization, creative coding, animation framework, video production*
+Manim Studio isn't just another animation tool - it's the beginning of a new era where:
+- **Every student** can visualize their learning
+- **Every teacher** can create engaging content
+- **Every idea** can become an interactive experience
+
+Start creating today. The future of mathematical content is in your hands.
+
+**Made with ❤️ by dreamers who believe math should be beautiful**
+
+*Keywords: manim, animation, python, ai animation, mathematical visualization, educational platform, interactive content, zero-code animation, algorithm visualization, future of education*

@@ -1,5 +1,5 @@
 from manim import *
-from manim_studio.components.effects import (
+from src.components.effects import (
     ParticleSystem,
     MagicalCircle,
     TextEffects,

@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 from manim import *
 import numpy as np
-from manim_studio.components.effects import (
+from src.components.effects import (
     ImprovedSkullEffect,
     SkullParticleEffect,
     GhostlySkullEffect,
@@ -19,8 +19,8 @@ from manim_studio.components.effects import (
     DepthOfFieldEffect,
     BokehEffect
 )
-from manim_studio.core.timeline import Timeline, TimelineLayer, TimelineTrack, Keyframe
-from manim_studio.core.timeline.composer_timeline import ComposerTimeline, TrackType, InterpolationType
+from src.core.timeline import Timeline, TimelineLayer, TimelineTrack, Keyframe
+from src.core.timeline.composer_timeline import ComposerTimeline, TrackType, InterpolationType
 
 
 class SkullLayeredShowcase(Scene):

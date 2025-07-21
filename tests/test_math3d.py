@@ -2,7 +2,7 @@
 
 import pytest
 import numpy as np
-from src.manim_studio.utils.math3d import (
+from src.utils.math3d import (
     Vector3D, Matrix4x4, SpatialUtils,
     lerp_3d, slerp_3d, create_transform_matrix,
     euler_to_quaternion, quaternion_to_euler

@@ -101,4 +101,4 @@ fi
 # Render the scene
 render_yaml_scene "$CONFIG_FILE" "$SCENE_NAME" "$QUALITY"
 
-echo -e "${BLUE}Rendered videos can be found in the media/videos directory${NC}"
+echo -e "${BLUE}Rendered videos can be found in the user-data directory${NC}"

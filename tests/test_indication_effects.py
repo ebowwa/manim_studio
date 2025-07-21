@@ -2,7 +2,7 @@
 Test script for indication effects
 """
 from manim import *
-from src.manim_studio.components.effects.indication_effects import *
+from src.components.effects.indication_effects import *
 
 class TestIndicationEffects(Scene):
     def construct(self):

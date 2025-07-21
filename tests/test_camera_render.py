@@ -8,8 +8,8 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 from manim import *
-from manim_studio.core.config import Config, SceneConfig
-from manim_studio.core.scene_builder import SceneBuilder
+from src.core.config import Config, SceneConfig
+from src.core.scene_builder import SceneBuilder
 import json
 import yaml
 

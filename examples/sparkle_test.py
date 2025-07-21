@@ -1,5 +1,5 @@
 from manim import *
-from manim_studio.components.effects.text_effects import TextEffects
+from src.components.effects.text_effects import TextEffects
 
 class SparkleTest(Scene):
     def construct(self):

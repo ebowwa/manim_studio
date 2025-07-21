@@ -55,5 +55,5 @@ PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyS
 echo -e "${GREEN}Example 5: Custom resolution${NC}"
 PYTHONPATH=$PWD/src manim src/manim_studio/scenes/lyras_alchemy.py LyrasAlchemyScene -pql --resolution=1920,1080
 
-echo -e "${BLUE}All rendered videos can be found in the media/videos directory${NC}"
+echo -e "${BLUE}All rendered videos can be found in the user-data directory${NC}"
 echo -e "${BLUE}Usage: ./render_scene.sh${NC}"

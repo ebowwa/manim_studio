@@ -72,7 +72,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'manim-studio=manim_studio.cli:main',
+            'manim-studio=src.cli:main',
         ],
     },
 )

@@ -1,6 +1,6 @@
 from manim import *
-from manim_studio.scenes.base_scene import StudioScene
-from manim_studio.components.magical_effects import MagicalEffects
+from src.scenes.base_scene import StudioScene
+from src.components.magical_effects import MagicalEffects
 
 class MagicalEffectsDemo(StudioScene):
     def construct(self):
