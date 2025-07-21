@@ -121,21 +121,25 @@ class AnimationConfig:
 
 
 @dataclass
-class CameraConfig:
-    """Configuration for camera settings and animations."""
-    position: List[float] = field(default_factory=lambda: [0.0, 0.0, 5.0])
-    rotation: List[float] = field(default_factory=lambda: [0.0, 0.0, 0.0])
-    zoom: float = 1.0
-    fov: float = 60.0  # Field of view in degrees
-    near_clip: float = 0.1
-    far_clip: float = 100.0
+class Camera2DConfig:
+    """Configuration for 2D camera settings and positioning.
+    
+    Note: This is a 2D camera system for positioning, zoom, and basic visual properties.
+    For true 3D camera controls, use ThreeDScene with spherical coordinates.
+    """
+    position: List[float] = field(default_factory=lambda: [0.0, 0.0, 5.0])  # [x, y, z-layer]
+    rotation: List[float] = field(default_factory=lambda: [0.0, 0.0, 0.0])  # [x, y, z-rotation] (limited 2D rotation)
+    zoom: float = 1.0  # Camera zoom/scale factor
+    fov: float = 60.0  # Visual field of view (mostly cosmetic in 2D)
+    near_clip: float = 0.1  # Near clipping plane (mostly unused in 2D)
+    far_clip: float = 100.0  # Far clipping plane (mostly unused in 2D)
     
     def __post_init__(self):
-        """Validate camera parameters."""
+        """Validate 2D camera parameters."""
         if len(self.position) != 3:
-            raise ValueError("Camera position must have 3 coordinates (x, y, z)")
+            raise ValueError("2D Camera position must have 3 coordinates (x, y, z-layer)")
         if len(self.rotation) != 3:
-            raise ValueError("Camera rotation must have 3 angles (x, y, z)")
+            raise ValueError("2D Camera rotation must have 3 angles (x, y, z-rotation)")
         if self.zoom <= 0:
             raise ValueError("Camera zoom must be positive")
         if not 0 < self.fov < 180:
@@ -146,9 +150,9 @@ class CameraConfig:
             raise ValueError("Far clip plane must be greater than near clip plane")
     
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'CameraConfig':
-        """Create CameraConfig from dictionary with proper defaults."""
-        return cls(
+    def from_dict(cls, data: Dict[str, Any]) -> 'Camera2DConfig':
+        """Create Camera2DConfig from dictionary with proper defaults."""
+        return Camera2DConfig(
             position=data.get('position', [0.0, 0.0, 5.0]),
             rotation=data.get('rotation', [0.0, 0.0, 0.0]),
             zoom=data.get('zoom', 1.0),
@@ -158,7 +162,7 @@ class CameraConfig:
         )
     
     def to_dict(self) -> Dict[str, Any]:
-        """Convert CameraConfig to dictionary."""
+        """Convert Camera2DConfig to dictionary."""
         return {
             'position': self.position,
             'rotation': self.rotation,
@@ -168,9 +172,9 @@ class CameraConfig:
             'far_clip': self.far_clip
         }
     
-    def copy(self) -> 'CameraConfig':
-        """Create a deep copy of the camera configuration."""
-        return CameraConfig(
+    def copy(self) -> 'Camera2DConfig':
+        """Create a deep copy of the 2D camera configuration."""
+        return Camera2DConfig(
             position=self.position.copy(),
             rotation=self.rotation.copy(),
             zoom=self.zoom,
@@ -190,8 +194,8 @@ class SceneConfig:
     resolution: tuple = (1920, 1080)
     fps: int = 60
     
-    # Camera configuration
-    camera: Optional[CameraConfig] = None
+    # 2D Camera configuration (positioning, zoom, visual properties)
+    camera: Optional[Camera2DConfig] = None
     
     # Scene elements
     objects: Dict[str, Dict[str, Any]] = field(default_factory=dict)
@@ -234,10 +238,10 @@ class SceneConfig:
         effects = [EffectConfig.from_dict(e) for e in data.get('effects', [])]
         animations = [AnimationConfig.from_dict(a) for a in data.get('animations', [])]
         
-        # Handle camera config if present
+        # Handle 2D camera config if present
         camera = None
         if 'camera' in data and data['camera'] is not None:
-            camera = CameraConfig.from_dict(data['camera'])
+            camera = Camera2DConfig.from_dict(data['camera'])
         
         return cls(
             name=data.get('name', ''),

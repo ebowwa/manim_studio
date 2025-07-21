@@ -8,14 +8,15 @@ background_color: "#0f0f23"
 resolution: [1920, 1080]
 fps: 60
 
-# Initial camera setup - starts close up for intimacy
+# Initial 2D camera setup - starts close up for intimacy
+# Note: This is a 2D camera system for positioning and zoom control
 camera:
-  position: [0, 0, 3]
-  rotation: [0, 0, 0]
-  zoom: 1.5
-  fov: 45.0
-  near_clip: 0.1
-  far_clip: 100.0
+  position: [0, 0, 3]     # [x, y, z-layer] - close positioning
+  rotation: [0, 0, 0]     # [x, y, z-rotation] - basic rotation
+  zoom: 1.5               # Camera zoom for close-up effect
+  fov: 45.0               # Visual field of view (cosmetic)
+  near_clip: 0.1          # Near clipping (mostly unused)
+  far_clip: 100.0         # Far clipping (mostly unused)
 
 # Assets for the story
 assets:
@@ -292,36 +293,37 @@ animations:
     start_time: 24.3
     duration: 0.7
 
-# Camera movements (placeholders for future implementation)
+# 2D Camera movements (placeholders for future implementation)
 # These would be processed by the enhanced timeline system
+# Note: These represent 2D camera positioning and zoom changes
 camera_timeline:
   keyframes:
     # Scene 1: Close-up for intimacy
     - time: 0.0
-      position: [0, 0, 3]
-      zoom: 1.5
-      fov: 45.0
+      position: [0, 0, 3]       # [x, y, z-layer] close positioning
+      zoom: 1.5                 # Close zoom for intimate feel
+      fov: 45.0                 # Narrow field of view (cosmetic)
     
     # Scene 2: Pull back slightly to show hero
     - time: 10.0
-      position: [-1, 0.5, 4]
-      zoom: 1.2
-      fov: 50.0
+      position: [-1, 0.5, 4]    # [x, y, z-layer] slight pull back
+      zoom: 1.2                 # Medium zoom
+      fov: 50.0                 # Slightly wider view
     
     # Scene 3: Wide shot to show the journey
     - time: 15.0
-      position: [2, 1, 6]
-      zoom: 0.8
-      fov: 60.0
+      position: [2, 1, 6]       # [x, y, z-layer] wide positioning
+      zoom: 0.8                 # Wide zoom to show scope
+      fov: 60.0                 # Wide field of view
     
     # Scene 4: Close tracking shot following hero
     - time: 20.0
-      position: [5, 0.5, 4]
-      zoom: 1.1
-      fov: 45.0
+      position: [5, 0.5, 4]     # [x, y, z-layer] following movement
+      zoom: 1.1                 # Medium-close zoom
+      fov: 45.0                 # Focused view
     
     # Scene 5: Final triumphant wide shot
     - time: 23.0
-      position: [4, 2, 7]
-      zoom: 0.7
-      fov: 65.0
+      position: [4, 2, 7]       # [x, y, z-layer] elevated final view
+      zoom: 0.7                 # Wide zoom for triumph
+      fov: 65.0                 # Very wide view

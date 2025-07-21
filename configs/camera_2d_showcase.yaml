@@ -1,0 +1,428 @@
+# 2D Camera System Showcase
+# Demonstrates the capabilities and limitations of the 2D camera configuration
+
+name: "2D Camera System Demo"
+description: "A comprehensive demonstration of 2D camera positioning, zoom, and visual controls"
+duration: 20.0
+background_color: "#1a1a2e"
+resolution: [1920, 1080]
+fps: 60
+
+# Initial 2D camera setup
+# This showcases what our 2D camera system can actually do
+camera:
+  position: [0, 0, 5]     # [x, y, z-layer] - starts centered
+  rotation: [0, 0, 0]     # [x, y, z-rotation] - basic rotation (limited)
+  zoom: 1.0               # Camera zoom/scale factor
+  fov: 50.0               # Visual field of view (cosmetic)
+  near_clip: 0.1          # Near clipping (mostly unused in 2D)
+  far_clip: 100.0         # Far clipping (mostly unused in 2D)
+
+# Objects to demonstrate camera positioning
+objects:
+  main_title:
+    type: text
+    text: "2D Camera System"
+    params:
+      gradient: ["#667eea", "#764ba2"]
+      scale: 2.5
+      weight: BOLD
+      position: [0, 3, 0]
+  
+  subtitle:
+    type: text
+    text: "Position • Zoom • Visual Control"
+    params:
+      color: "#ffffff"
+      scale: 1.2
+      position: [0, 2, 0]
+  
+  demo_label:
+    type: text
+    text: "Standard View"
+    params:
+      color: "#ffd700"
+      scale: 1.0
+      position: [0, -3.5, 0]
+  
+  # Grid reference system
+  center_marker:
+    type: shape
+    shape: circle
+    params:
+      radius: 0.1
+      color: "#ff6b6b"
+      fill_color: "#ff6b6b"
+      fill_opacity: 1.0
+      position: [0, 0, 0]
+  
+  # Quadrant markers to show positioning
+  nw_marker:
+    type: shape
+    shape: circle
+    params:
+      radius: 0.3
+      color: "#4ecdc4"
+      fill_color: "#4ecdc4"
+      fill_opacity: 0.8
+      position: [-4, 2, 0]
+  
+  ne_marker:
+    type: shape
+    shape: rectangle
+    params:
+      width: 0.6
+      height: 0.6
+      color: "#45b7b8"
+      fill_color: "#45b7b8"
+      fill_opacity: 0.8
+      position: [4, 2, 0]
+  
+  sw_marker:
+    type: shape
+    shape: polygon
+    params:
+      vertices: 5
+      color: "#feca57"
+      fill_color: "#feca57"
+      fill_opacity: 0.8
+      position: [-4, -2, 0]
+  
+  se_marker:
+    type: shape
+    shape: polygon
+    params:
+      vertices: 3
+      color: "#ff9ff3"
+      fill_color: "#ff9ff3"
+      fill_opacity: 0.8
+      position: [4, -2, 0]
+  
+  # Reference grid
+  grid_background:
+    type: group
+    children:
+      - name: h_line_1
+        type: shape
+        shape: rectangle
+        params:
+          width: 12
+          height: 0.05
+          color: "#2c2c54"
+          fill_opacity: 0.3
+          position: [0, 3, -1]
+      - name: h_line_2
+        type: shape
+        shape: rectangle
+        params:
+          width: 12
+          height: 0.05
+          color: "#2c2c54"
+          fill_opacity: 0.3
+          position: [0, 0, -1]
+      - name: h_line_3
+        type: shape
+        shape: rectangle
+        params:
+          width: 12
+          height: 0.05
+          color: "#2c2c54"
+          fill_opacity: 0.3
+          position: [0, -3, -1]
+      - name: v_line_1
+        type: shape
+        shape: rectangle
+        params:
+          width: 0.05
+          height: 8
+          color: "#2c2c54"
+          fill_opacity: 0.3
+          position: [-4, 0, -1]
+      - name: v_line_2
+        type: shape
+        shape: rectangle
+        params:
+          width: 0.05
+          height: 8
+          color: "#2c2c54"
+          fill_opacity: 0.3
+          position: [0, 0, -1]
+      - name: v_line_3
+        type: shape
+        shape: rectangle
+        params:
+          width: 0.05
+          height: 8
+          color: "#2c2c54"
+          fill_opacity: 0.3
+          position: [4, 0, -1]
+
+# Animation sequence demonstrating 2D camera capabilities
+animations:
+  # === INTRO: Standard View (0-3s) ===
+  - target: main_title
+    animation_type: write
+    start_time: 0.0
+    duration: 2.0
+  
+  - target: subtitle
+    animation_type: fadein
+    start_time: 0.5
+    duration: 1.5
+  
+  - target: demo_label
+    animation_type: fadein
+    start_time: 1.0
+    duration: 1.0
+  
+  - target: grid_background
+    animation_type: create
+    start_time: 1.5
+    duration: 1.5
+  
+  - target: center_marker
+    animation_type: fadein
+    start_time: 2.5
+    duration: 0.5
+  
+  # === DEMO 1: Show positioning markers (3-6s) ===
+  - target: demo_label
+    animation_type: transform
+    start_time: 3.0
+    duration: 0.5
+    params:
+      to:
+        type: text
+        text: "2D Positioning Demo"
+        params:
+          color: "#ffd700"
+          scale: 1.0
+          position: [0, -3.5, 0]
+  
+  - target: nw_marker
+    animation_type: fadein
+    start_time: 3.5
+    duration: 0.5
+  
+  - target: ne_marker
+    animation_type: fadein
+    start_time: 4.0
+    duration: 0.5
+  
+  - target: sw_marker
+    animation_type: fadein
+    start_time: 4.5
+    duration: 0.5
+  
+  - target: se_marker
+    animation_type: fadein
+    start_time: 5.0
+    duration: 0.5
+  
+  # === DEMO 2: Focus on different quadrants (6-12s) ===
+  - target: demo_label
+    animation_type: transform
+    start_time: 6.0
+    duration: 0.5
+    params:
+      to:
+        type: text
+        text: "Camera Focus: Northwest"
+        params:
+          color: "#4ecdc4"
+          scale: 1.0
+          position: [0, -3.5, 0]
+  
+  - target: nw_marker
+    animation_type: scale
+    start_time: 6.5
+    duration: 1.0
+    params:
+      factor: 2.0
+  
+  - target: demo_label
+    animation_type: transform
+    start_time: 8.0
+    duration: 0.5
+    params:
+      to:
+        type: text
+        text: "Camera Focus: Southeast"
+        params:
+          color: "#ff9ff3"
+          scale: 1.0
+          position: [0, -3.5, 0]
+  
+  - target: nw_marker
+    animation_type: scale
+    start_time: 8.5
+    duration: 0.5
+    params:
+      factor: 0.5
+  
+  - target: se_marker
+    animation_type: scale
+    start_time: 9.0
+    duration: 1.5
+    params:
+      factor: 2.5
+  
+  # === DEMO 3: Zoom capabilities (12-16s) ===
+  - target: demo_label
+    animation_type: transform
+    start_time: 12.0
+    duration: 0.5
+    params:
+      to:
+        type: text
+        text: "2D Camera Zoom: Close-up"
+        params:
+          color: "#ff6b6b"
+          scale: 1.0
+          position: [0, -3.5, 0]
+  
+  - target: se_marker
+    animation_type: scale
+    start_time: 12.5
+    duration: 0.5
+    params:
+      factor: 0.4
+  
+  # Simulate zoom by scaling all elements
+  - target: center_marker
+    animation_type: scale
+    start_time: 13.0
+    duration: 2.0
+    params:
+      factor: 3.0
+  
+  - target: demo_label
+    animation_type: transform
+    start_time: 15.0
+    duration: 0.5
+    params:
+      to:
+        type: text
+        text: "2D Camera Zoom: Wide View"
+        params:
+          color: "#feca57"
+          scale: 1.0
+          position: [0, -3.5, 0]
+  
+  - target: center_marker
+    animation_type: scale
+    start_time: 15.5
+    duration: 1.5
+    params:
+      factor: 0.2
+  
+  # === FINALE: Show system capabilities (16-20s) ===
+  - target: demo_label
+    animation_type: transform
+    start_time: 17.0
+    duration: 0.5
+    params:
+      to:
+        type: text
+        text: "2D Camera System: Position + Zoom + Visual Control"
+        params:
+          color: "#ffffff"
+          scale: 0.9
+          position: [0, -3.5, 0]
+  
+  - target: center_marker
+    animation_type: scale
+    start_time: 17.5
+    duration: 0.5
+    params:
+      factor: 5.0
+  
+  # Final celebration - all markers pulse
+  - target: nw_marker
+    animation_type: scale
+    start_time: 18.0
+    duration: 1.0
+    params:
+      factor: 1.5
+  
+  - target: ne_marker
+    animation_type: scale
+    start_time: 18.2
+    duration: 1.0
+    params:
+      factor: 1.5
+  
+  - target: sw_marker
+    animation_type: scale
+    start_time: 18.4
+    duration: 1.0
+    params:
+      factor: 1.5
+  
+  - target: se_marker
+    animation_type: scale
+    start_time: 18.6
+    duration: 1.0
+    params:
+      factor: 1.5
+  
+  # Fade out
+  - target: main_title
+    animation_type: fadeout
+    start_time: 19.0
+    duration: 1.0
+  
+  - target: subtitle
+    animation_type: fadeout
+    start_time: 19.2
+    duration: 0.8
+  
+  - target: demo_label
+    animation_type: fadeout
+    start_time: 19.4
+    duration: 0.6
+
+# 2D Camera movement timeline (conceptual - shows what changes would happen)
+camera_2d_timeline:
+  keyframes:
+    # Standard centered view
+    - time: 0.0
+      position: [0, 0, 5]       # [x, y, z-layer] centered
+      zoom: 1.0                 # Normal zoom
+      fov: 50.0                 # Standard field
+      technique: "Standard 2D View"
+    
+    # Focus on northwest quadrant
+    - time: 6.0
+      position: [-2, 1, 4]      # [x, y, z-layer] shifted toward NW
+      zoom: 1.3                 # Slight zoom in
+      fov: 45.0                 # Narrower focus
+      technique: "2D Position Shift: Northwest Focus"
+    
+    # Focus on southeast quadrant  
+    - time: 9.0
+      position: [2, -1, 4]      # [x, y, z-layer] shifted toward SE
+      zoom: 1.5                 # More zoom
+      fov: 40.0                 # Tighter focus
+      technique: "2D Position Shift: Southeast Focus"
+    
+    # Close-up zoom demonstration
+    - time: 13.0
+      position: [0, 0, 3]       # [x, y, z-layer] closer z-layer
+      zoom: 2.0                 # Close zoom
+      fov: 30.0                 # Very narrow field
+      technique: "2D Close-up Zoom"
+    
+    # Wide view demonstration
+    - time: 15.5
+      position: [0, 0, 8]       # [x, y, z-layer] far z-layer
+      zoom: 0.6                 # Wide zoom
+      fov: 70.0                 # Wide field
+      technique: "2D Wide View"
+    
+    # Final composed view
+    - time: 18.0
+      position: [0, 0.5, 6]     # [x, y, z-layer] slightly elevated
+      zoom: 1.1                 # Comfortable zoom
+      fov: 55.0                 # Comfortable field
+      technique: "2D Final Composition"

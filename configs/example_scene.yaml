@@ -6,14 +6,15 @@ background_color: "#0a0a0a"
 resolution: [1920, 1080]
 fps: 60
 
-# Camera configuration (optional)
+# 2D Camera configuration (optional)
+# Note: This is a 2D camera system for positioning, zoom, and visual properties
 camera:
-  position: [0, 0, 5]
-  rotation: [0, 0, 0]
-  zoom: 1.0
-  fov: 60.0
-  near_clip: 0.1
-  far_clip: 100.0
+  position: [0, 0, 5]     # [x, y, z-layer] positioning
+  rotation: [0, 0, 0]     # [x, y, z-rotation] - limited 2D rotation
+  zoom: 1.0               # Camera zoom/scale factor
+  fov: 60.0               # Visual field of view (mostly cosmetic)
+  near_clip: 0.1          # Near clipping plane (mostly unused in 2D)
+  far_clip: 100.0         # Far clipping plane (mostly unused in 2D)
 
 # Asset definitions
 assets:
