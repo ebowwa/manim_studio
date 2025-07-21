@@ -1,0 +1,129 @@
+# Example configuration demonstrating frame extraction feature
+name: "Frame Extraction Example"
+version: "1.0"
+
+scenes:
+  AnimationWithExtraction:
+    name: "AnimationWithExtraction"
+    description: "Example animation with automatic frame extraction"
+    duration: 8.0
+    background_color: "#1a1a1a"
+    fps: 30
+    
+    # Frame extraction configuration
+    frame_extraction:
+      enabled: true
+      frame_interval: 15  # Extract every 15 frames (0.5 seconds at 30fps)
+      analyze: true  # Run visual analysis on extracted frames
+      generate_report: true  # Generate PDF analysis report
+      output_dir: "extracted_frames/yaml_demo"
+      keyframe_extraction: false  # Extract based on scene changes
+      keyframe_threshold: 30.0  # Threshold for keyframe detection
+      max_frames: 100  # Maximum frames to extract
+    
+    objects:
+      main_title:
+        type: text
+        text: "Manim Studio"
+        params:
+          scale: 2.0
+          gradient: ["#ff0000", "#00ff00", "#0000ff"]
+          position: [0, 2, 0]
+      
+      subtitle:
+        type: text
+        text: "With Frame Extraction"
+        params:
+          color: "#ffffff"
+          scale: 1.2
+          position: [0, 0.5, 0]
+      
+      circle_left:
+        type: shape
+        shape: circle
+        params:
+          radius: 1.0
+          color: "#ff6b6b"
+          fill_color: "#ff6b6b"
+          fill_opacity: 0.8
+          position: [-3, -1.5, 0]
+      
+      circle_right:
+        type: shape
+        shape: circle
+        params:
+          radius: 1.0
+          color: "#4ecdc4"
+          fill_color: "#4ecdc4"
+          fill_opacity: 0.8
+          position: [3, -1.5, 0]
+    
+    animations:
+      - target: main_title
+        animation_type: write
+        start_time: 0.0
+        duration: 2.0
+      
+      - target: subtitle
+        animation_type: fadein
+        start_time: 1.5
+        duration: 1.0
+        params:
+          shift: [0, -1, 0]
+      
+      - target: circle_left
+        animation_type: fadein
+        start_time: 2.5
+        duration: 0.5
+      
+      - target: circle_right
+        animation_type: fadein
+        start_time: 2.7
+        duration: 0.5
+      
+      - target: circle_left
+        animation_type: move
+        start_time: 3.5
+        duration: 1.5
+        params:
+          to: [0, -1.5, 0]
+      
+      - target: circle_right
+        animation_type: move
+        start_time: 3.5
+        duration: 1.5
+        params:
+          to: [0, -1.5, 0]
+      
+      - target: main_title
+        animation_type: scale
+        start_time: 5.5
+        duration: 1.0
+        params:
+          factor: 0.7
+      
+      - target: main_title
+        animation_type: fadeout
+        start_time: 7.0
+        duration: 0.5
+      
+      - target: subtitle
+        animation_type: fadeout
+        start_time: 7.2
+        duration: 0.5
+      
+      - target: circle_left
+        animation_type: fadeout
+        start_time: 7.4
+        duration: 0.5
+      
+      - target: circle_right
+        animation_type: fadeout
+        start_time: 7.4
+        duration: 0.5
+
+# Global assets
+assets:
+  fonts:
+    - "Arial"
+    - "Helvetica"

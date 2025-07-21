@@ -1,0 +1,124 @@
+# YouTube Video (Long-form) Configuration
+content_type: "youtube_video"
+platform: "youtube"
+version: "1.0"
+
+# Platform constraints
+constraints:
+  duration:
+    min: 61  # Over 60s to differentiate from Shorts
+    max: 43200  # 12 hours
+    optimal: 480-1200  # 8-20 minutes
+  aspect_ratio: "16:9"  # Horizontal
+  resolution:
+    width: 1920
+    height: 1080
+    preferred: "4K"  # 3840x2160
+  fps: 30
+  recommended_fps: 60  # For gaming/tech content
+  file_size_gb: 128  # YouTube limit
+  
+# Content requirements  
+requirements:
+  audio_sync: standard
+  loop_friendly: false
+  hook_timing: 0-15  # More time to hook viewers
+  intro_length: 5-20  # Seconds
+  captions: required  # For accessibility
+  chapters: recommended  # For videos over 5 minutes
+  thumbnail: critical
+  hashtags:
+    min: 3
+    max: 15
+    
+# Optimization settings
+optimization:
+  compression: "h264"  # Best compatibility
+  bitrate: "10000k"  # High quality
+  audio_codec: "aac"
+  audio_bitrate: "320k"  # Maximum quality
+  
+# Content structure
+structure:
+  segments:
+    - hook  # 0-15 seconds
+    - intro  # 15-30 seconds
+    - content  # Main body
+    - outro  # Final 20-30 seconds
+  pacing:
+    retention_points: 30  # Seconds between engagement points
+    b_roll_ratio: 0.3  # 30% supplementary footage
+    
+# Visual style
+style:
+  transitions:
+    duration: 0.5-1.0
+    types: ["cut", "fade", "slide", "zoom", "morph"]
+  graphics:
+    lower_thirds: true
+    title_cards: true
+    info_graphics: true
+    annotations: false  # Deprecated
+  text:
+    position: "flexible"
+    duration: 3-7  # Seconds
+    style: "youtube_sans"
+  branding:
+    intro_animation: true
+    outro_template: true
+    watermark: optional
+    
+# YouTube-specific features
+youtube_features:
+  end_screen:
+    enabled: true
+    duration: 20  # Last 20 seconds
+    elements: ["subscribe", "video", "playlist", "channel"]
+  cards:
+    enabled: true
+    max_count: 5
+    types: ["video", "playlist", "poll", "link"]
+  monetization:
+    mid_roll_eligible: true  # If over 8 minutes
+    ad_breaks: "auto"
+  analytics_markers:
+    - "intro_end"
+    - "key_points"
+    - "cta_moments"
+    
+# Engagement optimization
+engagement:
+  retention_graph_optimization: true
+  pattern_interrupts: 60  # Seconds between pattern breaks
+  cta_placement:
+    subscribe: [45, 300, -30]  # Seconds from start or negative from end
+    like: [120, -60]
+    comment: [-90]
+  community_features:
+    premiere: true
+    comments: true
+    likes: true
+    
+# SEO optimization
+seo:
+  title:
+    max_length: 100
+    keywords_position: "front"
+  description:
+    max_length: 5000
+    links_allowed: true
+    timestamps: true
+  tags:
+    max_count: 500  # Character limit
+    mix: ["broad", "specific", "branded"]
+    
+# Export settings
+export:
+  format: "mp4"
+  color_space: "Rec.709"
+  hdr_support: true  # If available
+  metadata:
+    include_chapters: true
+    include_closed_captions: true
+    include_thumbnail: true
+    include_tags: true

@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Optional, Callable, Tuple
 from dataclasses import dataclass
 import numpy as np
 from manim import *
-from ..core.composer_timeline import Keyframe, InterpolationType, TimelineTrack
+from ..core.timeline.composer_timeline import Keyframe, InterpolationType, TimelineTrack
 
 @dataclass
 class AnimationCurve:

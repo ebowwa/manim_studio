@@ -4,13 +4,27 @@ import argparse
 import sys
 from pathlib import Path
 from manim import *
-from .core import Config, SceneBuilder
+from .core import Config, SceneBuilder, configure_cache
 
 
 def main():
     """Main entry point for the CLI."""
     parser = argparse.ArgumentParser(
-        description="Manim Studio - Configuration-driven animation creation"
+        description="Manim Studio - Configuration-driven animation creation",
+        epilog="""
+Frame Extraction:
+  Frame extraction can be enabled in your configuration file by adding a
+  'frame_extraction' section to your scene config:
+  
+  frame_extraction:
+    enabled: true
+    frame_interval: 30      # Extract every 30 frames
+    analyze: true           # Generate quality analysis
+    output_dir: "frames"    # Output directory
+  
+  See docs/frame_extraction.md for full documentation.
+        """,
+        formatter_class=argparse.RawDescriptionHelpFormatter
     )
     
     parser.add_argument(
@@ -47,7 +61,40 @@ def main():
         help="Output file path"
     )
     
+    parser.add_argument(
+        "--no-cache",
+        action="store_true",
+        help="Disable caching"
+    )
+    
+    parser.add_argument(
+        "--cache-dir",
+        help="Custom cache directory"
+    )
+    
+    parser.add_argument(
+        "--clear-cache",
+        action="store_true",
+        help="Clear cache before rendering"
+    )
+    
     args = parser.parse_args()
+    
+    # Configure caching
+    cache_config = {
+        'enabled': not args.no_cache
+    }
+    if args.cache_dir:
+        cache_config['cache_dir'] = args.cache_dir
+    
+    configure_cache(**cache_config)
+    
+    # Clear cache if requested
+    if args.clear_cache:
+        from .core import get_cache
+        cache = get_cache()
+        cache.clear()
+        print("Cache cleared.")
     
     # Load configuration
     config_path = Path(args.config)

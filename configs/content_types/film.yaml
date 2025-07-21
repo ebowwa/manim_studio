@@ -1,0 +1,106 @@
+# Film/Feature Content Configuration
+content_type: "film"
+platform: "cinema"
+version: "1.0"
+
+# Platform constraints
+constraints:
+  duration:
+    min: 1800  # 30 minutes
+    max: 14400  # 4 hours
+    optimal: 5400-7200  # 90-120 minutes
+  aspect_ratio: "16:9"  # Standard cinema
+  alternate_ratios:
+    - "2.39:1"  # Cinemascope
+    - "1.85:1"  # Theatrical
+    - "4:3"    # Classic
+  resolution:
+    width: 3840  # 4K
+    height: 2160
+  fps: 24  # Cinema standard
+  file_size_gb: 50  # Typical DCP size
+  
+# Content requirements  
+requirements:
+  audio_sync: standard
+  loop_friendly: false
+  opening_credits: required
+  closing_credits: required
+  chapters: recommended
+  subtitles: optional
+  color_grading: required
+    
+# Optimization settings
+optimization:
+  compression: "prores"  # High quality master
+  bitrate: "50000k"
+  audio_codec: "pcm"  # Uncompressed
+  audio_bitrate: "1536k"
+  audio_channels: "5.1"  # Surround sound
+  
+# Film structure
+structure:
+  acts:
+    count: 3  # Three-act structure
+    proportions: [25, 50, 25]  # Percentage of runtime
+  scenes:
+    min_duration: 30  # Seconds
+    max_duration: 300  # 5 minutes
+  transitions:
+    between_scenes: ["cut", "fade", "dissolve"]
+    between_acts: ["fade_to_black"]
+    
+# Visual style
+style:
+  cinematography:
+    shot_types: ["wide", "medium", "close_up", "extreme_close_up"]
+    camera_movements: ["pan", "tilt", "dolly", "crane", "steadicam"]
+  color_palette:
+    mode: "cinematic"
+    lut_support: true
+  transitions:
+    duration: 1-3  # Seconds
+    types: ["cut", "fade", "dissolve", "wipe", "match_cut"]
+  text:
+    title_cards: true
+    lower_thirds: false
+    credits_style: "scroll"
+    
+# Audio configuration
+audio:
+  tracks:
+    dialogue: 
+      priority: 1
+      processing: ["noise_reduction", "eq", "compression"]
+    music:
+      priority: 2
+      ducking: true  # Lower during dialogue
+    effects:
+      priority: 3
+      spatial: true  # 3D positioning
+    ambience:
+      priority: 4
+      continuous: true
+      
+# Production features
+production:
+  script_integration: true
+  storyboard_generation: true
+  shot_list_support: true
+  color_correction: true
+  vfx_markers: true
+  adr_support: true  # Automated dialogue replacement
+  
+# Export settings
+export:
+  master_format: "prores_4444"  # With alpha channel
+  delivery_formats:
+    - dcp  # Digital Cinema Package
+    - mov  # High quality
+    - mp4  # Web/streaming
+  color_space: "DCI-P3"
+  metadata:
+    include_timecode: true
+    include_scene_markers: true
+    include_credits: true
+    include_copyright: true

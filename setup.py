@@ -2,11 +2,25 @@ from setuptools import setup, find_packages
 
 setup(
     name="manim_studio",
-    version="0.1.0",
+    version="2.0.0",
     author="ebowwa",
-    description="A reusable framework for creating animated videos using Manim",
+    author_email="your.email@example.com",
+    description="Professional animation framework for Python - Create stunning mathematical animations and visualizations with code",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
+    url="https://github.com/ebowwa/manim_studio",
+    project_urls={
+        "Bug Tracker": "https://github.com/ebowwa/manim_studio/issues",
+        "Documentation": "https://github.com/ebowwa/manim_studio/tree/main/docs",
+        "Source Code": "https://github.com/ebowwa/manim_studio",
+        "Discord": "https://discord.gg/manim-studio",
+    },
+    keywords=[
+        "manim", "animation", "video", "visualization", "mathematical animation",
+        "educational content", "motion graphics", "data visualization",
+        "creative coding", "animation framework", "video production",
+        "python animation", "3blue1brown", "math videos", "science visualization"
+    ],
     package_dir={"": "src"},
     packages=find_packages(where="src"),
     install_requires=[
@@ -36,10 +50,29 @@ setup(
     },
     python_requires=">=3.7",
     classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Education",
+        "Intended Audience :: Science/Research",
+        "Topic :: Multimedia :: Video",
+        "Topic :: Multimedia :: Graphics",
+        "Topic :: Scientific/Engineering :: Visualization",
+        "Topic :: Scientific/Engineering :: Mathematics",
+        "Topic :: Education",
+        "Topic :: Artistic Software",
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
-        "Topic :: Multimedia :: Video",
-        "Topic :: Artistic Software",
+        "Framework :: Manim",
     ],
+    entry_points={
+        'console_scripts': [
+            'manim-studio=manim_studio.cli:main',
+        ],
+    },
 )

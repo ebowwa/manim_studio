@@ -8,7 +8,7 @@ import time
 from pathlib import Path
 
 from manim import *
-from ..core.composer_timeline import (
+from ..core.timeline.composer_timeline import (
     ComposerTimeline, TimelineEvent, TimelineLayer, 
     TimelineTrack, Keyframe, InterpolationType
 )

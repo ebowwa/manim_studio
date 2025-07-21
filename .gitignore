@@ -55,3 +55,7 @@ media/
 
 /.claude/
 /manim_studio.egg-info/
+/.pytest_cache/
+/skull_frames/
+/scenes/
+/improved_skull_frames/

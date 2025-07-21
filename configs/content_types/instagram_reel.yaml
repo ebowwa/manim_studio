@@ -1,0 +1,83 @@
+# Instagram Reels Configuration
+content_type: "instagram_reel"
+platform: "instagram"
+version: "1.0"
+
+# Platform constraints
+constraints:
+  duration:
+    min: 1
+    max: 90  # Recently increased from 60
+    optimal: 7-15  # Best engagement
+  aspect_ratio: "9:16"  # Vertical
+  alternate_ratios:
+    - "4:5"  # Feed post ratio
+  resolution:
+    width: 1080
+    height: 1920
+  fps: 30
+  file_size_mb: 250
+  
+# Content requirements  
+requirements:
+  audio_sync: critical  # Instagram is audio-driven
+  loop_friendly: true
+  hook_timing: 0-2  # Fastest hook needed
+  captions: essential  # 80% watch without sound
+  hashtags:
+    min: 5
+    max: 30
+  cover_image: required
+    
+# Optimization settings
+optimization:
+  compression: "h264"
+  bitrate: "5000k"
+  audio_codec: "aac"
+  audio_bitrate: "128k"
+  
+# Visual style
+style:
+  transitions:
+    max_duration: 0.2  # Super quick
+    types: ["cut", "match_cut", "whip_pan"]
+  effects:
+    trending: ["zoom_in_out", "stop_motion", "boomerang", "superzoom"]
+    filters: true
+  text:
+    position: "dynamic"  # Moves to avoid blocking content
+    duration: 1-2  # Very brief
+    style: "instagram_modern"
+    animations: ["typewriter", "word_by_word", "bounce"]
+  branding:
+    username_placement: "top_left"
+    
+# Instagram-specific features
+instagram_features:
+  story_cross_post: true
+  feed_preview: true  # How it looks in feed
+  remix_enabled: true
+  music_library: true
+  ar_effects: true
+  product_tags: true
+  location_tags: true
+  collab_support: true
+  
+# Engagement optimization  
+engagement:
+  cta_timing: 50-85  # Near end but not last second
+  cta_types: ["follow", "comment", "save", "share"]
+  interactive:
+    polls: true
+    questions: true
+    countdown: true
+    
+# Export settings
+export:
+  format: "mp4"
+  color_space: "sRGB"
+  metadata:
+    include_cover: true
+    include_description: true
+    include_hashtags: true
+    include_location: false  # Privacy

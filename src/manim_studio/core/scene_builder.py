@@ -5,6 +5,8 @@ from manim import *
 from ..core.config import Config, SceneConfig, AnimationConfig, EffectConfig
 from ..core.timeline import Timeline
 from ..core.asset_manager import AssetManager
+from ..core.layer_manager import LayerManager
+from ..core.render_hooks import RenderHooks, RenderHookConfig, FrameExtractionMixin
 from ..components.effects import EffectRegistry
 from ..scenes.base_scene import StudioScene
 
@@ -21,6 +23,7 @@ class SceneBuilder:
         self.asset_manager = asset_manager or AssetManager()
         self.effect_registry = EffectRegistry()
         self.object_cache: Dict[str, Mobject] = {}
+        self.layer_manager = LayerManager()
     
     def build_scene(self, scene_config: SceneConfig) -> Type[Scene]:
         """Build a Scene class from configuration."""
@@ -28,18 +31,44 @@ class SceneBuilder:
         # Capture builder instance for use in scene
         builder = self
         
+        # Determine base class based on frame extraction config
+        base_class = StudioScene
+        if scene_config.frame_extraction and scene_config.frame_extraction.get('enabled', False):
+            # Create a class with frame extraction capabilities
+            class ExtractableStudioScene(FrameExtractionMixin, StudioScene):
+                pass
+            base_class = ExtractableStudioScene
+        
         # Create a new scene class dynamically
-        class ConfiguredScene(StudioScene):
+        class ConfiguredScene(base_class):
             def __init__(self, **kwargs):
                 super().__init__(**kwargs)
                 self.scene_config = scene_config
                 self.timeline = Timeline()
                 self.objects = {}
                 self.builder = builder
+                self.layer_manager = builder.layer_manager
+                
+                # Configure frame extraction if enabled
+                if hasattr(self, 'enable_frame_extraction') and scene_config.frame_extraction:
+                    extraction_config = scene_config.frame_extraction
+                    self.enable_frame_extraction(
+                        frame_interval=extraction_config.get('frame_interval', 30),
+                        analyze=extraction_config.get('analyze', True),
+                        output_dir=extraction_config.get('output_dir'),
+                        keyframe_extraction=extraction_config.get('keyframe_extraction', False),
+                        keyframe_threshold=extraction_config.get('keyframe_threshold', 30.0),
+                        max_frames=extraction_config.get('max_frames'),
+                        generate_report=extraction_config.get('generate_report', True)
+                    )
             
             def construct(self):
                 # Set background
                 self.camera.background_color = self.scene_config.background_color
+                
+                # Configure camera if specified
+                if self.scene_config.camera:
+                    self.builder.configure_camera(self.camera, self.scene_config.camera)
                 
                 # Create objects
                 for obj_name, obj_config in self.scene_config.objects.items():
@@ -79,21 +108,55 @@ class SceneBuilder:
         
         return ConfiguredScene
     
+    def configure_camera(self, camera, camera_config):
+        """Configure camera from CameraConfig."""
+        # Set camera position
+        if hasattr(camera, 'set_position'):
+            camera.set_position(camera_config.position)
+        
+        # Set camera rotation
+        if hasattr(camera, 'set_euler_angles'):
+            camera.set_euler_angles(
+                phi=camera_config.rotation[0],
+                theta=camera_config.rotation[1],
+                gamma=camera_config.rotation[2]
+            )
+        
+        # Set zoom
+        if hasattr(camera, 'set_zoom'):
+            camera.set_zoom(camera_config.zoom)
+        
+        # Set field of view
+        if hasattr(camera, 'set_field_of_view'):
+            camera.set_field_of_view(camera_config.fov)
+        
+        # Note: Manim's default camera doesn't support all these properties,
+        # but this provides a framework for future camera implementations
+    
     def create_object(self, name: str, config: Dict[str, Any]) -> Optional[Mobject]:
         """Create a Mobject from configuration."""
         obj_type = config.get('type', 'text')
+        layer = config.get('layer', 'main')
+        z_offset = config.get('z_offset', 0)
         
+        mobject = None
         if obj_type == 'text':
-            return self._create_text(config)
+            mobject = self._create_text(config)
         elif obj_type == 'image':
-            return self._create_image(config)
+            mobject = self._create_image(config)
         elif obj_type == 'shape':
-            return self._create_shape(config)
+            mobject = self._create_shape(config)
         elif obj_type == 'group':
-            return self._create_group(config)
+            mobject = self._create_group(config)
         else:
             print(f"Unknown object type: {obj_type}")
             return None
+        
+        # Register with layer manager
+        if mobject:
+            self.layer_manager.add_object(mobject, layer, z_offset)
+        
+        return mobject
     
     def _create_text(self, config: Dict[str, Any]) -> Text:
         """Create a text object."""
@@ -258,8 +321,19 @@ class SceneBuilder:
             if 'factor' in params:
                 return target.animate.scale(params['factor']).set_run_time(duration)
         elif anim_type == 'rotate':
-            angle = params.get('angle', PI)
+            angle = params.pop('angle', PI)
             return Rotate(target, angle, run_time=duration, **params)
+        elif anim_type == 'camera_move':
+            # Camera animation - requires scene reference
+            if 'position' in params:
+                # This is a placeholder - actual camera animation would need scene context
+                print(f"Camera move animation to {params['position']} - implement in timeline")
+                return None
+        elif anim_type == 'camera_zoom':
+            # Camera zoom animation
+            if 'zoom' in params:
+                print(f"Camera zoom animation to {params['zoom']} - implement in timeline")
+                return None
         else:
             print(f"Unknown animation type: {anim_type}")
             return None

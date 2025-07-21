@@ -1,0 +1,327 @@
+# Cinematic Camera Story - "The Journey of Discovery"
+# A story that showcases dynamic camera movements and compositions
+
+name: "The Journey of Discovery"
+description: "A cinematic story demonstrating camera configuration and movement"
+duration: 25.0
+background_color: "#0f0f23"
+resolution: [1920, 1080]
+fps: 60
+
+# Initial camera setup - starts close up for intimacy
+camera:
+  position: [0, 0, 3]
+  rotation: [0, 0, 0]
+  zoom: 1.5
+  fov: 45.0
+  near_clip: 0.1
+  far_clip: 100.0
+
+# Assets for the story
+assets:
+  mountain_texture: "assets/textures/mountain.png"
+  star_texture: "assets/textures/star.png"
+  compass_icon: "assets/icons/compass.png"
+
+# Story elements
+objects:
+  # Chapter title
+  title:
+    type: text
+    text: "The Journey of Discovery"
+    params:
+      gradient: ["#ff6b6b", "#feca57"]
+      scale: 2.0
+      weight: BOLD
+      position: [0, 2, 0]
+  
+  # Narrator text
+  narrator:
+    type: text
+    text: "In a world of infinite possibilities..."
+    params:
+      color: "#ffffff"
+      scale: 1.0
+      position: [0, -2.5, 0]
+  
+  # Hero character (simple circle for now)
+  hero:
+    type: shape
+    shape: circle
+    params:
+      radius: 0.3
+      color: "#48cae4"
+      fill_color: "#0077be"
+      fill_opacity: 0.8
+      position: [-3, 0, 0]
+  
+  # Mountain in the distance
+  mountain:
+    type: shape
+    shape: polygon
+    params:
+      vertices: 3
+      color: "#2d3436"
+      fill_color: "#636e72"
+      fill_opacity: 0.9
+      scale: 3.0
+      position: [5, -1, 0]
+  
+  # Treasure/goal
+  treasure:
+    type: shape
+    shape: rectangle
+    params:
+      width: 0.5
+      height: 0.3
+      color: "#fdcb6e"
+      fill_color: "#f39c12"
+      fill_opacity: 1.0
+      position: [8, 1, 0]
+  
+  # Path line
+  path:
+    type: shape
+    shape: rectangle
+    params:
+      width: 12
+      height: 0.1
+      color: "#95a5a6"
+      fill_color: "#bdc3c7"
+      fill_opacity: 0.6
+      position: [2, -0.5, 0]
+
+# Magical effects for atmosphere
+effects:
+  # Ambient particles
+  - type: particle_system
+    start_time: 1.0
+    params:
+      n_emitters: 2
+      particles_per_second: 10
+      particle_lifetime: 4.0
+      velocity_range: [0.5, 2]
+      particle_color: "#ffeaa7"
+      particle_radius: 0.02
+  
+  # Hero aura effect
+  - type: magical_circle
+    start_time: 8.0
+    duration: 3.0
+    params:
+      radius: 0.8
+      n_layers: 2
+      rune_count: 6
+      symbols: ["✦", "✧", "✶"]
+      rotation_speed: 0.5
+      pulse_amplitude: 0.03
+      pulse_frequency: 1.0
+      reveal_style: "fade"
+      glow: true
+      color_scheme:
+        outer_circle: "#48cae4"
+        inner_circles: "#0077be"
+        runes: "#ffffff"
+        symbols: "#ffeaa7"
+        glow: "#48cae4"
+
+# Animation timeline - tells our story
+animations:
+  # === SCENE 1: Introduction (0-5s) ===
+  # Title appears dramatically
+  - target: title
+    animation_type: write
+    start_time: 0.0
+    duration: 2.5
+  
+  # Narrator sets the scene
+  - target: narrator
+    animation_type: fadein
+    start_time: 1.0
+    duration: 1.5
+    params:
+      shift: [0, 0.3, 0]
+  
+  # Title fades as story begins
+  - target: title
+    animation_type: fadeout
+    start_time: 4.0
+    duration: 1.0
+  
+  # === SCENE 2: The Hero Appears (5-10s) ===
+  # Change narrator text
+  - target: narrator
+    animation_type: transform
+    start_time: 5.0
+    duration: 1.0
+    params:
+      to:
+        type: text
+        text: "A brave soul begins their quest..."
+        params:
+          color: "#ffffff"
+          scale: 1.0
+          position: [0, -2.5, 0]
+  
+  # Hero appears
+  - target: hero
+    animation_type: fadein
+    start_time: 5.5
+    duration: 1.5
+    params:
+      shift: [0.5, 0, 0]
+  
+  # Path reveals
+  - target: path
+    animation_type: create
+    start_time: 6.5
+    duration: 2.0
+  
+  # === SCENE 3: The Journey Begins (10-15s) ===
+  # Camera pulls back to reveal the scope (simulated with narrator change)
+  - target: narrator
+    animation_type: transform
+    start_time: 10.0
+    duration: 1.0
+    params:
+      to:
+        type: text
+        text: "The path ahead stretches far and wide..."
+        params:
+          color: "#ffffff"
+          scale: 0.9
+          position: [0, -2.8, 0]
+  
+  # Hero starts moving
+  - target: hero
+    animation_type: move
+    start_time: 11.0
+    duration: 4.0
+    params:
+      to: [1, 0, 0]
+  
+  # Mountain becomes visible
+  - target: mountain
+    animation_type: fadein
+    start_time: 12.0
+    duration: 2.0
+  
+  # === SCENE 4: The Challenge (15-20s) ===
+  # Dramatic pause and revelation
+  - target: narrator
+    animation_type: transform
+    start_time: 15.0
+    duration: 1.0
+    params:
+      to:
+        type: text
+        text: "But every journey has its trials..."
+        params:
+          color: "#e17055"
+          scale: 1.1
+          position: [0, -2.5, 0]
+  
+  # Hero faces the mountain
+  - target: hero
+    animation_type: move
+    start_time: 16.0
+    duration: 2.0
+    params:
+      to: [3, 0, 0]
+  
+  # === SCENE 5: The Triumph (20-25s) ===
+  # Final push
+  - target: narrator
+    animation_type: transform
+    start_time: 20.0
+    duration: 1.0
+    params:
+      to:
+        type: text
+        text: "And in the end, victory awaits the persistent!"
+        params:
+          color: "#00b894"
+          scale: 1.2
+          position: [0, -2.3, 0]
+  
+  # Hero reaches the treasure
+  - target: hero
+    animation_type: move
+    start_time: 21.0
+    duration: 2.5
+    params:
+      to: [7.5, 1, 0]
+  
+  # Treasure reveals
+  - target: treasure
+    animation_type: fadein
+    start_time: 22.0
+    duration: 1.5
+  
+  # Final celebration
+  - target: treasure
+    animation_type: scale
+    start_time: 23.5
+    duration: 1.0
+    params:
+      factor: 1.5
+  
+  # Everything fades out
+  - target: hero
+    animation_type: fadeout
+    start_time: 24.0
+    duration: 1.0
+  
+  - target: mountain
+    animation_type: fadeout
+    start_time: 24.0
+    duration: 1.0
+  
+  - target: treasure
+    animation_type: fadeout
+    start_time: 24.2
+    duration: 0.8
+  
+  - target: path
+    animation_type: fadeout
+    start_time: 24.0
+    duration: 1.0
+  
+  - target: narrator
+    animation_type: fadeout
+    start_time: 24.3
+    duration: 0.7
+
+# Camera movements (placeholders for future implementation)
+# These would be processed by the enhanced timeline system
+camera_timeline:
+  keyframes:
+    # Scene 1: Close-up for intimacy
+    - time: 0.0
+      position: [0, 0, 3]
+      zoom: 1.5
+      fov: 45.0
+    
+    # Scene 2: Pull back slightly to show hero
+    - time: 10.0
+      position: [-1, 0.5, 4]
+      zoom: 1.2
+      fov: 50.0
+    
+    # Scene 3: Wide shot to show the journey
+    - time: 15.0
+      position: [2, 1, 6]
+      zoom: 0.8
+      fov: 60.0
+    
+    # Scene 4: Close tracking shot following hero
+    - time: 20.0
+      position: [5, 0.5, 4]
+      zoom: 1.1
+      fov: 45.0
+    
+    # Scene 5: Final triumphant wide shot
+    - time: 23.0
+      position: [4, 2, 7]
+      zoom: 0.7
+      fov: 65.0

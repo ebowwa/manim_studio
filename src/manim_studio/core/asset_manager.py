@@ -6,15 +6,17 @@ from pathlib import Path
 from typing import Dict, Optional, Union, List, Any
 
 from manim import ImageMobject, SVGMobject, VGroup, Rectangle, Text, BLUE, WHITE
+from .cache import get_cache
 
 
 class AssetManager:
     """Manages assets like images, fonts, and other resources."""
     
-    def __init__(self, base_path: Optional[Union[str, Path]] = None):
+    def __init__(self, base_path: Optional[Union[str, Path]] = None, use_cache: bool = True):
         self.base_path = Path(base_path) if base_path else Path.cwd()
         self.assets: Dict[str, Path] = {}
-        self.cache: Dict[str, Any] = {}
+        self.use_cache = use_cache
+        self.cache_manager = get_cache() if use_cache else None
         
         # Default asset directories
         self.asset_dirs = {
@@ -56,40 +58,43 @@ class AssetManager:
     
     def load_image(self, name: str, scale: float = 1.0, cache: bool = True) -> ImageMobject:
         """Load an image asset."""
-        cache_key = f"image_{name}_{scale}"
-        
-        if cache and cache_key in self.cache:
-            return self.cache[cache_key].copy()
+        if self.use_cache and cache and self.cache_manager:
+            cache_key = self.cache_manager._generate_cache_key("image", name, scale)
+            cached_image = self.cache_manager.get(cache_key)
+            if cached_image:
+                return cached_image.copy()
         
         path = self.get_asset_path(name)
         image = ImageMobject(str(path)).scale(scale)
         
-        if cache:
-            self.cache[cache_key] = image.copy()
+        if self.use_cache and cache and self.cache_manager:
+            self.cache_manager.set(cache_key, image.copy())
         
         return image
     
     def load_svg(self, name: str, scale: float = 1.0, cache: bool = True) -> SVGMobject:
         """Load an SVG asset."""
-        cache_key = f"svg_{name}_{scale}"
-        
-        if cache and cache_key in self.cache:
-            return self.cache[cache_key].copy()
+        if self.use_cache and cache and self.cache_manager:
+            cache_key = self.cache_manager._generate_cache_key("svg", name, scale)
+            cached_svg = self.cache_manager.get(cache_key)
+            if cached_svg:
+                return cached_svg.copy()
         
         path = self.get_asset_path(name)
         svg = SVGMobject(str(path)).scale(scale)
         
-        if cache:
-            self.cache[cache_key] = svg.copy()
+        if self.use_cache and cache and self.cache_manager:
+            self.cache_manager.set(cache_key, svg.copy())
         
         return svg
     
     def load_data(self, name: str) -> Dict[str, Any]:
         """Load JSON data asset."""
-        cache_key = f"data_{name}"
-        
-        if cache_key in self.cache:
-            return self.cache[cache_key]
+        if self.use_cache and self.cache_manager:
+            cache_key = self.cache_manager._generate_cache_key("data", name)
+            cached_data = self.cache_manager.get(cache_key)
+            if cached_data:
+                return cached_data
         
         path = self.get_asset_path(name)
         
@@ -99,7 +104,9 @@ class AssetManager:
             else:
                 raise ValueError(f"Unsupported data format: {path.suffix}")
         
-        self.cache[cache_key] = data
+        if self.use_cache and self.cache_manager:
+            self.cache_manager.set(cache_key, data)
+        
         return data
     
     def create_placeholder(
@@ -140,7 +147,12 @@ class AssetManager:
     
     def clear_cache(self) -> None:
         """Clear the asset cache."""
-        self.cache.clear()
+        if self.use_cache and self.cache_manager:
+            # Clear only asset-related cache entries
+            stats = self.cache_manager.get_stats()
+            for entry_key in list(self.cache_manager.metadata.get('entries', {}).keys()):
+                if entry_key.startswith(('image_', 'svg_', 'data_')):
+                    self.cache_manager.delete(entry_key)
     
     def list_assets(self, asset_type: Optional[str] = None) -> List[str]:
         """List all registered assets."""

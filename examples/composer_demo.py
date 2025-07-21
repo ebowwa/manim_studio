@@ -4,10 +4,10 @@ from manim import *
 import sys
 sys.path.insert(0, 'src')
 
-from manim_studio.core.composer_timeline import (
+from manim_studio.core.timeline.composer_timeline import (
     ComposerTimeline, InterpolationType, Keyframe, TimelineTrack, TrackType
 )
-from manim_studio.core.timeline_presets import TimelinePresets
+from manim_studio.core.timeline.timeline_presets import TimelinePresets
 
 class ComposerDemo(Scene):
     def construct(self):

@@ -1,0 +1,371 @@
+{
+  "name": "Cinematic Camera Showcase",
+  "description": "A showcase of different camera angles and movements",
+  "duration": 20.0,
+  "background_color": "#1a1a2e",
+  "resolution": [1920, 1080],
+  "fps": 60,
+  
+  "camera": {
+    "position": [0, 0, 5],
+    "rotation": [0, 0, 0],
+    "zoom": 1.0,
+    "fov": 50.0,
+    "near_clip": 0.1,
+    "far_clip": 100.0
+  },
+  
+  "objects": {
+    "scene_title": {
+      "type": "text",
+      "text": "Camera Techniques Showcase",
+      "params": {
+        "gradient": ["#667eea", "#764ba2"],
+        "scale": 1.8,
+        "weight": "BOLD",
+        "position": [0, 2.5, 0]
+      }
+    },
+    
+    "technique_label": {
+      "type": "text",
+      "text": "Wide Establishing Shot",
+      "params": {
+        "color": "#ffffff",
+        "scale": 1.0,
+        "position": [0, -3, 0]
+      }
+    },
+    
+    "main_subject": {
+      "type": "shape",
+      "shape": "circle",
+      "params": {
+        "radius": 0.8,
+        "color": "#ff6b6b",
+        "fill_color": "#ee5a52",
+        "fill_opacity": 0.9,
+        "position": [0, 0, 0]
+      }
+    },
+    
+    "supporting_element_1": {
+      "type": "shape",
+      "shape": "rectangle",
+      "params": {
+        "width": 1.5,
+        "height": 0.5,
+        "color": "#4ecdc4",
+        "fill_color": "#45b7b8",
+        "fill_opacity": 0.8,
+        "position": [-3, 1, 0]
+      }
+    },
+    
+    "supporting_element_2": {
+      "type": "shape",
+      "shape": "polygon",
+      "params": {
+        "vertices": 5,
+        "color": "#feca57",
+        "fill_color": "#ff9ff3",
+        "fill_opacity": 0.7,
+        "position": [3, -1, 0]
+      }
+    },
+    
+    "background_grid": {
+      "type": "group",
+      "children": [
+        {
+          "name": "grid_line_1",
+          "type": "shape",
+          "shape": "rectangle",
+          "params": {
+            "width": 10,
+            "height": 0.05,
+            "color": "#2c2c54",
+            "fill_opacity": 0.3,
+            "position": [0, 2, -1]
+          }
+        },
+        {
+          "name": "grid_line_2",
+          "type": "shape",
+          "shape": "rectangle",
+          "params": {
+            "width": 10,
+            "height": 0.05,
+            "color": "#2c2c54",
+            "fill_opacity": 0.3,
+            "position": [0, -2, -1]
+          }
+        },
+        {
+          "name": "grid_line_3",
+          "type": "shape",
+          "shape": "rectangle",
+          "params": {
+            "width": 0.05,
+            "height": 8,
+            "color": "#2c2c54",
+            "fill_opacity": 0.3,
+            "position": [-4, 0, -1]
+          }
+        },
+        {
+          "name": "grid_line_4",
+          "type": "shape",
+          "shape": "rectangle",
+          "params": {
+            "width": 0.05,
+            "height": 8,
+            "color": "#2c2c54",
+            "fill_opacity": 0.3,
+            "position": [4, 0, -1]
+          }
+        }
+      ]
+    }
+  },
+  
+  "animations": [
+    {
+      "target": "scene_title",
+      "animation_type": "write",
+      "start_time": 0.0,
+      "duration": 2.0
+    },
+    
+    {
+      "target": "technique_label",
+      "animation_type": "fadein",
+      "start_time": 0.5,
+      "duration": 1.0
+    },
+    
+    {
+      "target": "background_grid",
+      "animation_type": "create",
+      "start_time": 1.0,
+      "duration": 1.5
+    },
+    
+    {
+      "target": "main_subject",
+      "animation_type": "fadein",
+      "start_time": 2.0,
+      "duration": 1.0
+    },
+    
+    {
+      "target": "supporting_element_1",
+      "animation_type": "fadein",
+      "start_time": 2.5,
+      "duration": 1.0
+    },
+    
+    {
+      "target": "supporting_element_2",
+      "animation_type": "fadein",
+      "start_time": 3.0,
+      "duration": 1.0
+    },
+    
+    {
+      "target": "technique_label",
+      "animation_type": "transform",
+      "start_time": 5.0,
+      "duration": 0.5,
+      "params": {
+        "to": {
+          "type": "text",
+          "text": "Close-up Shot",
+          "params": {
+            "color": "#ffffff",
+            "scale": 1.0,
+            "position": [0, -3, 0]
+          }
+        }
+      }
+    },
+    
+    {
+      "target": "main_subject",
+      "animation_type": "scale",
+      "start_time": 6.0,
+      "duration": 2.0,
+      "params": {
+        "factor": 1.8
+      }
+    },
+    
+    {
+      "target": "technique_label",
+      "animation_type": "transform",
+      "start_time": 9.0,
+      "duration": 0.5,
+      "params": {
+        "to": {
+          "type": "text",
+          "text": "Tracking Shot",
+          "params": {
+            "color": "#ffffff",
+            "scale": 1.0,
+            "position": [0, -3, 0]
+          }
+        }
+      }
+    },
+    
+    {
+      "target": "main_subject",
+      "animation_type": "move",
+      "start_time": 10.0,
+      "duration": 3.0,
+      "params": {
+        "to": [3, 0, 0]
+      }
+    },
+    
+    {
+      "target": "main_subject",
+      "animation_type": "move",
+      "start_time": 13.0,
+      "duration": 2.0,
+      "params": {
+        "to": [0, 2, 0]
+      }
+    },
+    
+    {
+      "target": "technique_label",
+      "animation_type": "transform",
+      "start_time": 15.0,
+      "duration": 0.5,
+      "params": {
+        "to": {
+          "type": "text",
+          "text": "Final Composition",
+          "params": {
+            "color": "#ffffff",
+            "scale": 1.0,
+            "position": [0, -3, 0]
+          }
+        }
+      }
+    },
+    
+    {
+      "target": "main_subject",
+      "animation_type": "scale",
+      "start_time": 16.0,
+      "duration": 1.0,
+      "params": {
+        "factor": 0.6
+      }
+    },
+    
+    {
+      "target": "supporting_element_1",
+      "animation_type": "move",
+      "start_time": 16.5,
+      "duration": 1.5,
+      "params": {
+        "to": [-2, 0, 0]
+      }
+    },
+    
+    {
+      "target": "supporting_element_2",
+      "animation_type": "move",
+      "start_time": 16.5,
+      "duration": 1.5,
+      "params": {
+        "to": [2, 0, 0]
+      }
+    },
+    
+    {
+      "target": "scene_title",
+      "animation_type": "fadeout",
+      "start_time": 18.0,
+      "duration": 2.0
+    },
+    
+    {
+      "target": "technique_label",
+      "animation_type": "fadeout",
+      "start_time": 18.5,
+      "duration": 1.5
+    },
+    
+    {
+      "target": "main_subject",
+      "animation_type": "fadeout",
+      "start_time": 19.0,
+      "duration": 1.0
+    },
+    
+    {
+      "target": "supporting_element_1",
+      "animation_type": "fadeout",
+      "start_time": 19.0,
+      "duration": 1.0
+    },
+    
+    {
+      "target": "supporting_element_2",
+      "animation_type": "fadeout",
+      "start_time": 19.0,
+      "duration": 1.0
+    },
+    
+    {
+      "target": "background_grid",
+      "animation_type": "fadeout",
+      "start_time": 19.2,
+      "duration": 0.8
+    }
+  ],
+  
+  "camera_timeline": {
+    "keyframes": [
+      {
+        "time": 0.0,
+        "position": [0, 0, 8],
+        "zoom": 0.7,
+        "fov": 60.0,
+        "technique": "Wide Establishing Shot"
+      },
+      {
+        "time": 5.0,
+        "position": [0, 0, 4],
+        "zoom": 1.5,
+        "fov": 35.0,
+        "technique": "Close-up Shot"
+      },
+      {
+        "time": 10.0,
+        "position": [1.5, 0, 5],
+        "zoom": 1.0,
+        "fov": 45.0,
+        "technique": "Tracking Shot - Following Subject"
+      },
+      {
+        "time": 13.0,
+        "position": [0, 1, 5],
+        "zoom": 1.2,
+        "fov": 50.0,
+        "technique": "Tracking Shot - Vertical Movement"
+      },
+      {
+        "time": 16.0,
+        "position": [0, 0.5, 6],
+        "zoom": 0.9,
+        "fov": 55.0,
+        "technique": "Final Wide Composition"
+      }
+    ]
+  }
+}

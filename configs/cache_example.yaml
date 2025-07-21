@@ -1,0 +1,97 @@
+name: "CacheExample"
+duration: 8.0
+description: "Demonstrates caching functionality in Manim Studio"
+
+# Cache configuration
+cache:
+  enabled: true
+  cache_dir: "./animation_cache"
+  max_size_mb: 200
+  ttl_seconds: 7200  # 2 hours
+
+# Asset configuration with caching
+assets:
+  base_path: "./assets"
+  use_cache: true
+  scan_dirs:
+    - path: "images"
+      recursive: true
+    - path: "textures"
+      recursive: false
+
+# Objects with cached assets
+objects:
+  title:
+    type: text
+    text: "Manim Studio with Caching"
+    params:
+      font_size: 56
+      gradient: ["#3498db", "#9b59b6"]
+    
+  subtitle:
+    type: text
+    text: "Faster rendering with intelligent caching"
+    params:
+      font_size: 36
+      color: "#95a5a6"
+    
+  cache_icon:
+    type: placeholder  # Would be an actual image in production
+    name: "cache_icon.svg"
+    params:
+      width: 3
+      height: 3
+      text: "Cache"
+      color: "#2ecc71"
+
+# Timeline with cached effects
+timeline:
+  - start: 0.0
+    duration: 2.0
+    animations:
+      - type: write
+        object: title
+        params:
+          run_time: 1.5
+  
+  - start: 1.5
+    duration: 2.0
+    animations:
+      - type: fade_in
+        object: subtitle
+        params:
+          run_time: 1.0
+  
+  - start: 3.0
+    duration: 3.0
+    animations:
+      - type: grow_from_center
+        object: cache_icon
+        params:
+          run_time: 1.0
+      
+      - type: rotate
+        object: cache_icon
+        start_time: 1.0
+        params:
+          angle: 360
+          about_point: ORIGIN
+          run_time: 2.0
+  
+  - start: 6.0
+    duration: 2.0
+    animations:
+      - type: fade_out_all
+        params:
+          run_time: 1.5
+
+# Effects that can be cached
+effects:
+  - type: particle_burst
+    start_time: 3.5
+    params:
+      position: [0, 0, 0]
+      particle_count: 50
+      colors: ["#3498db", "#2ecc71", "#9b59b6"]
+      spread_radius: 3.0
+      cache_frames: true  # Enable frame caching for this effect

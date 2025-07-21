@@ -6,6 +6,15 @@
   "resolution": [1920, 1080],
   "fps": 60,
   
+  "camera": {
+    "position": [0, 0, 6],
+    "rotation": [0, 0, 0],
+    "zoom": 1.2,
+    "fov": 45.0,
+    "near_clip": 0.1,
+    "far_clip": 100.0
+  },
+  
   "objects": {
     "title": {
       "type": "text",

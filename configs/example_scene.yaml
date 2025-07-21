@@ -6,6 +6,15 @@ background_color: "#0a0a0a"
 resolution: [1920, 1080]
 fps: 60
 
+# Camera configuration (optional)
+camera:
+  position: [0, 0, 5]
+  rotation: [0, 0, 0]
+  zoom: 1.0
+  fov: 60.0
+  near_clip: 0.1
+  far_clip: 100.0
+
 # Asset definitions
 assets:
   logo: "assets/images/logo.png"

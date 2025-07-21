@@ -1,0 +1,54 @@
+# TikTok Content Configuration
+content_type: "tiktok"
+platform: "tiktok"
+version: "1.0"
+
+# Platform constraints
+constraints:
+  duration:
+    min: 1
+    max: 60
+    optimal: 15-30
+  aspect_ratio: "9:16"  # Vertical
+  resolution:
+    width: 1080
+    height: 1920
+  fps: 30
+  file_size_mb: 287  # TikTok limit
+  
+# Content requirements  
+requirements:
+  audio_sync: critical  # Must sync to trending audio
+  loop_friendly: true
+  hook_timing: 0-3  # Seconds to grab attention
+  captions: recommended
+  hashtags:
+    min: 3
+    max: 5
+    
+# Optimization settings
+optimization:
+  compression: "h264"
+  bitrate: "6000k"
+  audio_codec: "aac"
+  audio_bitrate: "128k"
+  
+# Visual style
+style:
+  transitions:
+    max_duration: 0.3  # Quick transitions
+    types: ["cut", "slide", "zoom"]
+  effects:
+    trending: ["speed_ramp", "freeze_frame", "split_screen"]
+  text:
+    position: "center"
+    duration: 2-3  # Seconds
+    style: "bold_sans"
+    
+# Export settings
+export:
+  format: "mp4"
+  color_space: "sRGB"
+  metadata:
+    include_hashtags: true
+    include_music_credit: true

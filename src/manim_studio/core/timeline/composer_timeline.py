@@ -157,6 +157,9 @@ class TimelineLayer:
     tracks: List[TimelineTrack] = field(default_factory=list)
     blend_mode: str = "normal"
     opacity: float = 1.0
+    z_index: int = 0  # Layer ordering - higher values appear on top
+    parent_layer: Optional[str] = None  # For nested layers
+    transform: Dict[str, float] = field(default_factory=lambda: {"x": 0, "y": 0, "scale": 1, "rotation": 0})
     
     def add_track(self, track: TimelineTrack):
         """Add a track to this layer."""
@@ -225,15 +228,20 @@ class ComposerTimeline:
     
     def _create_default_layers(self):
         """Create default timeline layers."""
-        self.add_layer("Background", ["background", "environment"])
-        self.add_layer("Main", ["objects", "text", "shapes"])
-        self.add_layer("Effects", ["particles", "shaders", "filters"])
-        self.add_layer("Foreground", ["overlays", "UI"])
-        self.add_layer("Audio", ["music", "sfx", "voiceover"])
+        self.add_layer("Background", ["background", "environment"], z_index=0)
+        self.add_layer("Main", ["objects", "text", "shapes"], z_index=100)
+        self.add_layer("Effects", ["particles", "shaders", "filters"], z_index=200)
+        self.add_layer("Foreground", ["overlays", "UI"], z_index=300)
+        self.add_layer("Audio", ["music", "sfx", "voiceover"], z_index=400)
     
-    def add_layer(self, name: str, track_names: List[str] = None) -> TimelineLayer:
-        """Add a new layer with optional tracks."""
-        layer = TimelineLayer(name)
+    def add_layer(self, name: str, track_names: List[str] = None, z_index: Optional[int] = None,
+                  parent_layer: Optional[str] = None, **kwargs) -> TimelineLayer:
+        """Add a new layer with optional tracks and z-ordering."""
+        # Auto-assign z_index if not provided
+        if z_index is None:
+            z_index = len(self.layers) * 10  # Leave gaps for insertion
+        
+        layer = TimelineLayer(name, z_index=z_index, parent_layer=parent_layer, **kwargs)
         
         if track_names:
             for track_name in track_names:
@@ -242,6 +250,7 @@ class ComposerTimeline:
                 layer.add_track(track)
         
         self.layers.append(layer)
+        self._sort_layers_by_z_index()
         return layer
     
     def _infer_track_type(self, track_name: str) -> TrackType:
@@ -412,6 +421,9 @@ class ComposerTimeline:
                 "visible": layer.visible,
                 "locked": layer.locked,
                 "solo": layer.solo,
+                "z_index": layer.z_index,
+                "parent_layer": layer.parent_layer,
+                "transform": layer.transform,
                 "tracks": []
             }
             
@@ -469,7 +481,10 @@ class ComposerTimeline:
                 name=layer_data["name"],
                 visible=layer_data.get("visible", True),
                 locked=layer_data.get("locked", False),
-                solo=layer_data.get("solo", False)
+                solo=layer_data.get("solo", False),
+                z_index=layer_data.get("z_index", 0),
+                parent_layer=layer_data.get("parent_layer"),
+                transform=layer_data.get("transform", {"x": 0, "y": 0, "scale": 1, "rotation": 0})
             )
             
             for track_data in layer_data.get("tracks", []):
@@ -523,6 +538,83 @@ class ComposerTimeline:
         """Trigger playback callbacks."""
         for callback in self.playback_callbacks:
             callback(scene, self.current_time)
+    
+    def _sort_layers_by_z_index(self):
+        """Sort layers by z-index for proper rendering order."""
+        self.layers.sort(key=lambda layer: layer.z_index)
+    
+    def set_layer_z_index(self, layer_name: str, z_index: int):
+        """Set z-index for a specific layer."""
+        layer = self.get_layer(layer_name)
+        if layer:
+            layer.z_index = z_index
+            self._sort_layers_by_z_index()
+    
+    def move_layer_forward(self, layer_name: str):
+        """Move layer one position forward (higher z-index)."""
+        layer = self.get_layer(layer_name)
+        if not layer:
+            return
+        
+        current_idx = self.layers.index(layer)
+        if current_idx < len(self.layers) - 1:
+            # Swap z-indices
+            next_layer = self.layers[current_idx + 1]
+            layer.z_index, next_layer.z_index = next_layer.z_index, layer.z_index
+            self._sort_layers_by_z_index()
+    
+    def move_layer_backward(self, layer_name: str):
+        """Move layer one position backward (lower z-index)."""
+        layer = self.get_layer(layer_name)
+        if not layer:
+            return
+        
+        current_idx = self.layers.index(layer)
+        if current_idx > 0:
+            # Swap z-indices
+            prev_layer = self.layers[current_idx - 1]
+            layer.z_index, prev_layer.z_index = prev_layer.z_index, layer.z_index
+            self._sort_layers_by_z_index()
+    
+    def move_layer_to_top(self, layer_name: str):
+        """Move layer to the top (highest z-index)."""
+        layer = self.get_layer(layer_name)
+        if layer:
+            max_z = max((l.z_index for l in self.layers), default=0)
+            layer.z_index = max_z + 10
+            self._sort_layers_by_z_index()
+    
+    def move_layer_to_bottom(self, layer_name: str):
+        """Move layer to the bottom (lowest z-index)."""
+        layer = self.get_layer(layer_name)
+        if layer:
+            min_z = min((l.z_index for l in self.layers), default=0)
+            layer.z_index = min_z - 10
+            self._sort_layers_by_z_index()
+    
+    def get_layers_ordered(self) -> List[TimelineLayer]:
+        """Get layers in proper rendering order (by z-index)."""
+        return sorted(self.layers, key=lambda layer: layer.z_index)
+    
+    def apply_layer_ordering_to_scene(self, scene, mobjects_by_layer: Dict[str, List]):
+        """Apply layer z-ordering to Manim scene objects.
+        
+        Args:
+            scene: The Manim scene
+            mobjects_by_layer: Dict mapping layer names to lists of mobjects
+        """
+        # Clear and re-add mobjects in proper order
+        all_mobjects = []
+        for layer in self.get_layers_ordered():
+            if layer.name in mobjects_by_layer:
+                all_mobjects.extend(mobjects_by_layer[layer.name])
+        
+        # Remove all mobjects
+        scene.remove(*scene.mobjects)
+        
+        # Re-add in proper order
+        for mob in all_mobjects:
+            scene.add(mob)
     
     def generate_preview_data(self, width: int = 800, height: int = 200) -> Dict[str, Any]:
         """Generate preview data for timeline visualization."""

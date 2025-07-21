@@ -5,7 +5,7 @@ import sys
 sys.path.insert(0, 'src')
 
 # Import only what we need
-from manim_studio.core.composer_timeline import ComposerTimeline, InterpolationType, Keyframe
+from manim_studio.core.timeline.composer_timeline import ComposerTimeline, InterpolationType, Keyframe
 
 class TimelineTest(Scene):
     def construct(self):

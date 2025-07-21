@@ -1,0 +1,66 @@
+# YouTube Shorts Configuration
+content_type: "youtube_short"
+platform: "youtube"
+version: "1.0"
+
+# Platform constraints
+constraints:
+  duration:
+    min: 1
+    max: 60
+    optimal: 50-59  # Use full duration
+  aspect_ratio: "9:16"  # Vertical
+  resolution:
+    width: 1080
+    height: 1920
+  fps: 30
+  file_size_mb: 1000  # YouTube allows larger files
+  
+# Content requirements  
+requirements:
+  audio_sync: important
+  loop_friendly: false  # Not as critical as TikTok
+  hook_timing: 0-5  # Slightly more time than TikTok
+  captions: required  # YouTube auto-captions less reliable
+  hashtags:
+    min: 3
+    max: 15
+  chapters: false  # Not available for Shorts
+    
+# Optimization settings
+optimization:
+  compression: "h264"
+  bitrate: "8000k"  # Higher quality than TikTok
+  audio_codec: "aac"
+  audio_bitrate: "192k"
+  
+# Visual style
+style:
+  transitions:
+    max_duration: 0.5
+    types: ["cut", "fade", "slide", "zoom"]
+  effects:
+    recommended: ["text_animations", "progress_bars", "callouts"]
+  text:
+    position: "lower_third"
+    duration: 3-5  # Seconds
+    style: "youtube_sans"
+  thumbnails:
+    generate: true
+    style: "eye_catching"
+    
+# YouTube-specific features
+youtube_features:
+  end_screen: false  # Not supported in Shorts
+  cards: false
+  subscribe_reminder: 
+    enabled: true
+    timing: 45-55  # Near end
+    
+# Export settings
+export:
+  format: "mp4"
+  color_space: "Rec.709"
+  metadata:
+    include_description: true
+    include_tags: true

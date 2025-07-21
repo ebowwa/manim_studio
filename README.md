@@ -1,88 +1,44 @@
-# Manim Studio v2.0 - Scalable Animation Framework
+# Manim Studio - Professional Animation Framework for Python
 
-A configuration-driven framework for creating animated videos using Manim. Now with improved scalability, modularity, and ease of use.
+[![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)](https://www.python.org/downloads/)
+[![Manim Version](https://img.shields.io/badge/manim-0.17.3%2B-green)](https://www.manim.community/)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
+[![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-## What's New in v2.0
+**Create stunning mathematical animations and visualizations with code** - Manim Studio is a powerful, configuration-driven framework built on top of Manim that makes creating professional animated videos accessible to everyone.
 
-### 🚀 Configuration-Driven Scenes
-Create complex animations using YAML or JSON configuration files instead of hardcoding everything:
+🎬 **Perfect for**: Educational content, data visualization, mathematical animations, video production, motion graphics, and creative coding.
 
-```yaml
-name: "MyAnimation"
-duration: 10.0
-background_color: "#000000"
+## 🌟 Key Features
 
-objects:
-  title:
-    type: text
-    text: "Hello World"
-    params:
-      gradient: ["#FF6B6B", "#4ECDC4"]
-      scale: 1.5
+- **📝 Configuration-Driven**: Create complex animations using simple YAML/JSON files - no programming required
+- **⏱️ Advanced Timeline System**: Choreograph animations with millisecond precision
+- **🎨 70+ Built-in Effects**: Particles, transitions, morphing, and more
+- **🔌 Plugin Architecture**: Extend with custom effects and components
+- **📦 Asset Management**: Automatic loading, caching, and placeholder generation
+- **🚀 CLI Tool**: Render videos directly from command line
+- **🎯 Production-Ready**: Used for educational videos, presentations, and content creation
 
-effects:
-  - type: particle_system
-    start_time: 2.0
-    params:
-      n_emitters: 3
-      particle_color: "#FFD700"
+## 🚀 Quick Start
 
-animations:
-  - target: title
-    animation_type: write
-    start_time: 0.0
-    duration: 2.0
-```
-
-### 🎬 Timeline System
-Choreograph complex animation sequences with precise timing control:
-
-```python
-timeline = Timeline()
-timeline.add_event(0.0, show_title)
-timeline.add_animation(2.0, FadeIn(subtitle))
-timeline.add_sequence(5.0, effect_sequence)
-timeline.play(scene)
-```
-
-### 📦 Asset Management
-Centralized asset loading with automatic caching and placeholders:
-
-```python
-assets = AssetManager("./project")
-logo = assets.load_image("logo.png")
-data = assets.load_data("config.json")
-```
-
-### 🎨 Effect Registry
-Extensible effect system with plugin architecture:
-
-```python
-@register_effect("custom_effect")
-class CustomEffect(BaseEffect):
-    def create(self):
-        # Your effect logic
-        pass
-```
-
-### 🔧 CLI Tool
-Render scenes directly from configuration files:
+### Installation
 
 ```bash
-manim-studio render config.yaml --quality high --preview
-```
+# Install from PyPI (coming soon)
+pip install manim-studio
 
-## Installation
-
-```bash
+# Or install from source
+git clone https://github.com/ebowwa/manim_studio.git
+cd manim_studio
 pip install -e .
 ```
 
-## Quick Start
+### Create Your First Animation
 
-1. **Create a configuration file** (`my_scene.yaml`):
+1. **Create a configuration file** (`hello_world.yaml`):
+
 ```yaml
-name: "QuickDemo"
+name: "HelloWorld"
 duration: 5.0
 
 objects:
@@ -90,8 +46,8 @@ objects:
     type: text
     text: "Welcome to Manim Studio!"
     params:
-      color: "#FFFFFF"
-      scale: 1.2
+      gradient: ["#FF6B6B", "#4ECDC4"]
+      scale: 1.5
 
 animations:
   - target: message
@@ -100,88 +56,195 @@ animations:
     duration: 2.0
 ```
 
-2. **Render the scene**:
+```
+
+2. **Render your animation**:
+
 ```bash
-python -m manim_studio.cli my_scene.yaml --preview
+manim-studio render hello_world.yaml --preview
 ```
 
-## Architecture Improvements
+3. **Watch your creation come to life!** 🎉
 
-### Before (v1.0)
-- Hardcoded scene definitions
-- Fixed effect parameters
-- Limited reusability
-- Difficult to scale
+## 📚 Examples
 
-### After (v2.0)
-- Configuration-driven
-- Dynamic effect system
-- Modular components
-- Easy to extend and maintain
+### Mathematical Visualization
 
-## Features
+```yaml
+name: "MathDemo"
+duration: 8.0
 
-- **Configuration Files**: Define scenes in YAML/JSON
-- **Timeline System**: Precise animation choreography
-- **Asset Pipeline**: Automatic asset loading and caching
-- **Effect Registry**: Plugin-based effect system
-- **Scene Builder**: Dynamic scene generation from configs
-- **CLI Interface**: Command-line rendering tool
+objects:
+  equation:
+    type: text
+    text: "$e^{i\pi} + 1 = 0$"
+    params:
+      tex: true
+      scale: 2.0
+      
+  graph:
+    type: function_graph
+    function: "lambda x: np.sin(x)"
+    params:
+      x_range: [-3, 3]
+      color: "#4ECDC4"
 
-## Example: Book Trailer
-
-Create a book trailer with multiple effects:
-
-```json
-{
-  "name": "BookTrailer",
-  "duration": 30.0,
-  "objects": {
-    "title": {
-      "type": "text",
-      "text": "The Chronicles of Shadow"
-    }
-  },
-  "effects": [
-    {
-      "type": "magical_circle",
-      "params": {
-        "radius": 3.0,
-        "rotation_speed": 0.2,
-        "symbols": ["📖", "✨", "🌙", "⚔️"]
-      }
-    }
-  ]
-}
+animations:
+  - target: equation
+    animation_type: write
+    start_time: 0.0
+    duration: 2.0
+  - target: graph
+    animation_type: create
+    start_time: 2.5
+    duration: 3.0
 ```
 
-## Extending the Framework
+### Data Visualization
+
+```yaml
+name: "DataViz"
+duration: 10.0
+
+objects:
+  chart:
+    type: bar_chart
+    data: [10, 25, 15, 30, 45]
+    params:
+      labels: ["A", "B", "C", "D", "E"]
+      colors: ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7"]
+
+effects:
+  - type: particle_burst
+    start_time: 5.0
+    params:
+      position: [0, 0, 0]
+      count: 100
+
+animations:
+  - target: chart
+    animation_type: grow_from_bottom
+    start_time: 1.0
+    duration: 3.0
+```
+
+## 🛠️ Advanced Features
+
+### Timeline System
+
+Create complex, synchronized animations with the Timeline API:
+
+```python
+from manim_studio import Timeline, Scene
+
+timeline = Timeline()
+timeline.add_event(0.0, lambda: show_title())
+timeline.add_animation(2.0, FadeIn(subtitle))
+timeline.add_parallel([
+    (3.0, animation1),
+    (3.0, animation2),
+    (3.5, animation3)
+])
+timeline.play(scene)
+```
 
 ### Custom Effects
+
+Extend Manim Studio with your own effects:
+
 ```python
 from manim_studio import register_effect, BaseEffect
 
-@register_effect("lightning")
-class LightningEffect(BaseEffect):
+@register_effect("glitch")
+class GlitchEffect(BaseEffect):
     def create(self):
-        # Create lightning visuals
-        pass
+        # Create glitch visual elements
+        return self.elements
     
-    def animate(self, scene):
-        # Animate the effect
-        pass
+    def animate(self, scene, duration=1.0):
+        # Define glitch animation
+        scene.play(self.glitch_animation, run_time=duration)
 ```
 
-### Custom Object Types
-Add new object types to the scene builder for specialized content.
+### Asset Management
 
-## Documentation
+```python
+from manim_studio import AssetManager
 
-- [Configuration Guide](docs/configuration.md)
-- [Timeline System](docs/timeline.md)
-- [Creating Effects](docs/effects.md)
-- [Asset Management](docs/assets.md)
+# Initialize asset manager
+assets = AssetManager("./project_assets")
 
-## License
+# Load with automatic caching
+logo = assets.load_image("logo.png")
+data = assets.load_data("animation_config.json")
+audio = assets.load_audio("background_music.mp3")
 
-MIT License
+# Automatic placeholder generation if asset missing
+texture = assets.load_image("missing.jpg", placeholder=True)
+```
+
+## 📖 Documentation
+
+### Core Concepts
+- [Configuration Schema](docs/configuration.md) - Complete YAML/JSON reference
+- [Timeline System](docs/timeline.md) - Advanced choreography techniques
+- [Effect Development](docs/effects.md) - Create custom visual effects
+- [Asset Pipeline](docs/assets.md) - Media management best practices
+- [API Reference](docs/api.md) - Full Python API documentation
+
+### Tutorials
+- [Getting Started Guide](docs/tutorials/getting-started.md)
+- [Creating Educational Content](docs/tutorials/educational.md)
+- [Data Visualization](docs/tutorials/data-viz.md)
+- [Advanced Techniques](docs/tutorials/advanced.md)
+
+## 🤝 Community & Support
+
+- **Discord**: [Join our community](https://discord.gg/manim-studio)
+- **GitHub Discussions**: [Ask questions](https://github.com/ebowwa/manim_studio/discussions)
+- **Stack Overflow**: Tag your questions with `manim-studio`
+- **Twitter**: [@ManimStudio](https://twitter.com/ManimStudio)
+
+## 🚧 Roadmap
+
+- [ ] Web-based configuration editor
+- [ ] Real-time preview system
+- [ ] GPU acceleration support
+- [ ] Export to various formats (GIF, WebM, etc.)
+- [ ] Integration with popular video editors
+- [ ] AI-powered animation suggestions
+
+## 🤲 Contributing
+
+We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) for details.
+
+```bash
+# Fork and clone the repository
+git clone https://github.com/YOUR_USERNAME/manim_studio.git
+cd manim_studio
+
+# Install in development mode
+pip install -e ".[dev]"
+
+# Run tests
+pytest
+
+# Format code
+black src/
+```
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+## 🙏 Acknowledgments
+
+- Built on top of the amazing [Manim Community](https://www.manim.community/) project
+- Inspired by [3Blue1Brown](https://www.3blue1brown.com/)'s mathematical animations
+- Special thanks to all our [contributors](https://github.com/ebowwa/manim_studio/graphs/contributors)
+
+---
+
+**Made with ❤️ by the Manim Studio community**
+
+*Keywords: manim, animation, python, video, visualization, mathematical animation, educational content, motion graphics, data visualization, creative coding, animation framework, video production*
