@@ -41,6 +41,12 @@ from src.interfaces.shared_features import (
     InterfaceResult
 )
 
+# Import organized MCP tools
+try:
+    from .tools import get_all_tools
+except ImportError:
+    from tools import get_all_tools
+
 # Clean up logging after all imports to ensure stdout is clean for MCP
 for handler in logging.root.handlers[:]:
     if hasattr(handler, 'stream') and handler.stream is sys.stdout:
@@ -67,8 +73,11 @@ class MCPInterface:
     def setup_handlers(self):
         """Setup all MCP tool handlers."""
         
-        # Define all available tools
-        self.tools_list = [
+        # Get all tools from organized modules
+        self.tools_list = get_all_tools()
+        
+        # Add any additional tools specific to MCP
+        self.tools_list.extend([
                 # Scene Management
                 types.Tool(
                     name="create_scene",
@@ -286,6 +295,44 @@ class MCPInterface:
                     }
                 ),
                 
+                # Video Management
+                types.Tool(
+                    name="preview_video",
+                    description="Open and preview a generated video file",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "video_path": {"type": "string", "description": "Path to the video file (optional, uses last rendered)"}
+                        },
+                        "required": []
+                    }
+                ),
+                
+                types.Tool(
+                    name="list_videos",
+                    description="List all generated video files",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "directory": {"type": "string", "description": "Directory to search (optional, searches common locations)"},
+                            "limit": {"type": "integer", "description": "Maximum number of videos to return", "default": 10}
+                        },
+                        "required": []
+                    }
+                ),
+                
+                types.Tool(
+                    name="get_video_info",
+                    description="Get information about a video file",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "video_path": {"type": "string", "description": "Path to the video file"}
+                        },
+                        "required": ["video_path"]
+                    }
+                ),
+                
                 # API Discovery
                 types.Tool(
                     name="discover_api_endpoints",
@@ -386,7 +433,7 @@ class MCPInterface:
                         "required": []
                     }
                 )
-            ]
+            ])
         
         @self.server.list_tools()
         async def handle_list_tools() -> List[types.Tool]:
@@ -541,6 +588,23 @@ class MCPInterface:
             return await self._save_scene(
                 path=arguments["path"],
                 scene_name=arguments.get("scene_name")
+            )
+        
+        # Video Management
+        elif name == "preview_video":
+            return await self._preview_video(
+                video_path=arguments.get("video_path")
+            )
+        
+        elif name == "list_videos":
+            return await self._list_videos(
+                directory=arguments.get("directory"),
+                limit=arguments.get("limit", 10)
+            )
+        
+        elif name == "get_video_info":
+            return await self._get_video_info(
+                video_path=arguments["video_path"]
             )
         
         # Documentation & Help
@@ -1102,6 +1166,199 @@ For a complete tool reference, use:
             data=result_data,
             message=f"Found {result_data.get('total_tools', 0)} tools"
         )
+    
+    async def _preview_video(self, video_path: Optional[str] = None) -> InterfaceResult:
+        """Open and preview a video file."""
+        try:
+            import subprocess
+            import platform
+            import glob
+            
+            # If no path provided, try to find the most recent video
+            if not video_path:
+                search_paths = [
+                    "user-data/videos/**/*.mp4",
+                    "user-data/**/*.mp4",
+                    "/tmp/**/*.mp4",
+                    "./**/*.mp4"
+                ]
+                
+                all_videos = []
+                for pattern in search_paths:
+                    try:
+                        videos = glob.glob(pattern, recursive=True)
+                        all_videos.extend(videos)
+                    except:
+                        pass
+                
+                if not all_videos:
+                    return InterfaceResult(
+                        status="error",
+                        error="No video files found. Please render a scene first."
+                    )
+                
+                # Get the most recent video
+                all_videos.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+                video_path = all_videos[0]
+            
+            # Check if file exists
+            if not os.path.exists(video_path):
+                return InterfaceResult(
+                    status="error",
+                    error=f"Video file not found: {video_path}"
+                )
+            
+            # Open the video with the default system player
+            system = platform.system()
+            if system == "Darwin":  # macOS
+                subprocess.run(["open", video_path])
+            elif system == "Linux":
+                subprocess.run(["xdg-open", video_path])
+            elif system == "Windows":
+                subprocess.run(["start", video_path], shell=True)
+            else:
+                return InterfaceResult(
+                    status="error",
+                    error=f"Unsupported platform: {system}"
+                )
+            
+            return InterfaceResult(
+                status="success",
+                data={
+                    "video_path": video_path,
+                    "file_size": os.path.getsize(video_path),
+                    "opened": True
+                },
+                message=f"Opened video: {video_path}"
+            )
+            
+        except Exception as e:
+            logger.error(f"Failed to preview video: {e}")
+            return InterfaceResult(status="error", error=str(e))
+    
+    async def _list_videos(self, directory: Optional[str] = None, limit: int = 10) -> InterfaceResult:
+        """List available video files."""
+        try:
+            import glob
+            from datetime import datetime
+            
+            if directory:
+                search_patterns = [f"{directory}/**/*.mp4", f"{directory}/**/*.mov"]
+            else:
+                search_patterns = [
+                    "user-data/videos/**/*.mp4",
+                    "user-data/**/*.mp4",
+                    "/tmp/**/*.mp4",
+                    "./**/*.mp4",
+                    "user-data/videos/**/*.mov",
+                    "/tmp/**/*.mov"
+                ]
+            
+            all_videos = []
+            for pattern in search_patterns:
+                try:
+                    videos = glob.glob(pattern, recursive=True)
+                    all_videos.extend(videos)
+                except:
+                    pass
+            
+            # Remove duplicates
+            all_videos = list(set(all_videos))
+            
+            # Get file info and sort by modification time
+            video_info = []
+            for video in all_videos:
+                try:
+                    stat = os.stat(video)
+                    video_info.append({
+                        "path": video,
+                        "filename": os.path.basename(video),
+                        "size": stat.st_size,
+                        "size_mb": round(stat.st_size / (1024 * 1024), 2),
+                        "modified": datetime.fromtimestamp(stat.st_mtime).isoformat(),
+                        "modified_timestamp": stat.st_mtime
+                    })
+                except:
+                    pass
+            
+            # Sort by modification time (newest first)
+            video_info.sort(key=lambda x: x["modified_timestamp"], reverse=True)
+            
+            # Limit results
+            video_info = video_info[:limit]
+            
+            # Remove timestamp from final output
+            for info in video_info:
+                info.pop("modified_timestamp", None)
+            
+            return InterfaceResult(
+                status="success",
+                data={
+                    "videos": video_info,
+                    "total_found": len(video_info),
+                    "search_patterns": search_patterns if directory else ["various locations"]
+                },
+                message=f"Found {len(video_info)} video files"
+            )
+            
+        except Exception as e:
+            logger.error(f"Failed to list videos: {e}")
+            return InterfaceResult(status="error", error=str(e))
+    
+    async def _get_video_info(self, video_path: str) -> InterfaceResult:
+        """Get detailed information about a video file."""
+        try:
+            if not os.path.exists(video_path):
+                return InterfaceResult(
+                    status="error",
+                    error=f"Video file not found: {video_path}"
+                )
+            
+            stat = os.stat(video_path)
+            from datetime import datetime
+            
+            # Try to get video metadata using ffprobe if available
+            metadata = {}
+            try:
+                import subprocess
+                result = subprocess.run(
+                    ["ffprobe", "-v", "quiet", "-print_format", "json", "-show_streams", video_path],
+                    capture_output=True,
+                    text=True
+                )
+                if result.returncode == 0:
+                    import json as json_lib
+                    probe_data = json_lib.loads(result.stdout)
+                    if "streams" in probe_data and probe_data["streams"]:
+                        stream = probe_data["streams"][0]
+                        metadata = {
+                            "width": stream.get("width"),
+                            "height": stream.get("height"),
+                            "duration": stream.get("duration"),
+                            "fps": stream.get("r_frame_rate"),
+                            "codec": stream.get("codec_name")
+                        }
+            except:
+                # ffprobe not available
+                pass
+            
+            return InterfaceResult(
+                status="success",
+                data={
+                    "path": video_path,
+                    "filename": os.path.basename(video_path),
+                    "size": stat.st_size,
+                    "size_mb": round(stat.st_size / (1024 * 1024), 2),
+                    "created": datetime.fromtimestamp(stat.st_ctime).isoformat(),
+                    "modified": datetime.fromtimestamp(stat.st_mtime).isoformat(),
+                    "metadata": metadata
+                },
+                message=f"Video info for {os.path.basename(video_path)}"
+            )
+            
+        except Exception as e:
+            logger.error(f"Failed to get video info: {e}")
+            return InterfaceResult(status="error", error=str(e))
     
     async def run(self):
         """Run the MCP server."""

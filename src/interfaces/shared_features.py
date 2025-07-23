@@ -700,9 +700,15 @@ class RenderEngine:
             RenderQuality.HIGH: "h", 
             RenderQuality.ULTRA: "k"
         }
-        # Configure script storage directory
-        self.script_storage_dir = Path("/Users/ebowwa/apps/manim_studio/user-data/mcp-scripts")
-        self.script_storage_dir.mkdir(parents=True, exist_ok=True)
+        # Configure script storage directory - use temp if main dir not writable
+        try:
+            self.script_storage_dir = Path("/Users/ebowwa/apps/manim_studio/user-data/mcp-scripts")
+            self.script_storage_dir.mkdir(parents=True, exist_ok=True)
+        except (OSError, PermissionError):
+            # Fallback to temp directory
+            import tempfile
+            self.script_storage_dir = Path(tempfile.gettempdir()) / "manim_mcp_scripts"
+            self.script_storage_dir.mkdir(parents=True, exist_ok=True)
     
     def generate_manim_script(self, scene: SceneDefinition) -> str:
         """Generate Manim script from scene definition."""
@@ -836,13 +842,13 @@ class Scene(Scene):
             return f'''        self.play(FadeOut(objects["{target}"], rate_func={rate_func}), run_time={duration})\n'''
         elif anim_type == "move" and "position" in anim.properties:
             pos = anim.properties["position"]
-            return f'''        self.play(objects["{target}"].animate.move_to([{pos[0]}, {pos[1]}, {pos[2]}]), rate_func={rate_func}, run_time={duration})\n'''
+            return f'''        self.play(objects["{target}"].animate.move_to([{pos[0]}, {pos[1]}, {pos[2]}]), run_time={duration})\n'''
         elif anim_type == "scale" and "scale" in anim.properties:
             scale = anim.properties["scale"]
-            return f'''        self.play(objects["{target}"].animate.scale({scale}), rate_func={rate_func}, run_time={duration})\n'''
+            return f'''        self.play(objects["{target}"].animate.scale({scale}), run_time={duration})\n'''
         elif anim_type == "rotate" and "angle" in anim.properties:
             angle = anim.properties["angle"]
-            return f'''        self.play(objects["{target}"].animate.rotate({angle}), rate_func={rate_func}, run_time={duration})\n'''
+            return f'''        self.play(Rotate(objects["{target}"], angle={angle}), run_time={duration})\n'''
         
         return f'''        # TODO: Animation {anim_type} for {target}\n'''
     
@@ -906,7 +912,17 @@ class Scene(Scene):
             
             # Generate render command
             quality_flag = self.quality_map[quality]
-            render_command = f"manim {temp_file.name} Scene -{quality_flag} -o {output_path}"
+            # Extract just the filename from the output path
+            output_filename = os.path.basename(output_path)
+            
+            # Use temp directory for media if default not writable
+            media_dir = "user-data"
+            try:
+                Path("user-data").mkdir(exist_ok=True)
+            except (OSError, PermissionError):
+                media_dir = tempfile.gettempdir()
+            
+            render_command = f"manim --media_dir {media_dir} {temp_file.name} Scene -q {quality_flag} -o {output_filename}"
             
             result_data = {
                 "script_path": temp_file.name,
@@ -933,10 +949,6 @@ class Scene(Scene):
     def execute_render(self, render_command: str, script_path: str = None) -> InterfaceResult:
         """Execute the render command and track progress."""
         try:
-            # Ensure we have the media_dir flag
-            if "--media_dir user-data" not in render_command:
-                render_command = render_command.replace("manim ", "manim --media_dir user-data ")
-            
             logger.info(f"Executing render: {render_command}")
             
             # Execute the command
@@ -991,15 +1003,36 @@ class Scene(Scene):
                             output_file = parts[1]
                             break
                 
+                # Find the actual output file location
+                actual_output = None
+                if output_file and os.path.exists(output_file):
+                    actual_output = output_file
+                else:
+                    # Search for the file in common locations
+                    possible_paths = []
+                    for line in stdout_lines + stderr_lines:
+                        if ".mp4" in line or ".mov" in line or ".avi" in line:
+                            import re
+                            paths = re.findall(r'[\'"]?([^\'"]+\.(?:mp4|mov|avi))[\'"]?', line)
+                            possible_paths.extend(paths)
+                    
+                    for path in possible_paths:
+                        if os.path.exists(path):
+                            actual_output = path
+                            break
+                
                 return InterfaceResult(
                     status="success",
                     data={
-                        "output_file": output_file,
+                        "output_file": actual_output,
+                        "requested_path": output_file,
+                        "video_exists": actual_output is not None,
+                        "video_size": os.path.getsize(actual_output) if actual_output and os.path.exists(actual_output) else None,
                         "stdout": "\n".join(stdout_lines),
                         "stderr": "\n".join(stderr_lines),
                         "return_code": process.returncode
                     },
-                    message=f"Render completed successfully{f' at {output_file}' if output_file else ''}"
+                    message=f"Render completed successfully{f' at {actual_output}' if actual_output else ''}"
                 )
             else:
                 return InterfaceResult(

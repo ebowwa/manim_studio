@@ -6,9 +6,9 @@
   "license": "MIT",
   "server": {
     "command": "python",
-    "args": ["../mcp_interface.py"],
+    "args": ["server.py"],
     "env": {
-      "PYTHONPATH": "../.."
+      "PYTHONPATH": "../../.."
     }
   },
   "tools": [
@@ -49,7 +49,7 @@
     "mcpServers": {
       "manim-studio": {
         "command": "/Users/ebowwa/.pyenv/shims/python3",
-        "args": ["/Users/ebowwa/apps/manim_studio/src/interfaces/mcp_interface.py"],
+        "args": ["/Users/ebowwa/apps/manim_studio/src/interfaces/mcp/server.py"],
         "env": {
           "PYTHONPATH": "/Users/ebowwa/apps/manim_studio"
         }

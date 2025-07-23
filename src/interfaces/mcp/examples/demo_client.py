@@ -10,7 +10,7 @@ async def create_animated_logo():
     
     server_params = StdioServerParameters(
         command="python",
-        args=["../mcp_interface.py"]
+        args=["../server.py"]
     )
     
     async with stdio_client(server_params) as (read, write):
@@ -169,7 +169,7 @@ async def create_data_visualization():
     
     server_params = StdioServerParameters(
         command="python",
-        args=["../mcp_interface.py"]
+        args=["../server.py"]
     )
     
     async with stdio_client(server_params) as (read, write):
