@@ -1,0 +1,334 @@
+# Final Comprehensive Manim Studio Showcase
+# Demonstrates all working features in the correct YAML format
+
+scene:
+  name: "Manim Studio Complete Showcase"
+  description: "Comprehensive demonstration of all working features"
+  duration: 120  # 2 minutes
+  resolution: [1920, 1080]
+  fps: 30
+  background_color: "#0a0a0a"
+  
+  objects:
+    # Title section
+    - name: "main_title"
+      type: "text"
+      params:
+        text: "MANIM STUDIO"
+        font_size: 84
+        gradient: ["#FFD700", "#FF6B6B", "#4ECDC4", "#9B59B6"]
+        weight: "BOLD"
+      position: [0, 3.5, 0]
+      
+    - name: "subtitle"
+      type: "text"
+      params:
+        text: "Complete Feature Showcase"
+        font_size: 36
+        color: "#CCCCCC"
+      position: [0, 2.8, 0]
+      
+    # Basic shapes demonstration
+    - name: "circle1"
+      type: "shape"
+      params:
+        shape_type: "circle"
+        radius: 0.8
+        color: "#FF6B6B"
+        fill_opacity: 0.8
+        stroke_width: 3
+      position: [-5, 1, 0]
+      
+    - name: "square1"
+      type: "shape"
+      params:
+        shape_type: "square"
+        side_length: 1.5
+        color: "#4ECDC4"
+        fill_opacity: 0.8
+        stroke_width: 3
+      position: [-2.5, 1, 0]
+      
+    - name: "triangle1"
+      type: "shape"
+      params:
+        shape_type: "triangle"
+        side_length: 1.5
+        color: "#9B59B6"
+        fill_opacity: 0.8
+        stroke_width: 3
+      position: [0, 1, 0]
+      
+    - name: "hexagon1"
+      type: "shape"
+      params:
+        shape_type: "polygon"
+        vertices: 6
+        radius: 0.8
+        color: "#FFD700"
+        fill_opacity: 0.8
+        stroke_width: 3
+      position: [2.5, 1, 0]
+      
+    - name: "star1"
+      type: "shape"
+      params:
+        shape_type: "star"
+        outer_radius: 0.8
+        inner_radius: 0.4
+        n_points: 5
+        color: "#E74C3C"
+        fill_opacity: 0.8
+        stroke_width: 3
+      position: [5, 1, 0]
+      
+    # Text demonstrations
+    - name: "basic_text"
+      type: "text"
+      params:
+        text: "Basic Shapes & Text"
+        font_size: 28
+        color: "#FFFFFF"
+      position: [0, -0.5, 0]
+      
+    - name: "gradient_text"
+      type: "text"
+      params:
+        text: "Gradient Text Effects"
+        font_size: 32
+        gradient: ["#FF0080", "#8000FF", "#0080FF"]
+        weight: "BOLD"
+      position: [0, -1.5, 0]
+      
+    - name: "animated_text"
+      type: "text"
+      params:
+        text: "Complex Animations"
+        font_size: 36
+        color: "#00FF80"
+        weight: "BOLD"
+      position: [0, -2.5, 0]
+      
+    # Advanced shapes for transformation demos
+    - name: "morph_circle"
+      type: "shape"
+      params:
+        shape_type: "circle"
+        radius: 1.2
+        color: "#FF00FF"
+        fill_opacity: 0.6
+        stroke_width: 4
+      position: [-3, -1, 0]
+      
+    - name: "morph_square"
+      type: "shape"
+      params:
+        shape_type: "square"
+        side_length: 2
+        color: "#00FFFF"
+        fill_opacity: 0.6
+        stroke_width: 4
+      position: [3, -1, 0]
+      
+    # Feature demonstration text
+    - name: "features_title"
+      type: "text"
+      params:
+        text: "✨ FEATURES DEMONSTRATED ✨"
+        font_size: 48
+        gradient: ["#FFD700", "#FF6B6B"]
+        weight: "BOLD"
+      position: [0, 0, 10]  # Hidden initially
+      
+    - name: "features_list"
+      type: "text"
+      params:
+        text: "• YAML Configuration\n• Multiple Shape Types\n• Gradient Text Effects\n• Complex Animations\n• Morphing & Transformations\n• Rotation & Scaling\n• Color Transitions"
+        font_size: 24
+        color: "#CCCCCC"
+      position: [0, -1, 10]  # Hidden initially
+      
+    # Final thank you
+    - name: "thank_you"
+      type: "text"
+      params:
+        text: "Thank You!"
+        font_size: 72
+        gradient: ["#FFD700", "#FF6B6B", "#4ECDC4", "#9B59B6"]
+        weight: "BOLD"
+      position: [0, 0, 20]  # Hidden initially
+
+  # Comprehensive animation sequence
+  animations:
+    # Opening sequence (0-10s)
+    - target: "main_title"
+      type: "write"
+      start_time: 0.5
+      duration: 2.5
+      
+    - target: "subtitle"
+      type: "fadein"
+      start_time: 2.0
+      duration: 1.5
+      
+    # Basic shapes creation (10-20s)
+    - target: "basic_text"
+      type: "write"
+      start_time: 8.0
+      duration: 1.5
+      
+    - target: ["circle1", "square1", "triangle1", "hexagon1", "star1"]
+      type: "create"
+      start_time: 10.0
+      duration: 3.0
+      
+    # Shape rotation demo (20-35s)
+    - target: ["circle1", "square1", "triangle1", "hexagon1", "star1"]
+      type: "rotate"
+      start_time: 15.0
+      duration: 4.0
+      params:
+        angle: 6.28  # Full rotation
+        
+    # Color transitions (35-45s)
+    - target: "circle1"
+      type: "fade_to_color"
+      start_time: 20.0
+      duration: 2.0
+      params:
+        color: "#00FF00"
+        
+    - target: "square1"
+      type: "fade_to_color"
+      start_time: 21.0
+      duration: 2.0
+      params:
+        color: "#FF00FF"
+        
+    - target: "triangle1"
+      type: "fade_to_color"
+      start_time: 22.0
+      duration: 2.0
+      params:
+        color: "#FFFF00"
+        
+    # Text effects demonstration (45-60s)
+    - target: "gradient_text"
+      type: "write"
+      start_time: 25.0
+      duration: 2.0
+      
+    - target: "animated_text"
+      type: "write"
+      start_time: 28.0
+      duration: 2.0
+      
+    # Advanced morphing (60-80s)
+    - target: "morph_circle"
+      type: "create"
+      start_time: 35.0
+      duration: 1.5
+      
+    - target: "morph_square"
+      type: "create"
+      start_time: 36.0
+      duration: 1.5
+      
+    # Scale animations
+    - target: ["morph_circle", "morph_square"]
+      type: "scale"
+      start_time: 40.0
+      duration: 3.0
+      params:
+        factor: 1.5
+        
+    - target: ["morph_circle", "morph_square"]
+      type: "scale"
+      start_time: 44.0
+      duration: 2.0
+      params:
+        factor: 0.7
+        
+    # Complex rotation sequence
+    - target: "morph_circle"
+      type: "rotate"
+      start_time: 47.0
+      duration: 5.0
+      params:
+        angle: 12.56  # Two full rotations
+        
+    - target: "morph_square"
+      type: "rotate"
+      start_time: 48.0
+      duration: 4.0
+      params:
+        angle: -9.42  # 1.5 rotations counter-clockwise
+        
+    # Shape morphing
+    - target: ["hexagon1", "star1"]
+      type: "scale"
+      start_time: 50.0
+      duration: 3.0
+      params:
+        factor: 2.0
+        
+    # Features showcase (80-100s)
+    - target: ["main_title", "subtitle", "basic_text", "gradient_text", "animated_text"]
+      type: "fadeout"
+      start_time: 55.0
+      duration: 2.0
+      
+    - target: ["circle1", "square1", "triangle1", "hexagon1", "star1", "morph_circle", "morph_square"]
+      type: "fadeout"
+      start_time: 56.0
+      duration: 2.0
+      
+    - target: "features_title"
+      type: "write"
+      start_time: 60.0
+      duration: 2.5
+      
+    - target: "features_list"
+      type: "write"
+      start_time: 63.0
+      duration: 4.0
+      
+    # Move features up
+    - target: ["features_title", "features_list"]
+      type: "shift"
+      start_time: 70.0
+      duration: 2.0
+      params:
+        shift: [0, 2, 0]
+        
+    # Final sequence (100-120s)
+    - target: ["features_title", "features_list"]
+      type: "fadeout"
+      start_time: 85.0
+      duration: 2.0
+      
+    - target: "thank_you"
+      type: "write"
+      start_time: 90.0
+      duration: 3.0
+      
+    # Final dramatic effect
+    - target: "thank_you"
+      type: "scale"
+      start_time: 95.0
+      duration: 2.0
+      params:
+        factor: 1.3
+        
+    - target: "thank_you"
+      type: "rotate"
+      start_time: 98.0
+      duration: 3.0
+      params:
+        angle: 1.57  # Quarter rotation
+        
+    # Final fade
+    - target: "thank_you"
+      type: "fadeout"
+      start_time: 115.0
+      duration: 3.0

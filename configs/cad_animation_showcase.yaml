@@ -1,0 +1,239 @@
+scene:
+  name: "CAD Animation Showcase"
+  duration: 25
+  resolution: [1920, 1080]
+  background_color: "#0a0a0a"
+  
+objects:
+  # Dashed circle that will morph
+  - name: "dashed_circle"
+    type: "dashed_shape"
+    params:
+      shape: "circle"
+      radius: 2
+      num_dashes: 20
+      dashed_ratio: 0.6
+      color: "#00ffff"
+      stroke_width: 3
+    position: [-3, 0, 0]
+    
+  # Chamfered polygon
+  - name: "chamfered_hex"
+    type: "chamfered_shape"
+    params:
+      shape: "polygon"
+      n: 6
+      radius: 2
+      chamfer_offset: 0.3
+      color: "#ff00ff"
+      stroke_width: 3
+      fill_opacity: 0.1
+    position: [3, 0, 0]
+    
+  # Cross-hatched triangle
+  - name: "hatched_triangle"
+    type: "triangle"
+    params:
+      radius: 1.5
+      color: "#ffff00"
+      stroke_width: 2
+      fill_opacity: 0
+    effects:
+      - type: "cross_hatch"
+        angle: 0.523599  # 30 degrees
+        spacing: 0.15
+        color: "#ffff00"
+        stroke_width: 1
+    position: [0, 3, 0]
+    
+  # Rounded square with animated dashed outline
+  - name: "rounded_square"
+    type: "rounded_shape"
+    params:
+      shape: "square"
+      side_length: 3
+      corner_radius: 0.5
+      color: "#00ff00"
+      stroke_width: 3
+      fill_opacity: 0
+    position: [0, -2.5, 0]
+    
+  # Path for tracing
+  - name: "trace_path"
+    type: "arc"
+    params:
+      radius: 4
+      start_angle: 0
+      angle: 6.28318  # 2*PI
+      color: "#ff6b6b"
+      stroke_width: 2
+    position: [0, 0, 0]
+    
+  # Tracer dot
+  - name: "tracer"
+    type: "dot"
+    params:
+      radius: 0.1
+      color: "#ffffff"
+    position: [4, 0, 0]
+
+animations:
+  # Create dashed circle with equalized animation
+  - target: "dashed_circle"
+    type: "create"
+    start_time: 0
+    duration: 2
+    effects:
+      - type: "equalized_animation"
+        rate_func: "smooth"
+    
+  # Create chamfered hexagon
+  - target: "chamfered_hex"
+    type: "create"
+    start_time: 1
+    duration: 2
+    effects:
+      - type: "cad_create"
+        lag_ratio: 0.1
+    
+  # Create hatched triangle
+  - target: "hatched_triangle"
+    type: "fadein"
+    start_time: 2.5
+    duration: 1.5
+    params:
+      shift: [0, -0.5, 0]
+    
+  # Create rounded square
+  - target: "rounded_square"
+    type: "create"
+    start_time: 3.5
+    duration: 2
+    
+  # Apply dashed outline effect to rounded square
+  - target: "rounded_square"
+    type: "transform"
+    start_time: 6
+    duration: 1.5
+    effects:
+      - type: "dashed_outline"
+        num_dashes: 24
+        dashed_ratio: 0.5
+    
+  # Rotate dashed circle
+  - target: "dashed_circle"
+    type: "rotate"
+    start_time: 7
+    duration: 3
+    params:
+      angle: 6.28318  # Full rotation
+      about_point: [-3, 0, 0]
+    
+  # Pulsing effect on chamfered hex
+  - target: "chamfered_hex"
+    type: "transform"
+    start_time: 8
+    duration: 2
+    params:
+      scale: 1.3
+    rate_func: "there_and_back"
+    
+  # Create trace path
+  - target: "trace_path"
+    type: "create"
+    start_time: 10
+    duration: 0.5
+    params:
+      run_time: 0.5
+    
+  # Trace animation
+  - target: "tracer"
+    type: "move_along_path"
+    start_time: 11
+    duration: 4
+    params:
+      path: "trace_path"
+    effects:
+      - type: "cad_trace"
+        fade_trace: true
+    
+  # Transform shapes with corner effects
+  - target: "dashed_circle"
+    type: "transform"
+    start_time: 15
+    duration: 2
+    effects:
+      - type: "round_corners"
+        radius: 0.3
+    
+  # Apply technical drawing style
+  - target: "chamfered_hex"
+    type: "transform"
+    start_time: 16
+    duration: 1
+    effects:
+      - type: "technical_drawing"
+        style: "blueprint"
+    
+  # Animate hatch pattern
+  - target: "hatched_triangle"
+    type: "rotate"
+    start_time: 17
+    duration: 3
+    params:
+      angle: 1.5708  # 90 degrees
+      about_point: [0, 3, 0]
+    
+  # Final flourish - all objects pulse
+  - target: "dashed_circle"
+    type: "indicate"
+    start_time: 21
+    duration: 1
+    params:
+      scale_factor: 1.2
+      color: "#ffffff"
+    
+  - target: "chamfered_hex"
+    type: "indicate"
+    start_time: 21.2
+    duration: 1
+    params:
+      scale_factor: 1.2
+      color: "#ffffff"
+    
+  - target: "hatched_triangle"
+    type: "indicate"
+    start_time: 21.4
+    duration: 1
+    params:
+      scale_factor: 1.2
+      color: "#ffffff"
+    
+  - target: "rounded_square"
+    type: "indicate"
+    start_time: 21.6
+    duration: 1
+    params:
+      scale_factor: 1.2
+      color: "#ffffff"
+
+# Camera movements
+camera:
+  - type: "zoom"
+    start_time: 10
+    duration: 2
+    params:
+      scale: 1.3
+      
+  - type: "rotate"
+    start_time: 18
+    duration: 4
+    params:
+      angle: 0.3
+      axis: [0, 1, 0]
+      
+  - type: "zoom"
+    start_time: 22
+    duration: 2
+    params:
+      scale: 0.8

@@ -2,7 +2,7 @@
 
 from manim import *
 from typing import Dict, List, Any, Optional
-from core.timeline.composer_timeline import ComposerTimeline, TimelineLayer, TimelineTrack, TrackType
+from src.core.timeline.composer_timeline import ComposerTimeline, TimelineLayer, TimelineTrack, TrackType
 
 class TimelineVisualizer(VGroup):
     """Visual representation of the timeline for debugging and editing."""

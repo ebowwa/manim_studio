@@ -33,7 +33,10 @@ setup(
         "pycairo>=1.13.0",
         "pygments>=2.0.0",
         "rich>=12.0.0",
-        "watchdog>=2.0.0"
+        "watchdog>=2.0.0",
+        "trimesh>=3.15.0",
+        "pygltflib>=1.15.0",
+        "pydantic>=2.0.0"
     ],
     extras_require={
         'dev': [

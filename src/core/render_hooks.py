@@ -13,8 +13,8 @@ import logging
 import shutil
 from datetime import datetime
 
-from utils.frame_extractor import FrameExtractor, FrameExtractionConfig
-from utils.frame_analyzer import FrameAnalyzer
+from src.utils.frame_extractor import FrameExtractor, FrameExtractionConfig
+from src.utils.frame_analyzer import FrameAnalyzer
 
 logger = logging.getLogger(__name__)
 

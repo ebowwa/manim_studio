@@ -1,0 +1,239 @@
+# "If X was Y" Style Video Template
+# Follows the viral format: absurd premise → rapid visuals → product reveal
+name: "IfXWasY"
+description: "Template for creating viral 'If X was Y' style videos"
+duration: 29.0  # Optimized for TikTok/Reels
+background_color: "#000000"
+resolution: [1080, 1920]  # Vertical format
+fps: 30
+
+# Define your variables here
+variables:
+  brand_x: "McDonald's"
+  culture_y: "Mongolia"
+  product_name: "Mongolian Airfryer"
+  website: "example.com"
+  tech_authority: "Azerbaijan Technology™"
+
+objects:
+  # Opening hook text
+  hook_text:
+    type: text
+    text: "What if ${brand_x} was ${culture_y}?"
+    params:
+      font_size: 72
+      color: "#FFFFFF"
+      font: "BOLD"
+      position: [0, 5, 0]
+  
+  # Main visual placeholder (would be your character/scene)
+  main_visual:
+    type: circle
+    params:
+      radius: 3
+      color: "#FF6B6B"
+      position: [0, 0, 0]
+  
+  # Character name label
+  character_label:
+    type: text
+    text: "Genghis McKhan"
+    params:
+      font_size: 48
+      color: "#FFD700"
+      position: [0, -4, 0]
+  
+  # Tech authority drop
+  tech_badge:
+    type: text
+    text: "${tech_authority}"
+    params:
+      font_size: 36
+      color: "#00FFFF"
+      position: [0, 3, 0]
+      font: "ITALIC"
+  
+  # Product showcase
+  product_text:
+    type: text
+    text: "${product_name}"
+    params:
+      font_size: 64
+      gradient: ["#FF6B6B", "#4ECDC4"]
+      position: [0, 1, 0]
+  
+  # Website CTA
+  website_text:
+    type: text
+    text: "${website}"
+    params:
+      font_size: 48
+      color: "#FFFFFF"
+      position: [0, -2, 0]
+  
+  # Link in bio prompt
+  cta_text:
+    type: text
+    text: "Link in Bio 👆"
+    params:
+      font_size: 56
+      color: "#00FF00"
+      position: [0, -3.5, 0]
+
+# Rapid-fire animation timeline
+animations:
+  # 0-5s: Hook and setup
+  - target: hook_text
+    animation_type: write
+    start_time: 0.0
+    duration: 1.5
+    params:
+      run_time: 1.5
+  
+  - target: main_visual
+    animation_type: fadein
+    start_time: 1.0
+    duration: 0.5
+    params:
+      scale: 0.1
+  
+  - target: main_visual
+    animation_type: scale
+    start_time: 1.5
+    duration: 0.5
+    params:
+      scale_factor: 1.5
+  
+  - target: character_label
+    animation_type: fadein
+    start_time: 2.0
+    duration: 0.3
+    params:
+      shift: [0, 1, 0]
+  
+  # 5-20s: Rapid scene changes (simulated with color changes)
+  - target: main_visual
+    animation_type: morph
+    start_time: 5.0
+    duration: 0.5
+    params:
+      target_color: "#4ECDC4"
+  
+  - target: main_visual
+    animation_type: move_to
+    start_time: 8.0
+    duration: 1.0
+    params:
+      target_position: [-3, 2, 0]
+  
+  - target: main_visual
+    animation_type: move_to
+    start_time: 10.0
+    duration: 1.0
+    params:
+      target_position: [3, -2, 0]
+  
+  # 15s: Tech authority drop
+  - target: tech_badge
+    animation_type: fadein
+    start_time: 15.0
+    duration: 0.3
+    params:
+      scale: 2.0
+  
+  - target: tech_badge
+    animation_type: scale
+    start_time: 15.3
+    duration: 0.5
+    params:
+      scale_factor: 0.5
+  
+  # 20-23s: Transition to product
+  - target: hook_text
+    animation_type: fadeout
+    start_time: 20.0
+    duration: 0.5
+  
+  - target: main_visual
+    animation_type: fadeout
+    start_time: 20.0
+    duration: 0.5
+  
+  - target: character_label
+    animation_type: fadeout
+    start_time: 20.0
+    duration: 0.5
+  
+  - target: tech_badge
+    animation_type: fadeout
+    start_time: 20.0
+    duration: 0.5
+  
+  # 23-29s: Product reveal and CTA
+  - target: product_text
+    animation_type: write
+    start_time: 23.0
+    duration: 1.0
+    params:
+      run_time: 1.0
+  
+  - target: website_text
+    animation_type: fadein
+    start_time: 24.0
+    duration: 0.5
+    params:
+      shift: [0, 0.5, 0]
+  
+  - target: cta_text
+    animation_type: fadein
+    start_time: 25.0
+    duration: 0.3
+    params:
+      scale: 0.1
+  
+  - target: cta_text
+    animation_type: scale
+    start_time: 25.3
+    duration: 0.5
+    params:
+      scale_factor: 1.2
+  
+  # Pulsing CTA for urgency
+  - target: cta_text
+    animation_type: indicate
+    start_time: 26.0
+    duration: 3.0
+    params:
+      scale_factor: 1.1
+      color: "#FFFF00"
+
+# Visual effects for production value
+effects:
+  # Particle burst on character reveal
+  - type: particle_system
+    start_time: 2.0
+    duration: 1.0
+    params:
+      position: [0, -4, 0]
+      particle_count: 50
+      emit_rate: 50
+      particle_color: "#FFD700"
+      velocity_range: [2, 5]
+  
+  # Energy effect during tech drop
+  - type: glow
+    start_time: 15.0
+    duration: 1.5
+    params:
+      target: tech_badge
+      glow_color: "#00FFFF"
+      glow_radius: 0.3
+  
+  # Final product reveal effect
+  - type: sparkle_text
+    start_time: 23.0
+    duration: 6.0
+    params:
+      target: product_text
+      sparkle_color: "#FFFFFF"
+      sparkle_count: 30

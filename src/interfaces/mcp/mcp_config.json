@@ -1,0 +1,59 @@
+{
+  "name": "manim-studio",
+  "version": "0.1.0",
+  "description": "MCP server for creating Manim animations",
+  "author": "Manim Studio Team",
+  "license": "MIT",
+  "server": {
+    "command": "python",
+    "args": ["../mcp_interface.py"],
+    "env": {
+      "PYTHONPATH": "../.."
+    }
+  },
+  "tools": [
+    {
+      "name": "create_scene",
+      "description": "Create a new animation scene"
+    },
+    {
+      "name": "add_text",
+      "description": "Add text object to the scene"
+    },
+    {
+      "name": "add_shape",
+      "description": "Add shapes like circles, rectangles"
+    },
+    {
+      "name": "add_animation",
+      "description": "Animate objects in the scene"
+    },
+    {
+      "name": "add_effect",
+      "description": "Add visual effects"
+    },
+    {
+      "name": "preview_scene",
+      "description": "Generate a preview"
+    },
+    {
+      "name": "render_scene",
+      "description": "Render to video file"
+    },
+    {
+      "name": "save_config",
+      "description": "Save scene configuration"
+    }
+  ],
+  "claude_desktop_config": {
+    "mcpServers": {
+      "manim-studio": {
+        "command": "/Users/ebowwa/.pyenv/shims/python3",
+        "args": ["/Users/ebowwa/apps/manim_studio/src/interfaces/mcp_interface.py"],
+        "env": {
+          "PYTHONPATH": "/Users/ebowwa/apps/manim_studio"
+        }
+      }
+    }
+  }
+}

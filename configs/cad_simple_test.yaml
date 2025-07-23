@@ -1,0 +1,111 @@
+scene:
+  name: "CAD Simple Test"
+  duration: 10
+  resolution: [1920, 1080]
+  background_color: "#000000"
+  
+objects:
+  # Rounded rectangle
+  - name: "rounded_rect"
+    type: "rounded_shape"
+    params:
+      shape: "rectangle"
+      width: 4
+      height: 2
+      corner_radius: 0.3
+      color: "#0088ff"
+      stroke_width: 3
+      fill_opacity: 0.1
+    position: [-3, 0, 0]
+    
+  # Chamfered hexagon
+  - name: "chamfered_hex"
+    type: "chamfered_shape"
+    params:
+      shape: "polygon"
+      n: 6
+      radius: 1.5
+      chamfer_offset: 0.2
+      color: "#ff8800"
+      stroke_width: 3
+      fill_opacity: 0.1
+    position: [3, 0, 0]
+    
+  # Hatched circle
+  - name: "hatched_circle"
+    type: "hatched_shape"
+    params:
+      shape: "circle"
+      radius: 1.2
+      color: "#00ff88"
+      stroke_width: 2
+      fill_opacity: 0
+      hatch_angle: 0.785398  # 45 degrees
+      hatch_spacing: 0.15
+    position: [0, 2.5, 0]
+    
+  # Dashed triangle
+  - name: "dashed_triangle"
+    type: "dashed_shape"
+    params:
+      shape: "triangle"
+      radius: 1.2
+      num_dashes: 12
+      dashed_ratio: 0.6
+      color: "#ff00ff"
+      stroke_width: 3
+    position: [0, -2.5, 0]
+
+animations:
+  # Create rounded rectangle
+  - target: "rounded_rect"
+    type: "create"
+    start_time: 0
+    duration: 2
+    
+  # Create chamfered hexagon
+  - target: "chamfered_hex"
+    type: "create"
+    start_time: 1
+    duration: 2
+    
+  # Fade in hatched circle
+  - target: "hatched_circle"
+    type: "fadein"
+    start_time: 2.5
+    duration: 1.5
+    
+  # Create dashed triangle
+  - target: "dashed_triangle"
+    type: "create"
+    start_time: 3.5
+    duration: 2
+    
+  # Rotate all shapes
+  - target: "rounded_rect"
+    type: "rotate"
+    start_time: 6
+    duration: 2
+    params:
+      angle: 1.5708  # 90 degrees
+      
+  - target: "chamfered_hex"
+    type: "rotate"
+    start_time: 6.2
+    duration: 2
+    params:
+      angle: 3.14159  # 180 degrees
+      
+  - target: "hatched_circle"
+    type: "rotate"
+    start_time: 6.4
+    duration: 2
+    params:
+      angle: -1.5708  # -90 degrees
+      
+  - target: "dashed_triangle"
+    type: "rotate"
+    start_time: 6.6
+    duration: 2
+    params:
+      angle: 6.28318  # 360 degrees

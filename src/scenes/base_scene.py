@@ -1,5 +1,6 @@
+from src.config.manim_config import config
 from manim import *
-from components.base_components import StudioText, StudioImage, StudioTransitions
+from src.components.base_components import StudioText, StudioImage, StudioTransitions
 
 class StudioScene(Scene):
     def __init__(self, *args, **kwargs):
@@ -7,6 +8,10 @@ class StudioScene(Scene):
         self.text = StudioText()
         self.image = StudioImage()
         self.transitions = StudioTransitions()
+        
+        # Initialize text manager
+        from ..core.text_manager import TextManager
+        self.text_manager = TextManager(self)
     
     def show_title_card(self, title_text, duration=2):
         title_group = self.text.create_title(title_text)

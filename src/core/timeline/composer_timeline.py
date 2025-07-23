@@ -7,11 +7,12 @@ import heapq
 import json
 import numpy as np
 from pathlib import Path
+from ..config import Camera3DConfig, Camera2DConfig
 
 # Import our enhanced easing system
-from core.timeline.easing import EasingFunction, EasingLibrary, EasingPresets, interpolate_with_easing
+from .easing import EasingFunction, EasingLibrary, EasingPresets, interpolate_with_easing
 # Import the unified rate function bridge
-from core.timeline.rate_function_bridge import UnifiedRateFunction, get_rate_function
+from .rate_function_bridge import UnifiedRateFunction, get_rate_function
 
 # Keep InterpolationType for backward compatibility but map to EasingFunction
 class InterpolationType(Enum):
@@ -258,6 +259,7 @@ class ComposerTimeline:
         self.add_layer("Effects", ["particles", "shaders", "filters"], z_index=200)
         self.add_layer("Foreground", ["overlays", "UI"], z_index=300)
         self.add_layer("Audio", ["music", "sfx", "voiceover"], z_index=400)
+        self.add_layer("Camera", ["camera_movement", "camera_focus"], z_index=500)
     
     def add_layer(self, name: str, track_names: List[str] = None, z_index: Optional[int] = None,
                   parent_layer: Optional[str] = None, **kwargs) -> TimelineLayer:
@@ -800,3 +802,167 @@ class ComposerTimeline:
             preview["layers"].append(layer_preview)
         
         return preview
+    
+    # Camera-specific timeline methods
+    def add_camera_keyframe(self, time: float, camera_config: Union[Camera2DConfig, Camera3DConfig],
+                           interpolation: InterpolationType = InterpolationType.EASE_IN_OUT,
+                           **kwargs) -> Optional[Keyframe]:
+        """Add a camera keyframe to the timeline.
+        
+        Args:
+            time: Time of the keyframe
+            camera_config: Camera configuration (2D or 3D)
+            interpolation: Type of interpolation for camera movement
+            **kwargs: Additional parameters for interpolation
+        """
+        # Store camera data as dict for interpolation
+        camera_data = camera_config.to_dict()
+        
+        return self.add_keyframe(
+            layer_name="Camera",
+            track_name="camera_movement",
+            property_name="camera_state",
+            time=time,
+            value=camera_data,
+            interpolation=interpolation,
+            **kwargs
+        )
+    
+    def add_camera_orbit(self, start_time: float, duration: float, 
+                        center: List[float], radius: float,
+                        revolutions: float = 1.0, axis: str = "z",
+                        interpolation: InterpolationType = InterpolationType.LINEAR):
+        """Add orbital camera movement around a point.
+        
+        Args:
+            start_time: Start time of the orbit
+            duration: Duration of the orbit
+            center: Center point to orbit around
+            radius: Orbital radius
+            revolutions: Number of complete revolutions
+            axis: Axis to orbit around ('x', 'y', or 'z')
+            interpolation: Interpolation type
+        """
+        # Create keyframes for orbital motion
+        num_keyframes = max(4, int(duration * self.fps / 10))  # Keyframe every ~10 frames
+        
+        for i in range(num_keyframes + 1):
+            t = i / num_keyframes
+            time = start_time + t * duration
+            angle = 2 * np.pi * revolutions * t
+            
+            # Calculate camera position based on axis
+            if axis == "z":
+                x = center[0] + radius * np.cos(angle)
+                y = center[1] + radius * np.sin(angle)
+                z = center[2] + radius * 0.5  # Slight elevation
+            elif axis == "y":
+                x = center[0] + radius * np.cos(angle)
+                y = center[1]
+                z = center[2] + radius * np.sin(angle)
+            else:  # axis == "x"
+                x = center[0]
+                y = center[1] + radius * np.cos(angle)
+                z = center[2] + radius * np.sin(angle)
+            
+            # Create camera config for this keyframe
+            camera_data = {
+                "position": [x, y, z],
+                "focal_point": center,
+                "phi": np.pi / 3,  # 60 degrees from vertical
+                "theta": angle,
+                "distance": radius
+            }
+            
+            self.add_keyframe(
+                layer_name="Camera",
+                track_name="camera_movement",
+                property_name="camera_position",
+                time=time,
+                value=camera_data,
+                interpolation=interpolation
+            )
+    
+    def add_camera_zoom(self, start_time: float, duration: float,
+                       start_zoom: float, end_zoom: float,
+                       interpolation: InterpolationType = InterpolationType.EASE_IN_OUT):
+        """Add camera zoom animation.
+        
+        Args:
+            start_time: Start time of the zoom
+            duration: Duration of the zoom
+            start_zoom: Starting zoom level
+            end_zoom: Ending zoom level
+            interpolation: Interpolation type
+        """
+        # Add start keyframe
+        self.add_keyframe(
+            layer_name="Camera",
+            track_name="camera_movement",
+            property_name="zoom",
+            time=start_time,
+            value=start_zoom,
+            interpolation=interpolation
+        )
+        
+        # Add end keyframe
+        self.add_keyframe(
+            layer_name="Camera",
+            track_name="camera_movement",
+            property_name="zoom",
+            time=start_time + duration,
+            value=end_zoom,
+            interpolation=InterpolationType.LINEAR
+        )
+    
+    def add_camera_shake(self, start_time: float, duration: float,
+                        intensity: float = 0.1, frequency: float = 10.0):
+        """Add camera shake effect.
+        
+        Args:
+            start_time: Start time of the shake
+            duration: Duration of the shake
+            intensity: Intensity of the shake
+            frequency: Frequency of the shake
+        """
+        # Create shake event
+        def shake_camera(scene, camera_controller):
+            if hasattr(scene, 'camera_controller'):
+                scene.camera_controller.shake(intensity, duration)
+        
+        self.add_event(
+            time=start_time,
+            callback=shake_camera,
+            name="Camera Shake",
+            duration=duration,
+            layer_name="Camera",
+            track_name="camera_movement",
+            tags=["camera", "effect", "shake"]
+        )
+    
+    def get_camera_at_time(self, time: float) -> Dict[str, Any]:
+        """Get interpolated camera state at a specific time.
+        
+        Args:
+            time: Time to query
+            
+        Returns:
+            Dictionary containing camera state
+        """
+        camera_layer = self.get_layer("Camera")
+        if not camera_layer:
+            return {}
+        
+        camera_track = camera_layer.get_track("camera_movement")
+        if not camera_track:
+            return {}
+        
+        camera_state = {}
+        
+        # Get all camera properties
+        for property_name in camera_track.keyframes:
+            value = camera_track.get_value_at_time(property_name, time)
+            if value is not None:
+                camera_state[property_name] = value
+        
+        return camera_state

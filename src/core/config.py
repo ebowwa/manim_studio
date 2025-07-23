@@ -6,8 +6,10 @@ try:
     import yaml
 except ImportError:
     yaml = None
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, Tuple
 from dataclasses import dataclass, field
+import numpy as np
+from .yaml_validator import YamlValidator
 
 
 @dataclass
@@ -83,7 +85,7 @@ class AnimationConfig:
         """Create AnimationConfig from dictionary with proper defaults."""
         return cls(
             target=data.get('target', ''),
-            animation_type=data.get('animation_type', ''),
+            animation_type=data.get('type', data.get('animation_type', '')),
             params=data.get('params', {}),
             start_time=data.get('start_time', 0.0),
             duration=data.get('duration', 1.0)
@@ -185,6 +187,195 @@ class Camera2DConfig:
 
 
 @dataclass
+class Camera3DConfig:
+    """Configuration for 3D camera with full spatial control.
+    
+    This provides true 3D camera capabilities including:
+    - Spherical coordinate positioning
+    - Look-at target tracking
+    - Camera movement paths
+    - Professional cinematography controls
+    """
+    # Spherical coordinates (more intuitive for 3D camera control)
+    phi: float = 0.0           # Angle from z-axis (0 to π)
+    theta: float = 0.0         # Azimuthal angle (0 to 2π)
+    distance: float = 5.0      # Distance from focal point
+    
+    # Cartesian position (alternative to spherical)
+    position: Optional[List[float]] = None  # [x, y, z] position
+    
+    # Camera orientation
+    focal_point: List[float] = field(default_factory=lambda: [0.0, 0.0, 0.0])  # Look-at point
+    up_vector: List[float] = field(default_factory=lambda: [0.0, 0.0, 1.0])     # Up direction
+    
+    # Camera properties
+    fov: float = 50.0          # Field of view in degrees
+    zoom: float = 1.0          # Additional zoom factor
+    
+    # Clipping planes
+    near_clip: float = 0.1
+    far_clip: float = 100.0
+    
+    # Depth of field (optional)
+    dof_enabled: bool = False
+    focal_distance: float = 5.0
+    aperture: float = 0.1
+    
+    # Camera movement
+    movement_speed: float = 1.0
+    rotation_speed: float = 1.0
+    smooth_factor: float = 0.1  # Smoothing for camera movements
+    
+    def __post_init__(self):
+        """Validate 3D camera parameters and compute position if needed."""
+        # Validate spherical coordinates
+        if not 0 <= self.phi <= np.pi:
+            raise ValueError("Phi must be between 0 and π")
+        if not 0 <= self.theta <= 2 * np.pi:
+            raise ValueError("Theta must be between 0 and 2π")
+        if self.distance <= 0:
+            raise ValueError("Distance must be positive")
+        
+        # Compute Cartesian position from spherical if not provided
+        if self.position is None:
+            self.position = self.spherical_to_cartesian()
+        elif len(self.position) != 3:
+            raise ValueError("Position must have 3 coordinates (x, y, z)")
+        
+        # Validate other parameters
+        if len(self.focal_point) != 3:
+            raise ValueError("Focal point must have 3 coordinates")
+        if len(self.up_vector) != 3:
+            raise ValueError("Up vector must have 3 coordinates")
+        if not 0 < self.fov < 180:
+            raise ValueError("Field of view must be between 0 and 180 degrees")
+        if self.zoom <= 0:
+            raise ValueError("Zoom must be positive")
+        if self.near_clip <= 0:
+            raise ValueError("Near clip plane must be positive")
+        if self.far_clip <= self.near_clip:
+            raise ValueError("Far clip plane must be greater than near clip plane")
+    
+    def spherical_to_cartesian(self) -> List[float]:
+        """Convert spherical coordinates to Cartesian position."""
+        x = self.distance * np.sin(self.phi) * np.cos(self.theta) + self.focal_point[0]
+        y = self.distance * np.sin(self.phi) * np.sin(self.theta) + self.focal_point[1]
+        z = self.distance * np.cos(self.phi) + self.focal_point[2]
+        return [float(x), float(y), float(z)]
+    
+    def cartesian_to_spherical(self) -> Tuple[float, float, float]:
+        """Convert Cartesian position to spherical coordinates."""
+        # Vector from focal point to camera
+        dx = self.position[0] - self.focal_point[0]
+        dy = self.position[1] - self.focal_point[1]
+        dz = self.position[2] - self.focal_point[2]
+        
+        # Calculate spherical coordinates
+        distance = np.sqrt(dx**2 + dy**2 + dz**2)
+        phi = np.arccos(dz / distance) if distance > 0 else 0
+        theta = np.arctan2(dy, dx)
+        
+        return float(phi), float(theta), float(distance)
+    
+    def look_at(self, target: List[float]):
+        """Update focal point to look at a specific target."""
+        self.focal_point = target.copy()
+        # Update spherical coordinates to maintain position
+        self.phi, self.theta, self.distance = self.cartesian_to_spherical()
+    
+    def orbit(self, d_phi: float, d_theta: float):
+        """Orbit camera around focal point by adjusting spherical angles."""
+        self.phi = np.clip(self.phi + d_phi, 0.01, np.pi - 0.01)  # Avoid singularities
+        self.theta = (self.theta + d_theta) % (2 * np.pi)
+        self.position = self.spherical_to_cartesian()
+    
+    def dolly(self, d_distance: float):
+        """Move camera closer/farther from focal point."""
+        self.distance = max(0.1, self.distance + d_distance)
+        self.position = self.spherical_to_cartesian()
+    
+    def pan(self, dx: float, dy: float):
+        """Pan camera and focal point together."""
+        # Calculate right and up vectors for panning
+        forward = np.array(self.focal_point) - np.array(self.position)
+        forward = forward / np.linalg.norm(forward)
+        
+        right = np.cross(forward, self.up_vector)
+        right = right / np.linalg.norm(right)
+        
+        up = np.cross(right, forward)
+        
+        # Apply pan
+        pan_vector = right * dx + up * dy
+        self.position = [p + v for p, v in zip(self.position, pan_vector)]
+        self.focal_point = [f + v for f, v in zip(self.focal_point, pan_vector)]
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'Camera3DConfig':
+        """Create Camera3DConfig from dictionary with proper defaults."""
+        return Camera3DConfig(
+            phi=data.get('phi', 0.0),
+            theta=data.get('theta', 0.0),
+            distance=data.get('distance', 5.0),
+            position=data.get('position'),
+            focal_point=data.get('focal_point', [0.0, 0.0, 0.0]),
+            up_vector=data.get('up_vector', [0.0, 0.0, 1.0]),
+            fov=data.get('fov', 50.0),
+            zoom=data.get('zoom', 1.0),
+            near_clip=data.get('near_clip', 0.1),
+            far_clip=data.get('far_clip', 100.0),
+            dof_enabled=data.get('dof_enabled', False),
+            focal_distance=data.get('focal_distance', 5.0),
+            aperture=data.get('aperture', 0.1),
+            movement_speed=data.get('movement_speed', 1.0),
+            rotation_speed=data.get('rotation_speed', 1.0),
+            smooth_factor=data.get('smooth_factor', 0.1)
+        )
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert Camera3DConfig to dictionary."""
+        return {
+            'phi': self.phi,
+            'theta': self.theta,
+            'distance': self.distance,
+            'position': self.position,
+            'focal_point': self.focal_point,
+            'up_vector': self.up_vector,
+            'fov': self.fov,
+            'zoom': self.zoom,
+            'near_clip': self.near_clip,
+            'far_clip': self.far_clip,
+            'dof_enabled': self.dof_enabled,
+            'focal_distance': self.focal_distance,
+            'aperture': self.aperture,
+            'movement_speed': self.movement_speed,
+            'rotation_speed': self.rotation_speed,
+            'smooth_factor': self.smooth_factor
+        }
+    
+    def copy(self) -> 'Camera3DConfig':
+        """Create a deep copy of the 3D camera configuration."""
+        return Camera3DConfig(
+            phi=self.phi,
+            theta=self.theta,
+            distance=self.distance,
+            position=self.position.copy() if self.position else None,
+            focal_point=self.focal_point.copy(),
+            up_vector=self.up_vector.copy(),
+            fov=self.fov,
+            zoom=self.zoom,
+            near_clip=self.near_clip,
+            far_clip=self.far_clip,
+            dof_enabled=self.dof_enabled,
+            focal_distance=self.focal_distance,
+            aperture=self.aperture,
+            movement_speed=self.movement_speed,
+            rotation_speed=self.rotation_speed,
+            smooth_factor=self.smooth_factor
+        )
+
+
+@dataclass
 class SceneConfig:
     """Configuration for a complete scene."""
     name: str
@@ -194,8 +385,9 @@ class SceneConfig:
     resolution: tuple = (1920, 1080)
     fps: int = 60
     
-    # 2D Camera configuration (positioning, zoom, visual properties)
-    camera: Optional[Camera2DConfig] = None
+    # Camera configuration (2D or 3D)
+    camera: Optional[Union[Camera2DConfig, Camera3DConfig]] = None
+    camera_type: str = "2d"  # "2d" or "3d"
     
     # Scene elements
     objects: Dict[str, Dict[str, Any]] = field(default_factory=dict)
@@ -238,20 +430,52 @@ class SceneConfig:
         effects = [EffectConfig.from_dict(e) for e in data.get('effects', [])]
         animations = [AnimationConfig.from_dict(a) for a in data.get('animations', [])]
         
-        # Handle 2D camera config if present
+        # Handle camera config if present
         camera = None
+        camera_type = data.get('camera_type', '2d')
         if 'camera' in data and data['camera'] is not None:
-            camera = Camera2DConfig.from_dict(data['camera'])
+            if camera_type == '3d':
+                camera = Camera3DConfig.from_dict(data['camera'])
+            else:
+                camera = Camera2DConfig.from_dict(data['camera'])
+        
+        # Parse resolution - handle both string presets and list format
+        resolution_raw = data.get('resolution', [1920, 1080])
+        if isinstance(resolution_raw, str):
+            # Convert preset strings to tuples
+            resolution_map = {
+                '480p': (854, 480),
+                '720p': (1280, 720), 
+                '1080p': (1920, 1080),
+                '1440p': (2560, 1440),
+                '2160p': (3840, 2160),
+                '4k': (3840, 2160)
+            }
+            resolution = resolution_map.get(resolution_raw.lower(), (1920, 1080))
+        else:
+            resolution = tuple(resolution_raw)
+        
+        # Parse objects - handle both list and dict formats
+        objects_raw = data.get('objects', {})
+        if isinstance(objects_raw, list):
+            # Convert list format to dict format using 'name' field
+            objects = {}
+            for obj in objects_raw:
+                obj_name = obj.get('name', f'object_{len(objects)}')
+                objects[obj_name] = obj
+        else:
+            objects = objects_raw
         
         return cls(
             name=data.get('name', ''),
             description=data.get('description', ''),
             duration=data.get('duration', 10.0),
             background_color=data.get('background_color', '#000000'),
-            resolution=tuple(data.get('resolution', [1920, 1080])),
+            resolution=resolution,
             fps=data.get('fps', 60),
             camera=camera,
-            objects=data.get('objects', {}),
+            camera_type=camera_type,
+            objects=objects,
             effects=effects,
             animations=animations,
             assets=data.get('assets', {}),
@@ -276,6 +500,7 @@ class SceneConfig:
         # Include camera config if present
         if self.camera is not None:
             result['camera'] = self.camera.to_dict()
+            result['camera_type'] = self.camera_type
             
         # Include frame extraction config if present
         if self.frame_extraction is not None:
@@ -366,6 +591,14 @@ class Config:
         """Load configuration from file."""
         if not self.config_path:
             raise ValueError("No config path specified")
+        
+        # Validate YAML files before loading
+        if self.config_path.suffix in ['.yml', '.yaml']:
+            validator = YamlValidator()
+            is_valid, results = validator.validate_file(str(self.config_path))
+            if not is_valid:
+                error_msgs = [r.message for r in results if r.severity.value == 'error']
+                raise ValueError(f"YAML validation failed: {'; '.join(error_msgs)}")
         
         with open(self.config_path, 'r') as f:
             if self.config_path.suffix == '.json':

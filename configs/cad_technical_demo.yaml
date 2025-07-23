@@ -1,0 +1,259 @@
+scene:
+  name: "CAD Technical Drawing Demo"
+  duration: 30
+  resolution: [1920, 1080]
+  background_color: "#1a1a1a"
+  
+objects:
+  # Technical grid background
+  - name: "grid_background"
+    type: "rectangle"
+    params:
+      width: 20
+      height: 12
+      color: "#1a1a1a"
+      fill_opacity: 1
+    effects:
+      - type: "technical_grid"
+        grid_spacing: 0.5
+        grid_color: "#333333"
+    position: [0, 0, -1]
+    
+  # Main technical part with rounded corners
+  - name: "main_part"
+    type: "rounded_shape"
+    params:
+      shape: "rectangle"
+      width: 6
+      height: 4
+      corner_radius: 0.5
+      color: "#00ff00"
+      stroke_width: 2
+      fill_opacity: 0
+    position: [0, 0, 0]
+    
+  # Bolt holes
+  - name: "bolt_hole_1"
+    type: "circle"
+    params:
+      radius: 0.3
+      color: "#00ff00"
+      stroke_width: 2
+      fill_opacity: 0
+    position: [-2, 1.2, 0]
+    
+  - name: "bolt_hole_2"
+    type: "circle"
+    params:
+      radius: 0.3
+      color: "#00ff00"
+      stroke_width: 2
+      fill_opacity: 0
+    position: [2, 1.2, 0]
+    
+  - name: "bolt_hole_3"
+    type: "circle"
+    params:
+      radius: 0.3
+      color: "#00ff00"
+      stroke_width: 2
+      fill_opacity: 0
+    position: [-2, -1.2, 0]
+    
+  - name: "bolt_hole_4"
+    type: "circle"
+    params:
+      radius: 0.3
+      color: "#00ff00"
+      stroke_width: 2
+      fill_opacity: 0
+    position: [2, -1.2, 0]
+    
+  # Center feature with hatching
+  - name: "center_feature"
+    type: "hatched_shape"
+    params:
+      shape: "square"
+      side_length: 2
+      color: "#00ff00"
+      stroke_width: 2
+      fill_opacity: 0
+      hatch_angle: 0.785398  # 45 degrees
+      hatch_spacing: 0.2
+    effects:
+      - type: "round_corners"
+        radius: 0.2
+    position: [0, 0, 0]
+    
+  # Dimension lines
+  - name: "width_dimension"
+    type: "linear_dimension"
+    params:
+      start: [-3, -2, 0]
+      end: [3, -2, 0]
+      text: "6.00"
+      direction: [0, -1, 0]
+      offset: 1.5
+      color: "#ff6b6b"
+      stroke_width: 1.5
+      outside_arrow: false
+    
+  - name: "height_dimension"
+    type: "linear_dimension"
+    params:
+      start: [3.5, -2, 0]
+      end: [3.5, 2, 0]
+      text: "4.00"
+      direction: [1, 0, 0]
+      offset: 1.5
+      color: "#ff6b6b"
+      stroke_width: 1.5
+      outside_arrow: false
+    
+  # Pointer annotations
+  - name: "radius_annotation"
+    type: "pointer_label"
+    params:
+      point: [-2.5, 1.5, 0]
+      text: "R0.50"
+      offset_vector: [-1, 1, 0]
+      color: "#ffff00"
+      stroke_width: 1
+    
+  # Angular dimension for corner
+  - name: "corner_angle"
+    type: "angular_dimension"
+    params:
+      start: [1, 0, 0]
+      end: [0.707, 0.707, 0]
+      center: [0, 0, 0]
+      text: "45°"
+      offset: 0.5
+      color: "#ff6b6b"
+      stroke_width: 1.5
+
+animations:
+  # Animate drawing the technical grid
+  - target: "grid_background"
+    type: "fadein"
+    start_time: 0
+    duration: 1
+    
+  # Draw main part
+  - target: "main_part"
+    type: "create"
+    start_time: 1
+    duration: 2
+    effects:
+      - type: "cad_create"
+        lag_ratio: 0
+        
+  # Add bolt holes
+  - target: "bolt_hole_1"
+    type: "create"
+    start_time: 3
+    duration: 0.5
+    
+  - target: "bolt_hole_2"
+    type: "create"
+    start_time: 3.2
+    duration: 0.5
+    
+  - target: "bolt_hole_3"
+    type: "create"
+    start_time: 3.4
+    duration: 0.5
+    
+  - target: "bolt_hole_4"
+    type: "create"
+    start_time: 3.6
+    duration: 0.5
+    
+  # Add center feature with hatching
+  - target: "center_feature"
+    type: "create"
+    start_time: 4.5
+    duration: 2
+    
+  # Add dimensions
+  - target: "width_dimension"
+    type: "create"
+    start_time: 7
+    duration: 1.5
+    
+  - target: "height_dimension"
+    type: "create"
+    start_time: 8
+    duration: 1.5
+    
+  # Add annotations
+  - target: "radius_annotation"
+    type: "fadein"
+    start_time: 10
+    duration: 1
+    
+  - target: "corner_angle"
+    type: "create"
+    start_time: 11
+    duration: 1.5
+    
+  # Highlight effect on center feature
+  - target: "center_feature"
+    type: "indicate"
+    start_time: 13
+    duration: 1
+    params:
+      scale_factor: 1.2
+      color: "#ffff00"
+      
+  # Rotate entire drawing to show 3D perspective
+  - target: "main_part"
+    type: "rotate"
+    start_time: 15
+    duration: 3
+    params:
+      angle: 0.5
+      axis: [1, 0, 0]
+      
+  - target: "center_feature"
+    type: "rotate"
+    start_time: 15
+    duration: 3
+    params:
+      angle: 0.5
+      axis: [1, 0, 0]
+      
+  # Flash dimensions
+  - target: "width_dimension"
+    type: "flash"
+    start_time: 19
+    duration: 0.5
+    params:
+      color: "#ffffff"
+      
+  - target: "height_dimension"
+    type: "flash"
+    start_time: 19.5
+    duration: 0.5
+    params:
+      color: "#ffffff"
+
+# Camera movements
+camera:
+  - type: "zoom"
+    start_time: 22
+    duration: 3
+    params:
+      scale: 1.5
+      
+  - type: "shift"
+    start_time: 25
+    duration: 2
+    params:
+      direction: [0, -0.5, 0]
+      
+  - type: "zoom"
+    start_time: 27
+    duration: 2
+    params:
+      scale: 0.8

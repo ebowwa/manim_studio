@@ -1,0 +1,242 @@
+# 3D Model Demo Configuration for Manim Studio
+name: "3D Model Showcase"
+description: "Demonstration of 3D model loading and rendering capabilities"
+duration: 20.0
+background_color: "#1a1a2e"
+resolution: [1920, 1080]
+fps: 60
+
+# 3D Camera configuration
+camera_type: "3d"
+camera:
+  phi: 1.0471975512      # 60 degrees from z-axis
+  theta: 0.7853981634    # 45 degrees azimuthal
+  distance: 8.0          # Distance from focal point
+  focal_point: [0, 0, 0] # Look-at center
+  fov: 50.0              # Field of view
+  zoom: 1.0              # Additional zoom
+  dof_enabled: false     # Depth of field
+  movement_speed: 1.0    # Camera movement speed
+
+# Asset definitions
+assets:
+  # Example 3D models (these would need to exist in assets/models/)
+  spaceship: "assets/models/spaceship.glb"
+  robot: "assets/models/robot.obj"  
+  terrain: "assets/models/terrain.stl"
+  cube_model: "assets/models/cube.obj"
+
+# Objects in the scene
+objects:
+  # Main title
+  title:
+    type: text
+    text: "3D Model Integration"
+    layer: ui
+    params:
+      color: "#00d4ff"
+      scale: 1.2
+      position: [0, 3, 0]
+      font: "Arial"
+
+  # 3D Model Examples
+  main_spaceship:
+    type: 3d_model
+    asset: spaceship
+    layer: main
+    params:
+      scale: 2.0
+      position: [-3, 0, 0]
+      rotation: [0, 0, 0.5236]  # 30 degree Z rotation
+      center: true
+      max_points: 1500
+      material:
+        color: "#4a90e2"
+        opacity: 0.9
+        metallic: 0.7
+        roughness: 0.3
+
+  companion_robot:
+    type: 3d_model
+    asset: robot
+    layer: main
+    params:
+      scale: 1.5
+      position: [3, 0, 0]
+      rotation: [0, 1.5708, 0]  # 90 degree Y rotation
+      center: true
+      material:
+        color: "#ff6b6b"
+        opacity: 0.8
+        metallic: 0.9
+        roughness: 0.1
+
+  ground_terrain:
+    type: 3d_model
+    asset: terrain
+    layer: background
+    z_offset: -1
+    params:
+      scale: 5.0
+      position: [0, 0, -2]
+      rotation: [0, 0, 0]
+      center: true
+      max_points: 2000
+      material:
+        color: "#2d5a27"
+        opacity: 0.7
+
+  floating_cube:
+    type: 3d_model
+    asset: cube_model
+    layer: main
+    params:
+      scale: 0.8
+      position: [0, 2, 1]
+      rotation: [0.7854, 0.7854, 0]  # 45 degree X and Y rotation
+      center: true
+      material:
+        color: "#feca57"
+        opacity: 0.6
+        emission: "#ffffff"
+
+# Effects for the scene
+effects:
+  - type: ambient_light
+    start_time: 0.0
+    params:
+      intensity: 0.6
+      color: "#ffffff"
+
+  - type: directional_light
+    start_time: 0.0
+    params:
+      direction: [1, -1, -0.5]
+      intensity: 0.8
+      color: "#ffd700"
+
+# Animations
+animations:
+  # Title animation
+  - target: title
+    animation_type: fadein
+    start_time: 0.5
+    duration: 2.0
+
+  # 3D model introductions
+  - target: main_spaceship
+    animation_type: fadein
+    start_time: 2.0
+    duration: 2.0
+    params:
+      shift: [0, 0, 2]
+
+  - target: companion_robot
+    animation_type: fadein
+    start_time: 4.0
+    duration: 2.0
+    params:
+      shift: [0, 0, 2]
+
+  - target: ground_terrain
+    animation_type: fadein
+    start_time: 1.0
+    duration: 3.0
+
+  - target: floating_cube
+    animation_type: fadein
+    start_time: 6.0
+    duration: 1.5
+
+  # Object transformations
+  - target: main_spaceship
+    animation_type: rotate
+    start_time: 8.0
+    duration: 4.0
+    params:
+      angle: 6.283185  # 2π radians (full rotation)
+      axis: [0, 0, 1]
+
+  - target: companion_robot
+    animation_type: move
+    start_time: 10.0
+    duration: 3.0
+    params:
+      to: [1, -1, 0]
+
+  - target: floating_cube
+    animation_type: scale
+    start_time: 12.0
+    duration: 2.0
+    params:
+      factor: 1.5
+
+  # Final fadeout sequence
+  - target: floating_cube
+    animation_type: fadeout
+    start_time: 17.0
+    duration: 1.5
+
+  - target: companion_robot
+    animation_type: fadeout
+    start_time: 17.5
+    duration: 1.5
+
+  - target: main_spaceship
+    animation_type: fadeout
+    start_time: 18.0
+    duration: 1.5
+
+  - target: title
+    animation_type: fadeout
+    start_time: 18.5
+    duration: 1.5
+
+# 3D Camera timeline with cinematic movements
+camera_timeline:
+  keyframes:
+    # Opening shot - wide establishing shot
+    - time: 0.0
+      phi: 1.0472        # 60 degrees
+      theta: 0.7854      # 45 degrees  
+      distance: 12.0
+      fov: 60.0
+
+    # Focus on spaceship
+    - time: 8.0
+      phi: 1.5708        # 90 degrees (side view)
+      theta: -0.5236     # -30 degrees
+      distance: 6.0
+      fov: 45.0
+
+    # Robot introduction angle
+    - time: 10.0
+      phi: 0.5236        # 30 degrees
+      theta: 2.0944      # 120 degrees
+      distance: 8.0
+      fov: 50.0
+
+    # Dynamic floating cube shot
+    - time: 12.0
+      phi: 0.7854        # 45 degrees
+      theta: 1.5708      # 90 degrees
+      distance: 5.0
+      fov: 40.0
+
+    # Final wide shot
+    - time: 16.0
+      phi: 1.2217        # 70 degrees
+      theta: -0.7854     # -45 degrees
+      distance: 15.0
+      fov: 65.0
+
+# Frame extraction configuration
+frame_extraction:
+  enabled: true
+  frame_interval: 60        # Extract every 60 frames (1 second at 60fps)
+  analyze: true            # Enable frame analysis
+  output_dir: "frames/3d_models"
+  keyframe_extraction: true
+  keyframe_threshold: 25.0
+  max_frames: 50
+  generate_report: true

@@ -1,0 +1,157 @@
+scene:
+  name: "Working Demo V2"
+  duration: 30
+  resolution: [1920, 1080]
+  fps: 30
+  background_color: "#0a0a0a"
+  
+objects:
+  - name: "title"
+    type: "text"
+    params:
+      text: "MANIM STUDIO"
+      font_size: 96
+      color: "#FFD700"
+      weight: "BOLD"
+    position: [0, 2, 0]
+    
+  - name: "subtitle"
+    type: "text"
+    params:
+      text: "Feature Showcase"
+      font_size: 48
+      color: "#CCCCCC"
+    position: [0, 0, 0]
+    
+  - name: "circle1"
+    type: "shape"
+    params:
+      shape_type: "circle"
+      radius: 1.5
+      color: "#FF6B6B"
+      fill_opacity: 0.8
+    position: [-4, -3, 0]
+    
+  - name: "square1"
+    type: "shape"
+    params:
+      shape_type: "square"
+      side_length: 2
+      color: "#4ECDC4"
+      fill_opacity: 0.8
+    position: [0, -3, 0]
+    
+  - name: "hex1"
+    type: "shape"
+    params:
+      shape_type: "polygon"
+      vertices: 6
+      radius: 1.5
+      color: "#9B59B6"
+      fill_opacity: 0.8
+    position: [4, -3, 0]
+
+animations:
+  # Title sequence
+  - target: "title"
+    type: "write"
+    start_time: 0
+    duration: 2
+    
+  - target: "subtitle"
+    type: "fade_in"
+    start_time: 1
+    duration: 1.5
+    
+  # Shapes appear
+  - target: "circle1"
+    type: "create"
+    start_time: 3
+    duration: 1
+    
+  - target: "square1"
+    type: "create"
+    start_time: 3.5
+    duration: 1
+    
+  - target: "hex1"
+    type: "create"
+    start_time: 4
+    duration: 1
+    
+  # Shapes animate
+  - target: "circle1"
+    type: "rotate"
+    start_time: 6
+    duration: 2
+    params:
+      angle: 360
+      
+  - target: "square1"
+    type: "scale"
+    start_time: 7
+    duration: 2
+    params:
+      factor: 1.5
+      
+  - target: "hex1"
+    type: "rotate"
+    start_time: 8
+    duration: 2
+    params:
+      angle: -360
+      
+  # Movement
+  - target: "circle1"
+    type: "move"
+    start_time: 11
+    duration: 2
+    params:
+      to: [-4, 0, 0]
+      
+  - target: "square1"
+    type: "move"
+    start_time: 11.5
+    duration: 2
+    params:
+      to: [0, 0, 0]
+      
+  - target: "hex1"
+    type: "move"
+    start_time: 12
+    duration: 2
+    params:
+      to: [4, 0, 0]
+      
+  # Finale
+  - target: "title"
+    type: "scale"
+    start_time: 15
+    duration: 1
+    params:
+      factor: 1.2
+      
+  - target: "subtitle"
+    type: "fade_out"
+    start_time: 17
+    duration: 1
+    
+  - target: "circle1"
+    type: "fade_out"
+    start_time: 18
+    duration: 0.5
+    
+  - target: "square1"
+    type: "fade_out"
+    start_time: 18.5
+    duration: 0.5
+    
+  - target: "hex1"
+    type: "fade_out"  
+    start_time: 19
+    duration: 0.5
+    
+  - target: "title"
+    type: "fade_out"
+    start_time: 20
+    duration: 1

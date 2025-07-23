@@ -1,0 +1,70 @@
+# Simple Working Demo for Manim Studio
+scene:
+  name: SimpleWorkingDemo
+  duration: 30
+  fps: 30
+  resolution: "720p"
+  background_color: "#1a1a1a"
+
+# Objects using the expected format
+objects:
+  title:
+    type: text
+    text: "Manim Studio Works!"
+    params:
+      color: "#4A90E2"
+      scale: 1.5
+      position: [0, 2, 0]
+  
+  demo_circle:
+    type: shape
+    shape: circle
+    params:
+      radius: 1.0
+      color: "#FF0080"
+      position: [-2, 0, 0]
+  
+  demo_square:
+    type: shape
+    shape: rectangle
+    params:
+      width: 1.5
+      height: 1.5
+      color: "#00FF80"
+      position: [2, 0, 0]
+
+# Simple animations
+animations:
+  - target: title
+    animation_type: write
+    start_time: 0.5
+    duration: 2.0
+  
+  - target: demo_circle
+    animation_type: create
+    start_time: 3.0
+    duration: 1.0
+  
+  - target: demo_square
+    animation_type: create
+    start_time: 4.0
+    duration: 1.0
+  
+  - target: demo_circle
+    animation_type: rotate
+    start_time: 6.0
+    duration: 3.0
+    params:
+      angle: 6.28
+  
+  - target: demo_square
+    animation_type: scale
+    start_time: 6.0
+    duration: 2.0
+    params:
+      factor: 1.5
+  
+  - target: [title, demo_circle, demo_square]
+    animation_type: fadeout
+    start_time: 25.0
+    duration: 2.0

@@ -20,7 +20,7 @@ from manim import (
 )
 
 # Import our custom easing system
-from core.timeline.easing import EasingFunction, EasingLibrary, EasingPresets
+from .easing import EasingFunction, EasingLibrary, EasingPresets
 
 
 class RateFunctionSource(Enum):

@@ -1,0 +1,147 @@
+# Manim Studio Minimal Showcase
+# Using only the most basic, tested features
+
+scene:
+  name: "MinimalShowcase"
+  duration: 30.0
+  resolution: [1920, 1080]
+  fps: 30
+  background_color: "#0a0a0a"
+
+  objects:
+    title:
+      type: text
+      params:
+        text: "MANIM STUDIO"
+        position: [0, 2, 0]
+        font_size: 72
+        color: "#FFD700"
+        
+    subtitle:
+      type: text
+      params:
+        text: "Animation Framework"
+        position: [0, 0, 0]
+        font_size: 36
+        color: "#CCCCCC"
+        
+    circle_demo:
+      type: shape
+      params:
+        shape_type: circle
+        radius: 1.5
+        position: [-4, -2, 0]
+        color: "#FF6B6B"
+        fill_opacity: 0.8
+        
+    square_demo:
+      type: shape
+      params:
+        shape_type: square
+        side_length: 2
+        position: [0, -2, 0]
+        color: "#4ECDC4"
+        fill_opacity: 0.8
+        
+    polygon_demo:
+      type: shape
+      params:
+        shape_type: polygon
+        vertices: 6
+        radius: 1.5
+        position: [4, -2, 0]
+        color: "#9B59B6"
+        fill_opacity: 0.8
+
+  animations:
+    - target: title
+      type: write
+      start_time: 0
+      duration: 2
+      
+    - target: subtitle
+      type: fade_in
+      start_time: 1
+      duration: 1.5
+      
+    - target: circle_demo
+      type: create
+      start_time: 3
+      duration: 1
+      
+    - target: square_demo
+      type: create
+      start_time: 3.5
+      duration: 1
+      
+    - target: polygon_demo
+      type: create
+      start_time: 4
+      duration: 1
+      
+    - target: circle_demo
+      type: rotate
+      start_time: 6
+      duration: 2
+      params:
+        angle: 360
+        
+    - target: square_demo
+      type: scale
+      start_time: 7
+      duration: 2
+      params:
+        factor: 1.5
+        
+    - target: polygon_demo
+      type: rotate
+      start_time: 8
+      duration: 2
+      params:
+        angle: -360
+        
+    - target: circle_demo
+      type: move
+      start_time: 11
+      duration: 2
+      params:
+        to: [0, 1, 0]
+        
+    - target: square_demo
+      type: fade_out
+      start_time: 13
+      duration: 1
+      
+    - target: polygon_demo
+      type: fade_out
+      start_time: 13.5
+      duration: 1
+      
+    - target: circle_demo
+      type: scale
+      start_time: 15
+      duration: 1
+      params:
+        factor: 2
+        
+    - target: title
+      type: scale
+      start_time: 17
+      duration: 1
+      params:
+        factor: 1.2
+        
+    - target: subtitle
+      type: fade_out
+      start_time: 19
+      duration: 1
+      
+    - target: circle_demo
+      type: fade_out
+      start_time: 20
+      duration: 1
+      
+    - target: title
+      type: fade_out
+      start_time: 21
+      duration: 1

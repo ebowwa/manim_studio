@@ -57,6 +57,37 @@ from .skull_effects import (
 )
 from .skull_effects_v2 import ImprovedSkullEffect
 
+# Physics effects
+try:
+    from .physics_effects import (
+        GravityEffect,
+        OscillationEffect,
+        SpringForceEffect,
+        CircularOrbitEffect,
+        WaveMotionEffect,
+        PHYSICS_EFFECTS
+    )
+    PHYSICS_EFFECTS_AVAILABLE = True
+except ImportError:
+    PHYSICS_EFFECTS_AVAILABLE = False
+
+# CAD effects
+from .cad_effects import (
+    RoundCornersEffect,
+    ChamferCornersEffect,
+    HatchFillEffect,
+    CrossHatchEffect,
+    DashedOutlineEffect,
+    TechnicalDrawingEffect,
+    DimensionLinesEffect,
+    PointerAnnotationEffect,
+    EqualizedAnimationEffect,
+    CADArrowEffect,
+    TechnicalGridEffect,
+    CADCreateEffect,
+    CADTraceEffect
+)
+
 __all__ = [
     'BaseEffect',
     'EffectRegistry',
@@ -95,4 +126,29 @@ __all__ = [
     'GhostlySkullEffect',
     'SkullTransformEffect',
     'ImprovedSkullEffect',
+    # CAD effects
+    'RoundCornersEffect',
+    'ChamferCornersEffect',
+    'HatchFillEffect',
+    'CrossHatchEffect',
+    'DashedOutlineEffect',
+    'TechnicalDrawingEffect',
+    'DimensionLinesEffect',
+    'PointerAnnotationEffect',
+    'EqualizedAnimationEffect',
+    'CADArrowEffect',
+    'TechnicalGridEffect',
+    'CADCreateEffect',
+    'CADTraceEffect',
 ]
+
+# Add physics effects to __all__ if available
+if PHYSICS_EFFECTS_AVAILABLE:
+    __all__.extend([
+        'GravityEffect',
+        'OscillationEffect',
+        'SpringForceEffect',
+        'CircularOrbitEffect',
+        'WaveMotionEffect',
+        'PHYSICS_EFFECTS'
+    ])

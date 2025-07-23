@@ -10,7 +10,7 @@ from enum import Enum
 import numpy as np
 
 # Import our interpolation utilities
-from utils.math3d.interpolation import (
+from src.utils.math3d.interpolation import (
     smooth_step, smoother_step, smoothest_step,
     ease_in_out, bounce_ease_out, elastic_ease_out,
     circular_ease_in_out, BezierCurve, Vector3D

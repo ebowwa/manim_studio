@@ -1,0 +1,21 @@
+scene:
+  name: "Debug Test v2"
+  duration: 5
+  resolution: [1920, 1080]
+  fps: 30
+  background_color: "#222222"
+  
+objects:
+  - name: "test_text"
+    type: "text"
+    params:
+      text: "HELLO WORLD"
+      font_size: 72
+      color: "#FFFFFF"
+    position: [0, 0, 0]
+
+animations:
+  - target: "test_text"
+    type: "write"
+    start_time: 0
+    duration: 2

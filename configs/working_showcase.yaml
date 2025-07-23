@@ -1,0 +1,370 @@
+# Manim Studio Working Showcase
+# A comprehensive demonstration using verified working features
+
+scene:
+  name: "WorkingShowcase"
+  description: "Feature showcase with working components"
+  duration: 60.0
+  resolution: [1920, 1080]
+  fps: 30
+  background_color: "#0a0a0a"
+  
+  objects:
+    # ============ TITLE SEQUENCE ============
+    - name: "title_text"
+      type: "text"
+      layer: "foreground"
+      params:
+        text: "MANIM STUDIO"
+        position: [0, 3, 0]
+        font: "Arial"
+        weight: "BOLD"
+        font_size: 72
+        gradient: ["#FFD700", "#FF6B6B", "#4ECDC4"]
+        
+    - name: "subtitle"
+      type: "text"
+      layer: "foreground"
+      params:
+        text: "Professional Animation Framework"
+        position: [0, 2, 0]
+        font: "Arial"
+        font_size: 36
+        color: "#CCCCCC"
+        
+    # ============ BASIC SHAPES ============
+    - name: "demo_circle"
+      type: "shape"
+      params:
+        shape_type: "circle"
+        radius: 1.5
+        position: [-5, 0, 0]
+        color: "#FF6B6B"
+        fill_opacity: 0.8
+        
+    - name: "demo_square"
+      type: "shape"
+      params:
+        shape_type: "square"
+        side_length: 2
+        position: [0, 0, 0]
+        color: "#4ECDC4"
+        fill_opacity: 0.8
+        
+    - name: "demo_polygon"
+      type: "shape"
+      params:
+        shape_type: "polygon"
+        vertices: 6
+        radius: 1.5
+        position: [5, 0, 0]
+        color: "#9B59B6"
+        fill_opacity: 0.8
+        
+    # ============ VISUAL ARRAYS ============
+    - name: "data_array"
+      type: "visual_array"
+      params:
+        data: [255, 128, 64, 32, 16, 8, 4, 2, 1]
+        position: [0, -3, 0]
+        display_format: "hex"
+        show_indices: true
+        orientation: "horizontal"
+        cell_width: 1.2
+        cell_height: 0.8
+        fill_color: "#2ECC71"
+        text_color: "#FFFFFF"
+        
+    - name: "binary_array"
+      type: "visual_array"
+      params:
+        data: [1, 0, 1, 1, 0, 1, 0, 1]
+        position: [0, -4.5, 0]
+        display_format: "binary"
+        labels: ["B7", "B6", "B5", "B4", "B3", "B2", "B1", "B0"]
+        orientation: "horizontal"
+        cell_width: 0.8
+        fill_color: "#3498DB"
+        
+    # ============ MATHEMATICAL OBJECTS ============
+    - name: "axes_demo"
+      type: "axes"
+      params:
+        x_range: [-3, 3, 1]
+        y_range: [-2, 2, 1]
+        position: [-5, -2, 0]
+        x_length: 4
+        y_length: 3
+        
+    - name: "equation_demo"
+      type: "equation"
+      params:
+        tex: "E = mc^2"
+        position: [5, -2, 0]
+        font_size: 48
+        color: "#F39C12"
+        
+    # ============ ARROWS AND LINES ============
+    - name: "arrow_demo"
+      type: "arrow"
+      params:
+        start: [-2, 1, 0]
+        end: [2, 1, 0]
+        color: "#E74C3C"
+        stroke_width: 4
+        
+    - name: "line_demo"
+      type: "line"
+      params:
+        start: [-2, -1, 0]
+        end: [2, -1, 0]
+        color: "#95A5A6"
+        stroke_width: 2
+        
+    # ============ GROUP EXAMPLE ============
+    - name: "shape_group"
+      type: "group"
+      params:
+        position: [0, 0, 0]
+        objects:
+          - type: "shape"
+            params:
+              shape_type: "circle"
+              radius: 0.5
+              position: [-1, 0, 0]
+              color: "#FF0000"
+          - type: "shape"
+            params:
+              shape_type: "circle"
+              radius: 0.5
+              position: [1, 0, 0]
+              color: "#00FF00"
+          - type: "shape"
+            params:
+              shape_type: "circle"
+              radius: 0.5
+              position: [0, 0.866, 0]
+              color: "#0000FF"
+
+  # Animation timeline
+  animations:
+    # ======== OPENING SEQUENCE ========
+    - target: "title_text"
+      type: "write"
+      start_time: 0
+      duration: 1.5
+      
+    - target: "subtitle"
+      type: "fade_in"
+      start_time: 1
+      duration: 1
+      
+    # ======== SHAPES INTRODUCTION ========
+    - target: "demo_circle"
+      type: "create"
+      start_time: 2
+      duration: 1
+      
+    - target: "demo_square"
+      type: "create"
+      start_time: 2.3
+      duration: 1
+      
+    - target: "demo_polygon"
+      type: "create"
+      start_time: 2.6
+      duration: 1
+      
+    # ======== SHAPE ANIMATIONS ========
+    - target: "demo_circle"
+      type: "rotate"
+      start_time: 4
+      duration: 2
+      params:
+        angle: 360
+        
+    - target: "demo_square"
+      type: "scale"
+      start_time: 4.5
+      duration: 1.5
+      params:
+        factor: 1.5
+        
+    - target: "demo_polygon"
+      type: "rotate"
+      start_time: 5
+      duration: 2
+      params:
+        angle: -360
+        
+    # ======== VISUAL ARRAYS ========
+    - target: "data_array"
+      type: "create"
+      start_time: 7
+      duration: 1.5
+      
+    - target: "binary_array"
+      type: "create"
+      start_time: 8
+      duration: 1
+      
+    # ======== MATHEMATICAL OBJECTS ========
+    - target: "axes_demo"
+      type: "create"
+      start_time: 10
+      duration: 1
+      
+    - target: "equation_demo"
+      type: "write"
+      start_time: 10.5
+      duration: 1.5
+      
+    # ======== ARROWS AND LINES ========
+    - target: "arrow_demo"
+      type: "create"
+      start_time: 12
+      duration: 0.5
+      
+    - target: "line_demo"
+      type: "create"
+      start_time: 12.5
+      duration: 0.5
+      
+    # ======== GROUP ANIMATION ========
+    - target: "shape_group"
+      type: "fade_in"
+      start_time: 14
+      duration: 1
+      
+    - target: "shape_group"
+      type: "rotate"
+      start_time: 15
+      duration: 3
+      params:
+        angle: 360
+        
+    # ======== TRANSFORMATIONS ========
+    - target: "demo_circle"
+      type: "transform"
+      start_time: 18
+      duration: 2
+      params:
+        to: "demo_square"
+        
+    - target: "demo_polygon"
+      type: "move"
+      start_time: 19
+      duration: 1.5
+      params:
+        to: [0, 2, 0]
+        
+    # ======== FADE SEQUENCES ========
+    - target: "data_array"
+      type: "fade_out"
+      start_time: 21
+      duration: 1
+      
+    - target: "binary_array"
+      type: "fade_out"
+      start_time: 21.5
+      duration: 1
+      
+    # ======== FINAL SEQUENCE ========
+    - target: "title_text"
+      type: "scale"
+      start_time: 23
+      duration: 1
+      params:
+        factor: 1.2
+        
+    - target: "subtitle"
+      type: "transform"
+      start_time: 24
+      duration: 1.5
+      params:
+        text: "Thank You!"
+        
+    # Cleanup animations
+    - target: "demo_circle"
+      type: "fade_out"
+      start_time: 26
+      duration: 0.5
+      
+    - target: "demo_square"
+      type: "fade_out"
+      start_time: 26.2
+      duration: 0.5
+      
+    - target: "demo_polygon"
+      type: "fade_out"
+      start_time: 26.4
+      duration: 0.5
+      
+    - target: "axes_demo"
+      type: "fade_out"
+      start_time: 26.6
+      duration: 0.5
+      
+    - target: "equation_demo"
+      type: "fade_out"
+      start_time: 26.8
+      duration: 0.5
+      
+    - target: "arrow_demo"
+      type: "fade_out"
+      start_time: 27
+      duration: 0.5
+      
+    - target: "line_demo"
+      type: "fade_out"
+      start_time: 27.2
+      duration: 0.5
+      
+    - target: "shape_group"
+      type: "fade_out"
+      start_time: 27.4
+      duration: 0.5
+
+  # Effects for visual enhancement
+  effects:
+    # Title glow
+    - target: "title_text"
+      type: "glow"
+      start_time: 0
+      duration: 60
+      params:
+        color: "#FFD700"
+        radius: 10
+        
+    # Particle trail on rotating shapes
+    - target: "demo_circle"
+      type: "trail"
+      start_time: 4
+      duration: 2
+      params:
+        trail_length: 20
+        
+    - target: "demo_polygon"
+      type: "trail"
+      start_time: 5
+      duration: 2
+      params:
+        trail_length: 20
+        
+    # Ripple effect on transformation
+    - target: "demo_circle"
+      type: "ripple"
+      start_time: 18
+      duration: 2
+      params:
+        amplitude: 0.2
+        frequency: 3
+        
+    # Magic circle effect
+    - target: "shape_group"
+      type: "magic_circle"
+      start_time: 15
+      duration: 3
+      params:
+        rotation_speed: 30
+        pulse_rate: 2

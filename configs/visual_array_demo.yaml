@@ -1,0 +1,176 @@
+scene:
+  name: VisualArrayShowcase
+  duration: 30
+  fps: 30
+  resolution: "1080p"
+  background_color: "#000000"
+  
+  objects:
+    # Basic visual array
+    - name: basic_array
+      type: visual_array
+      layer: main
+      params:
+        values: [10, 20, 30, 40, 50]
+        position: [0, 2, 0]
+        show_indices: true
+    
+    # Hex format array
+    - name: hex_array
+      type: visual_array
+      layer: main
+      params:
+        values: [255, 128, 64, 32, 16]
+        position: [0, 0, 0]
+        hex_indices: true
+        index_offset: 0x1000
+        value_args:
+          color: "#00FF00"
+          font_size: 32
+    
+    # Binary format array with labels
+    - name: binary_array
+      type: visual_array
+      layer: main
+      params:
+        values: [1, 2, 4, 8, 16]
+        position: [0, -2, 0]
+        binary_format: true
+        labels: ["one", "two", "four", "eight", "sixteen"]
+        label_args:
+          color: "#FFA500"
+          font_size: 16
+        body_args:
+          fill_color: "#1E3A8A"
+          side_length: 1.2
+    
+    # Vertical array
+    - name: vertical_array
+      type: visual_array
+      layer: background
+      params:
+        values: ['A', 'B', 'C', 'D']
+        position: [-5, 0, 0]
+        growth_direction: down
+        element_spacing: 0.2
+        show_indices: false
+        value_args:
+          color: "#FFFFFF"
+          font_size: 48
+        body_args:
+          fill_color: "#7C3AED"
+          fill_opacity: 0.8
+    
+    # Title text
+    - name: title
+      type: text
+      layer: foreground
+      params:
+        text: "Visual Array Showcase"
+        position: [0, 3.5, 0]
+        color: "#FFFFFF"
+        scale: 1.5
+  
+  animations:
+    # Fade in title
+    - target: title
+      type: fade_in
+      start_time: 0
+      duration: 1
+    
+    # Create arrays with staggered timing
+    - target: basic_array
+      type: create
+      start_time: 1
+      duration: 1.5
+    
+    - target: hex_array
+      type: fade_in
+      start_time: 2
+      duration: 1.5
+      params:
+        shift: [0, 0.5, 0]
+    
+    - target: binary_array
+      type: create
+      start_time: 3
+      duration: 1.5
+    
+    - target: vertical_array
+      type: fade_in
+      start_time: 3.5
+      duration: 1
+      params:
+        shift: [0.5, 0, 0]
+    
+    # Highlight some elements by scaling
+    - target: hex_array
+      type: scale
+      start_time: 5
+      duration: 0.5
+      params:
+        scale_factor: 1.2
+    
+    - target: hex_array
+      type: scale
+      start_time: 5.5
+      duration: 0.5
+      params:
+        scale_factor: 0.833  # Back to original size (1/1.2)
+    
+    # Move arrays around
+    - target: basic_array
+      type: move
+      start_time: 7
+      duration: 2
+      params:
+        path: [[3, 2, 0], [3, -2, 0], [-3, -2, 0], [-3, 2, 0], [0, 2, 0]]
+    
+    - target: hex_array
+      type: rotate
+      start_time: 9
+      duration: 3
+      params:
+        angle: 360
+        about_point: [0, 0, 0]
+    
+    # Scale binary array
+    - target: binary_array
+      type: scale
+      start_time: 12
+      duration: 1
+      params:
+        scale_factor: 1.5
+    
+    - target: binary_array
+      type: scale
+      start_time: 14
+      duration: 1
+      params:
+        scale_factor: 0.667  # Back to original size
+    
+    # Fade out everything
+    - target: title
+      type: fade_out
+      start_time: 28
+      duration: 1
+    
+    - target: basic_array
+      type: fade_out
+      start_time: 28.2
+      duration: 1
+    
+    - target: hex_array
+      type: fade_out
+      start_time: 28.4
+      duration: 1
+    
+    - target: binary_array
+      type: fade_out
+      start_time: 28.6
+      duration: 1
+    
+    - target: vertical_array
+      type: fade_out
+      start_time: 28.8
+      duration: 1

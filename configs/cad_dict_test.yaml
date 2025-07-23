@@ -1,0 +1,39 @@
+name: CAD Dict Test
+description: Testing CAD features with dict format
+resolution: "1080p"
+fps: 30
+duration: 5
+background_color: "#1a1a1a"
+
+objects:
+  rounded_square:
+    type: rounded_shape
+    params:
+      shape: square
+      size: 2.0
+      corner_radius: 0.3
+      color: "#FF6B6B"
+      stroke_width: 3
+      position: [-3, 0, 0]
+
+  hatched_circle:
+    type: hatched_shape
+    params:
+      shape: circle
+      radius: 1.0
+      hatch_angle: 0.785
+      hatch_spacing: 0.2
+      color: "#FFE66D"
+      stroke_width: 3
+      position: [3, 0, 0]
+
+animations:
+  - target: rounded_square
+    type: fadein
+    start_time: 0
+    duration: 1.0
+    
+  - target: hatched_circle
+    type: fadein
+    start_time: 0.5
+    duration: 1.0

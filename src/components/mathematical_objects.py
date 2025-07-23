@@ -2,8 +2,49 @@
 from manim import *
 from typing import List, Tuple, Optional, Callable
 import numpy as np
-from shapely import geometry
 import math
+
+# Import hyperplane functionality
+try:
+    from ..utils.math3d.hyperplane import Hyperplane, HyperplaneRegion
+    from .hyperplane_objects import (
+        hyperplane_from_inequality_2d, 
+        hyperplane_region_from_feasible_area,
+        visualize_hyperplane_2d
+    )
+    HYPERPLANE_AVAILABLE = True
+except ImportError:
+    HYPERPLANE_AVAILABLE = False
+
+# Import physics functionality
+try:
+    from .physics_objects import (
+        SimplePendulum,
+        Spring,
+        ProjectileMotion,
+        create_physics_updater,
+        PHYSICS_OBJECTS
+    )
+    PHYSICS_AVAILABLE = True
+except ImportError:
+    PHYSICS_AVAILABLE = False
+
+# Import CAD functionality
+try:
+    from .cad_objects import (
+        RoundCorners,
+        ChamferCorners,
+        LinearDimension,
+        AngularDimension,
+        PointerLabel,
+        HatchPattern,
+        DashedLine,
+        PathMapper,
+        create_cad_object
+    )
+    CAD_AVAILABLE = True
+except ImportError:
+    CAD_AVAILABLE = False
 
 
 # Constants
@@ -240,6 +281,33 @@ class Inequality2D(VMobject):
         
         half_plane.shift(normal * half_plane.width/2)
         return half_plane
+    
+    def to_hyperplane(self) -> Optional['Hyperplane']:
+        """Convert to Hyperplane for advanced geometric operations."""
+        if not HYPERPLANE_AVAILABLE:
+            return None
+        
+        return hyperplane_from_inequality_2d(self)
+    
+    def get_distance_to_point(self, x: float, y: float) -> float:
+        """Get signed distance from point to the inequality line."""
+        if HYPERPLANE_AVAILABLE:
+            hyperplane = self.to_hyperplane()
+            return hyperplane.distance_to_point([x, y])
+        else:
+            # Fallback calculation
+            return (self.a * x + self.b * y + self.c) / np.sqrt(self.a**2 + self.b**2)
+    
+    def classify_points(self, points: List[Tuple[float, float]]) -> List[int]:
+        """Classify multiple points: 1 for satisfies inequality, -1 for violates."""
+        if HYPERPLANE_AVAILABLE:
+            hyperplane = self.to_hyperplane()
+            # Note: hyperplane classification is opposite for inequalities
+            classifications = [-hyperplane.classify_point(p) for p in points]
+            return [1 if c <= 0 else -1 for c in classifications]
+        else:
+            # Fallback
+            return [1 if self.satisfies(p[0], p[1]) else -1 for p in points]
 
 
 class FeasibleArea2D(VMobject):
@@ -360,3 +428,51 @@ class FeasibleArea2D(VMobject):
                 best_vertex = vertex
         
         return best_vertex
+    
+    def to_hyperplane_region(self) -> Optional['HyperplaneRegion']:
+        """Convert to HyperplaneRegion for advanced geometric operations."""
+        if not HYPERPLANE_AVAILABLE:
+            return None
+        
+        return hyperplane_region_from_feasible_area(self)
+    
+    def get_hyperplane_inequalities(self) -> List['Hyperplane']:
+        """Get hyperplane representation of all inequalities."""
+        if not HYPERPLANE_AVAILABLE:
+            return []
+        
+        return [hyperplane_from_inequality_2d(ineq) for ineq in self.inequalities]
+
+
+# Create aliases for backward compatibility
+Inequality = Inequality2D
+FeasibleArea = FeasibleArea2D
+
+
+# Export CAD objects and utilities
+if CAD_AVAILABLE:
+    # Make CAD objects available at module level
+    __all__ = [
+        # Existing mathematical objects
+        'Inequality',
+        'FeasibleArea',
+        'get_infinite_square',
+        'crop_line_to_screen',
+        # CAD objects
+        'RoundCorners',
+        'ChamferCorners',
+        'LinearDimension',
+        'AngularDimension', 
+        'PointerLabel',
+        'HatchPattern',
+        'DashedLine',
+        'PathMapper',
+        'create_cad_object'
+    ]
+else:
+    __all__ = [
+        'Inequality',
+        'FeasibleArea',
+        'get_infinite_square',
+        'crop_line_to_screen'
+    ]

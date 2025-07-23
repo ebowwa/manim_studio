@@ -1,0 +1,330 @@
+# Manim Studio Feature Showcase
+# Demonstrates the full capabilities of the framework
+
+name: "UltimateFeatureShowcase"
+description: "A comprehensive demonstration of Manim Studio features"
+duration: 90.0
+background_color: "#0a0a0a"
+resolution: [1920, 1080]
+fps: 60
+
+# Define reusable assets
+assets:
+  logo: "assets/images/logo.png"
+  texture: "assets/textures/sparkle.png"
+
+# Scene objects
+objects:
+  # Title sequence
+  main_title:
+    type: text
+    text: "MANIM STUDIO"
+    params:
+      gradient: ["#FFD700", "#FF6B6B", "#4ECDC4"]
+      scale: 2.0
+      weight: BOLD
+      position: [0, 3, 0]
+      font_size: 72
+  
+  subtitle:
+    type: text
+    text: "Professional Animation Framework"
+    params:
+      color: "#CCCCCC"
+      scale: 1.0
+      position: [0, 1.5, 0]
+      font_size: 36
+      
+  # Basic shapes
+  circle_demo:
+    type: shape
+    params:
+      shape_type: circle
+      radius: 1.5
+      position: [-5, 0, 0]
+      color: "#FF6B6B"
+      fill_opacity: 0.8
+      stroke_width: 3
+      
+  square_demo:
+    type: shape
+    params:
+      shape_type: square
+      side_length: 2.5
+      position: [0, 0, 0]
+      color: "#4ECDC4"
+      fill_opacity: 0.8
+      stroke_width: 3
+      
+  polygon_demo:
+    type: shape
+    params:
+      shape_type: polygon
+      vertices: 8
+      radius: 1.5
+      position: [5, 0, 0]
+      color: "#9B59B6"
+      fill_opacity: 0.8
+      stroke_width: 3
+      
+  # Text elements
+  equation_text:
+    type: text
+    text: "E = mc²"
+    params:
+      color: "#F39C12"
+      position: [-5, -3, 0]
+      font_size: 48
+      
+  code_text:
+    type: text
+    text: "scene.add(Circle())"
+    params:
+      color: "#2ECC71"
+      position: [5, -3, 0]
+      font: "Courier"
+      font_size: 36
+      
+  # Group example
+  shape_group:
+    type: group
+    params:
+      position: [0, -4, 0]
+      
+  # Visual array
+  data_array:
+    type: visual_array
+    params:
+      values: [64, 128, 256, 512, 1024]
+      position: [0, -2, 0]
+      cell_width: 1.5
+      cell_height: 1.0
+      fill_color: "#3498DB"
+      text_color: "#FFFFFF"
+      show_indices: true
+
+# Animation timeline
+animations:
+  # Opening sequence
+  - target: main_title
+    animation_type: write
+    start_time: 0.0
+    duration: 2.0
+    
+  - target: subtitle
+    animation_type: fadein
+    start_time: 1.0
+    duration: 1.5
+    params:
+      shift: [0, 0.5, 0]
+      
+  # Shape creation sequence
+  - target: circle_demo
+    animation_type: create
+    start_time: 3.0
+    duration: 1.0
+    
+  - target: square_demo
+    animation_type: create
+    start_time: 3.5
+    duration: 1.0
+    
+  - target: polygon_demo
+    animation_type: create
+    start_time: 4.0
+    duration: 1.0
+    
+  # Shape animations
+  - target: circle_demo
+    animation_type: rotate
+    start_time: 5.5
+    duration: 2.0
+    params:
+      angle: 360
+      
+  - target: square_demo
+    animation_type: scale
+    start_time: 6.0
+    duration: 2.0
+    params:
+      factor: 1.5
+      
+  - target: polygon_demo
+    animation_type: rotate
+    start_time: 6.5
+    duration: 2.0
+    params:
+      angle: -720
+      
+  # Text animations
+  - target: equation_text
+    animation_type: write
+    start_time: 9.0
+    duration: 1.5
+    
+  - target: code_text
+    animation_type: write
+    start_time: 10.0
+    duration: 2.0
+    
+  # Visual array
+  - target: data_array
+    animation_type: create
+    start_time: 12.0
+    duration: 2.0
+    
+  # Movement sequence
+  - target: circle_demo
+    animation_type: move
+    start_time: 15.0
+    duration: 2.0
+    params:
+      to: [0, 2, 0]
+      
+  - target: square_demo
+    animation_type: move
+    start_time: 15.5
+    duration: 2.0
+    params:
+      to: [-3, -1, 0]
+      
+  - target: polygon_demo
+    animation_type: move
+    start_time: 16.0
+    duration: 2.0
+    params:
+      to: [3, -1, 0]
+      
+  # Transform sequence
+  - target: circle_demo
+    animation_type: transform
+    start_time: 19.0
+    duration: 2.0
+    params:
+      to_shape: square
+      side_length: 2.0
+      
+  # Color animations
+  - target: main_title
+    animation_type: indicate
+    start_time: 22.0
+    duration: 1.0
+    params:
+      color: "#FFD700"
+      scale_factor: 1.2
+      
+  # Fade sequences
+  - target: equation_text
+    animation_type: fadeout
+    start_time: 25.0
+    duration: 1.0
+    
+  - target: code_text
+    animation_type: fadeout
+    start_time: 25.5
+    duration: 1.0
+    
+  - target: data_array
+    animation_type: fadeout
+    start_time: 26.0
+    duration: 1.0
+    
+  # Final sequence
+  - target: main_title
+    animation_type: scale
+    start_time: 28.0
+    duration: 1.0
+    params:
+      factor: 1.5
+      
+  - target: subtitle
+    animation_type: fadeout
+    start_time: 29.0
+    duration: 1.0
+    
+  - target: circle_demo
+    animation_type: fadeout
+    start_time: 30.0
+    duration: 0.5
+    
+  - target: square_demo
+    animation_type: fadeout
+    start_time: 30.2
+    duration: 0.5
+    
+  - target: polygon_demo
+    animation_type: fadeout
+    start_time: 30.4
+    duration: 0.5
+    
+  - target: main_title
+    animation_type: fadeout
+    start_time: 31.0
+    duration: 1.0
+
+# Visual effects
+effects:
+  # Title glow
+  - type: glow_effect
+    target: main_title
+    start_time: 0.0
+    duration: 90.0
+    params:
+      color: "#FFD700"
+      radius: 20
+      intensity: 0.8
+      
+  # Particle system
+  - type: particle_system
+    start_time: 3.0
+    duration: 10.0
+    params:
+      n_emitters: 3
+      particles_per_second: 30
+      particle_lifetime: 3.0
+      velocity_range: [1, 4]
+      particle_color: "#FFFFFF"
+      particle_radius: 0.02
+      
+  # Magical circle
+  - type: magical_circle
+    start_time: 15.0
+    duration: 10.0
+    params:
+      radius: 3.0
+      n_layers: 3
+      rune_count: 16
+      rotation_speed: 0.5
+      pulse_frequency: 1.0
+      color_scheme:
+        outer_circle: "#4A90E2"
+        inner_circles: "#7B68EE"
+        runes: "#9B59B6"
+        glow: "#4A90E2"
+        
+  # Trail effects on shapes
+  - type: trail_effect
+    target: circle_demo
+    start_time: 5.5
+    duration: 2.0
+    params:
+      trail_length: 30
+      trail_color: "#FF6B6B"
+      
+  - type: trail_effect
+    target: polygon_demo
+    start_time: 6.5
+    duration: 2.0
+    params:
+      trail_length: 30
+      trail_color: "#9B59B6"
+      
+  # Ripple effect
+  - type: ripple_effect
+    target: square_demo
+    start_time: 19.0
+    duration: 2.0
+    params:
+      amplitude: 0.3
+      frequency: 3
+      color: "#4ECDC4"

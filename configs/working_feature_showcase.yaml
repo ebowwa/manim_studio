@@ -1,0 +1,98 @@
+# Working Manim Studio Feature Showcase
+# Demonstrates features that are confirmed to work
+
+scene:
+  name: WorkingFeatureShowcase
+  duration: 60  # 1 minute showcase
+  fps: 30
+  resolution: "720p"
+  background_color: "#000000"
+
+# Basic objects that should work
+objects:
+  - type: Text
+    id: title
+    content: "Manim Studio Features"
+    position: [0, 2, 0]
+    scale: 1.5
+    color: "#FFFFFF"
+
+  - type: Circle
+    id: circle1
+    radius: 1
+    position: [-2, 0, 0]
+    color: "#FF0080"
+    
+  - type: Square
+    id: square1
+    side_length: 1.5
+    position: [0, 0, 0]
+    color: "#00FF80"
+    
+  - type: Triangle
+    id: triangle1
+    base: 1.5
+    height: 1.5
+    position: [2, 0, 0]
+    color: "#0080FF"
+
+  - type: Text
+    id: description
+    content: "Basic Shapes & Animations"
+    position: [0, -2, 0]
+    scale: 1
+    color: "#CCCCCC"
+
+# Simple animations
+animations:
+  # Title animation
+  - target: title
+    type: FadeIn
+    start_time: 0
+    duration: 1
+    
+  # Shape creation
+  - target: [circle1, square1, triangle1]
+    type: Create
+    start_time: 2
+    duration: 2
+    
+  # Description
+  - target: description
+    type: Write
+    start_time: 4
+    duration: 2
+    
+  # Rotate shapes
+  - target: [circle1, square1, triangle1]
+    type: Rotate
+    start_time: 6
+    duration: 4
+    angle: 6.28  # Full rotation
+    
+  # Scale animation
+  - target: square1
+    type: Scale
+    start_time: 10
+    duration: 2
+    scale_factor: 1.5
+    
+  # Color change
+  - target: circle1
+    type: Transform
+    start_time: 12
+    duration: 2
+    color: "#FFFF00"
+    
+  # Move objects
+  - target: triangle1
+    type: Move
+    start_time: 14
+    duration: 3
+    target_position: [2, 1, 0]
+    
+  # Final fade out
+  - target: [title, circle1, square1, triangle1, description]
+    type: FadeOut
+    start_time: 55
+    duration: 2

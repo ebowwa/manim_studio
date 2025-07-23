@@ -1,8 +1,9 @@
 """Advanced scene composition techniques from xiaoxiae's videos."""
+from src.config.manim_config import config
 from manim import *
 from typing import List, Tuple, Optional, Callable, Dict, Any
 import numpy as np
-from utils.utilities import fade, staggered_animation_group
+from src.utils.utilities import fade, staggered_animation_group
 
 
 class AdvancedScene(Scene):
@@ -69,22 +70,37 @@ class AdvancedScene(Scene):
         authors: Optional[List[str]] = None,
         duration: float = 3.0
     ) -> None:
-        """Create a professional title card."""
+        """Create a professional title card using TextManager."""
+        from ..core.text_manager import TextManager
+        text_manager = TextManager(self)
+        
         elements = VGroup()
         
         # Title
-        title_text = Text(title, font_size=56, weight=BOLD)
+        title_text = text_manager.create_text(
+            title,
+            style='title',
+            layout='center'
+        )
         elements.add(title_text)
         
         # Subtitle
         if subtitle:
-            subtitle_text = Text(subtitle, font_size=36, slant=ITALIC)
+            subtitle_text = text_manager.create_text(
+                subtitle,
+                style='subtitle',
+                layout='center'
+            )
             subtitle_text.next_to(title_text, DOWN, buff=0.5)
             elements.add(subtitle_text)
         
         # Authors
         if authors:
-            author_text = Text(", ".join(authors), font_size=24)
+            author_text = text_manager.create_text(
+                ", ".join(authors),
+                style='body',
+                layout='center'
+            )
             author_text.to_edge(DOWN).shift(UP * 0.5)
             elements.add(author_text)
         

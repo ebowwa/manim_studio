@@ -1,0 +1,149 @@
+scene:
+  name: "Manim Studio Showcase"
+  duration: 30
+  resolution: [1920, 1080]
+  fps: 30
+  background_color: "#0a0a0a"
+  
+objects:
+  # Title text
+  - name: "title"
+    type: "text"
+    params:
+      text: "MANIM STUDIO"
+      font_size: 72
+      color: "#FFD700"
+      weight: "BOLD"
+    position: [0, 2, 0]
+    
+  # Subtitle
+  - name: "subtitle"
+    type: "text"
+    params:
+      text: "Animation Framework"
+      font_size: 36
+      color: "#CCCCCC"
+    position: [0, 0.5, 0]
+    
+  # Basic shapes
+  - name: "circle_demo"
+    type: "shape"
+    params:
+      shape_type: "circle"
+      radius: 1.5
+      color: "#FF6B6B"
+      fill_opacity: 0.8
+      stroke_width: 3
+    position: [-4, -2, 0]
+    
+  - name: "square_demo"
+    type: "shape"
+    params:
+      shape_type: "square"
+      side_length: 2
+      color: "#4ECDC4"
+      fill_opacity: 0.8
+      stroke_width: 3
+    position: [0, -2, 0]
+    
+  - name: "polygon_demo"
+    type: "shape"
+    params:
+      shape_type: "polygon"
+      vertices: 6
+      radius: 1.5
+      color: "#9B59B6"
+      fill_opacity: 0.8
+      stroke_width: 3
+    position: [4, -2, 0]
+
+animations:
+  # Title sequence
+  - target: "title"
+    type: "write"
+    start_time: 0
+    duration: 2
+    
+  - target: "subtitle"
+    type: "fadein"
+    start_time: 1
+    duration: 1.5
+    
+  # Shape creation
+  - target: "circle_demo"
+    type: "create"
+    start_time: 3
+    duration: 1
+    
+  - target: "square_demo"
+    type: "create"
+    start_time: 3.5
+    duration: 1
+    
+  - target: "polygon_demo"
+    type: "create"
+    start_time: 4
+    duration: 1
+    
+  # Shape animations
+  - target: "circle_demo"
+    type: "rotate"
+    start_time: 6
+    duration: 2
+    params:
+      angle: 6.28318  # 360 degrees
+      
+  - target: "square_demo"
+    type: "scale"
+    start_time: 7
+    duration: 2
+    params:
+      factor: 1.5
+      
+  - target: "polygon_demo"
+    type: "rotate"
+    start_time: 8
+    duration: 2
+    params:
+      angle: -6.28318  # -360 degrees
+      
+  # Movement
+  - target: "circle_demo"
+    type: "move"
+    start_time: 11
+    duration: 2
+    params:
+      to: [0, 0, 0]
+      
+  # Final sequence
+  - target: "subtitle"
+    type: "fadeout"
+    start_time: 14
+    duration: 1
+    
+  - target: "circle_demo"
+    type: "fadeout"
+    start_time: 15
+    duration: 0.5
+    
+  - target: "square_demo"
+    type: "fadeout"
+    start_time: 15.5
+    duration: 0.5
+    
+  - target: "polygon_demo"
+    type: "fadeout"
+    start_time: 16
+    duration: 0.5
+    
+  - target: "title"
+    type: "scale"
+    start_time: 17
+    duration: 1
+    params:
+      factor: 1.2
+      
+  - target: "title"
+    type: "fadeout"
+    start_time: 19
+    duration: 1

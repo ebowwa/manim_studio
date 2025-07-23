@@ -1,0 +1,480 @@
+scene:
+  name: "Manim Studio Full Showcase"
+  description: "Complete demonstration using full 90 second duration"
+  duration: 90
+  resolution: [1920, 1080]
+  fps: 60
+  background_color: "#0a0a0a"
+  
+  objects:
+    # ============ TITLE SEQUENCE ============
+    - name: "main_title"
+      type: "text"
+      params:
+        text: "MANIM STUDIO"
+        font_size: 96
+        gradient: ["#FFD700", "#FF6B6B", "#4ECDC4", "#9B59B6"]
+        weight: "BOLD"
+      position: [0, 2, 0]
+      
+    - name: "subtitle"
+      type: "text"
+      params:
+        text: "Professional Animation Framework"
+        font_size: 48
+        color: "#CCCCCC"
+      position: [0, 0.5, 0]
+      
+    # ============ BASIC SHAPES ============
+    - name: "circle1"
+      type: "shape"
+      params:
+        shape_type: "circle"
+        radius: 1.5
+        color: "#FF6B6B"
+        fill_opacity: 0.8
+        stroke_width: 4
+      position: [-5, -2, 0]
+      
+    - name: "square1"
+      type: "shape"
+      params:
+        shape_type: "square"
+        side_length: 2
+        color: "#4ECDC4"
+        fill_opacity: 0.8
+        stroke_width: 4
+      position: [0, -2, 0]
+      
+    - name: "polygon1"
+      type: "shape"
+      params:
+        shape_type: "polygon"
+        vertices: 6
+        radius: 1.5
+        color: "#9B59B6"
+        fill_opacity: 0.8
+        stroke_width: 4
+      position: [5, -2, 0]
+      
+    - name: "triangle1"
+      type: "shape"
+      params:
+        shape_type: "polygon"
+        vertices: 3
+        radius: 1.5
+        color: "#F39C12"
+        fill_opacity: 0.8
+        stroke_width: 4
+      position: [0, 0, 0]
+      
+    # ============ TEXT VARIATIONS ============
+    - name: "gradient_text"
+      type: "text"
+      params:
+        text: "Gradient Colors"
+        font_size: 36
+        gradient: ["#FF0000", "#FFFF00", "#00FF00", "#00FFFF", "#0000FF"]
+      position: [-5, 3, 0]
+      
+    - name: "italic_text"
+      type: "text"
+      params:
+        text: "Italic Style"
+        font_size: 36
+        color: "#E74C3C"
+        font_style: "ITALIC"
+      position: [5, 3, 0]
+      
+    - name: "bold_text"
+      type: "text"
+      params:
+        text: "BOLD TEXT"
+        font_size: 36
+        color: "#2ECC71"
+        weight: "BOLD"
+      position: [0, 3, 0]
+      
+    # ============ VISUAL ARRAYS ============
+    - name: "hex_array"
+      type: "visual_array"
+      params:
+        values: [255, 128, 64, 32, 16, 8, 4, 2, 1]
+        display_format: "hex"
+        show_indices: true
+        cell_width: 1.0
+        cell_height: 0.7
+        fill_color: "#2ECC71"
+        text_color: "#FFFFFF"
+      position: [0, -4, 0]
+      
+    - name: "binary_array"
+      type: "visual_array"
+      params:
+        values: [1, 0, 1, 1, 0, 1, 0, 1]
+        display_format: "binary"
+        labels: ["B7", "B6", "B5", "B4", "B3", "B2", "B1", "B0"]
+        cell_width: 0.8
+        cell_height: 0.7
+        fill_color: "#3498DB"
+        text_color: "#FFFFFF"
+      position: [0, -5, 0]
+      
+    # ============ ADDITIONAL ELEMENTS ============
+    - name: "demo_text1"
+      type: "text"
+      params:
+        text: "Animation"
+        font_size: 48
+        color: "#E74C3C"
+      position: [-4, 0, 0]
+      
+    - name: "demo_text2"
+      type: "text"
+      params:
+        text: "Framework"
+        font_size: 48
+        color: "#3498DB"
+      position: [4, 0, 0]
+      
+    - name: "final_message"
+      type: "text"
+      params:
+        text: "Thank You!"
+        font_size: 72
+        gradient: ["#FFD700", "#FF6B6B", "#4ECDC4"]
+        weight: "BOLD"
+      position: [0, 0, 0]
+
+  animations:
+    # ======== OPENING SEQUENCE (0-10s) ========
+    - target: "main_title"
+      type: "write"
+      start_time: 0
+      duration: 2.5
+      
+    - target: "subtitle"
+      type: "fade_in"
+      start_time: 1.5
+      duration: 1.5
+      
+    # ======== SHAPES INTRODUCTION (10-20s) ========
+    - target: "circle1"
+      type: "create"
+      start_time: 5
+      duration: 1
+      
+    - target: "square1"
+      type: "create"
+      start_time: 5.5
+      duration: 1
+      
+    - target: "polygon1"
+      type: "create"
+      start_time: 6
+      duration: 1
+      
+    - target: "triangle1"
+      type: "fade_in"
+      start_time: 7
+      duration: 1
+      
+    # ======== SHAPE ANIMATIONS (20-30s) ========
+    - target: "circle1"
+      type: "rotate"
+      start_time: 10
+      duration: 2
+      params:
+        angle: 360
+        
+    - target: "square1"
+      type: "scale"
+      start_time: 11
+      duration: 2
+      params:
+        factor: 1.5
+        
+    - target: "polygon1"
+      type: "rotate"
+      start_time: 12
+      duration: 2
+      params:
+        angle: -360
+        
+    - target: "triangle1"
+      type: "rotate"
+      start_time: 13
+      duration: 2
+      params:
+        angle: 720
+        
+    # ======== TEXT VARIATIONS (30-40s) ========
+    - target: "gradient_text"
+      type: "write"
+      start_time: 16
+      duration: 1.5
+      
+    - target: "italic_text"
+      type: "write"
+      start_time: 17
+      duration: 1.5
+      
+    - target: "bold_text"
+      type: "write"
+      start_time: 18
+      duration: 1.5
+      
+    # ======== VISUAL ARRAYS (40-50s) ========
+    - target: "hex_array"
+      type: "create"
+      start_time: 22
+      duration: 2
+      
+    - target: "binary_array"
+      type: "create"
+      start_time: 24
+      duration: 2
+      
+    # ======== MOVEMENT SEQUENCE (50-60s) ========
+    - target: "circle1"
+      type: "move"
+      start_time: 28
+      duration: 2
+      params:
+        to: [-5, 0, 0]
+        
+    - target: "square1"
+      type: "move"
+      start_time: 29
+      duration: 2
+      params:
+        to: [0, 0, 0]
+        
+    - target: "polygon1"
+      type: "move"
+      start_time: 30
+      duration: 2
+      params:
+        to: [5, 0, 0]
+        
+    - target: "triangle1"
+      type: "move"
+      start_time: 31
+      duration: 2
+      params:
+        to: [0, -2, 0]
+        
+    # ======== MORE ANIMATIONS (60-70s) ========
+    - target: "demo_text1"
+      type: "write"
+      start_time: 35
+      duration: 1.5
+      
+    - target: "demo_text2"
+      type: "write"
+      start_time: 36
+      duration: 1.5
+      
+    - target: "main_title"
+      type: "scale"
+      start_time: 38
+      duration: 1.5
+      params:
+        factor: 1.3
+        
+    - target: "circle1"
+      type: "indicate"
+      start_time: 40
+      duration: 1
+      params:
+        scale_factor: 1.3
+        color: "#FFFF00"
+        
+    - target: "square1"
+      type: "indicate"
+      start_time: 41
+      duration: 1
+      params:
+        scale_factor: 1.3
+        color: "#FF00FF"
+        
+    - target: "polygon1"
+      type: "indicate"
+      start_time: 42
+      duration: 1
+      params:
+        scale_factor: 1.3
+        color: "#00FFFF"
+        
+    # ======== TRANSFORM SEQUENCE (70-80s) ========
+    - target: "circle1"
+      type: "rotate"
+      start_time: 45
+      duration: 2
+      params:
+        angle: -360
+        
+    - target: "square1"
+      type: "rotate"
+      start_time: 46
+      duration: 2
+      params:
+        angle: 360
+        
+    - target: "polygon1"
+      type: "rotate"
+      start_time: 47
+      duration: 2
+      params:
+        angle: -360
+        
+    # Clear text
+    - target: "gradient_text"
+      type: "fade_out"
+      start_time: 50
+      duration: 0.5
+      
+    - target: "italic_text"
+      type: "fade_out"
+      start_time: 50.5
+      duration: 0.5
+      
+    - target: "bold_text"
+      type: "fade_out"
+      start_time: 51
+      duration: 0.5
+      
+    - target: "demo_text1"
+      type: "fade_out"
+      start_time: 51.5
+      duration: 0.5
+      
+    - target: "demo_text2"
+      type: "fade_out"
+      start_time: 52
+      duration: 0.5
+      
+    # Clear arrays
+    - target: "hex_array"
+      type: "fade_out"
+      start_time: 53
+      duration: 0.5
+      
+    - target: "binary_array"
+      type: "fade_out"
+      start_time: 53.5
+      duration: 0.5
+      
+    # ======== FINALE (80-90s) ========
+    - target: "subtitle"
+      type: "fade_out"
+      start_time: 55
+      duration: 1
+      
+    - target: "main_title"
+      type: "move"
+      start_time: 56
+      duration: 2
+      params:
+        to: [0, 5, 0]
+        
+    - target: "final_message"
+      type: "write"
+      start_time: 58
+      duration: 2
+      
+    # Final shape dance
+    - target: "circle1"
+      type: "move"
+      start_time: 61
+      duration: 2
+      params:
+        to: [-3, -2, 0]
+        
+    - target: "square1"
+      type: "move"
+      start_time: 62
+      duration: 2
+      params:
+        to: [3, -2, 0]
+        
+    - target: "polygon1"
+      type: "move"
+      start_time: 63
+      duration: 2
+      params:
+        to: [-3, 2, 0]
+        
+    - target: "triangle1"
+      type: "move"
+      start_time: 64
+      duration: 2
+      params:
+        to: [3, 2, 0]
+        
+    # Rotate all shapes
+    - target: "circle1"
+      type: "rotate"
+      start_time: 67
+      duration: 3
+      params:
+        angle: 360
+        
+    - target: "square1"
+      type: "rotate"
+      start_time: 67.5
+      duration: 3
+      params:
+        angle: -360
+        
+    - target: "polygon1"
+      type: "rotate"
+      start_time: 68
+      duration: 3
+      params:
+        angle: 360
+        
+    - target: "triangle1"
+      type: "rotate"
+      start_time: 68.5
+      duration: 3
+      params:
+        angle: -360
+        
+    # Final fade out
+    - target: "circle1"
+      type: "fade_out"
+      start_time: 72
+      duration: 1
+      
+    - target: "square1"
+      type: "fade_out"
+      start_time: 73
+      duration: 1
+      
+    - target: "polygon1"
+      type: "fade_out"
+      start_time: 74
+      duration: 1
+      
+    - target: "triangle1"
+      type: "fade_out"
+      start_time: 75
+      duration: 1
+      
+    - target: "main_title"
+      type: "fade_out"
+      start_time: 77
+      duration: 1
+      
+    - target: "final_message"
+      type: "scale"
+      start_time: 79
+      duration: 2
+      params:
+        factor: 1.5
+        
+    - target: "final_message"
+      type: "fade_out"
+      start_time: 82
+      duration: 2

@@ -1,0 +1,301 @@
+# Working Final Showcase - Single targets only
+scene:
+  name: "Manim Studio Working Showcase"
+  description: "Working demonstration with single animation targets"
+  duration: 90  # 1.5 minutes
+  resolution: [1920, 1080]
+  fps: 30
+  background_color: "#0a0a0a"
+  
+  objects:
+    # Title section
+    - name: "main_title"
+      type: "text"
+      params:
+        text: "MANIM STUDIO"
+        font_size: 84
+        gradient: ["#FFD700", "#FF6B6B", "#4ECDC4"]
+        weight: "BOLD"
+      position: [0, 3.5, 0]
+      
+    - name: "subtitle"
+      type: "text"
+      params:
+        text: "Feature Showcase"
+        font_size: 36
+        color: "#CCCCCC"
+      position: [0, 2.8, 0]
+      
+    # Basic shapes
+    - name: "circle1"
+      type: "shape"
+      params:
+        shape_type: "circle"
+        radius: 0.8
+        color: "#FF6B6B"
+        fill_opacity: 0.8
+        stroke_width: 3
+      position: [-4, 0.5, 0]
+      
+    - name: "square1"
+      type: "shape"
+      params:
+        shape_type: "square"
+        side_length: 1.5
+        color: "#4ECDC4"
+        fill_opacity: 0.8
+        stroke_width: 3
+      position: [-1.5, 0.5, 0]
+      
+    - name: "triangle1"
+      type: "shape"
+      params:
+        shape_type: "triangle"
+        side_length: 1.5
+        color: "#9B59B6"
+        fill_opacity: 0.8
+        stroke_width: 3
+      position: [1, 0.5, 0]
+      
+    - name: "hexagon1"
+      type: "shape"
+      params:
+        shape_type: "polygon"
+        vertices: 6
+        radius: 0.8
+        color: "#FFD700"
+        fill_opacity: 0.8
+        stroke_width: 3
+      position: [4, 0.5, 0]
+      
+    # Text demonstrations
+    - name: "demo_text"
+      type: "text"
+      params:
+        text: "Shape Animations"
+        font_size: 28
+        color: "#FFFFFF"
+      position: [0, -1, 0]
+      
+    - name: "gradient_demo"
+      type: "text"
+      params:
+        text: "Gradient Effects"
+        font_size: 32
+        gradient: ["#FF0080", "#8000FF", "#0080FF"]
+        weight: "BOLD"
+      position: [0, -2, 0]
+      
+    # Feature showcase
+    - name: "features_text"
+      type: "text"
+      params:
+        text: "✨ MANIM STUDIO FEATURES ✨"
+        font_size: 48
+        gradient: ["#FFD700", "#FF6B6B"]
+        weight: "BOLD"
+      position: [0, 0, 10]
+      
+    - name: "thank_you"
+      type: "text"
+      params:
+        text: "Thank You!"
+        font_size: 72
+        gradient: ["#FFD700", "#FF6B6B", "#4ECDC4"]
+        weight: "BOLD"
+      position: [0, 0, 20]
+
+  # Single-target animations only
+  animations:
+    # Opening (0-8s)
+    - target: "main_title"
+      type: "write"
+      start_time: 0.5
+      duration: 2.5
+      
+    - target: "subtitle"
+      type: "fadein"
+      start_time: 2.0
+      duration: 1.5
+      
+    # Shapes creation (8-18s)
+    - target: "demo_text"
+      type: "write"
+      start_time: 6.0
+      duration: 1.5
+      
+    - target: "circle1"
+      type: "create"
+      start_time: 8.0
+      duration: 1.0
+      
+    - target: "square1"
+      type: "create"
+      start_time: 9.0
+      duration: 1.0
+      
+    - target: "triangle1"
+      type: "create"
+      start_time: 10.0
+      duration: 1.0
+      
+    - target: "hexagon1"
+      type: "create"
+      start_time: 11.0
+      duration: 1.0
+      
+    # Rotation sequence (18-28s)
+    - target: "circle1"
+      type: "rotate"
+      start_time: 15.0
+      duration: 3.0
+      params:
+        angle: 6.28
+        
+    - target: "square1"
+      type: "rotate"
+      start_time: 16.0
+      duration: 3.0
+      params:
+        angle: 6.28
+        
+    - target: "triangle1"
+      type: "rotate"
+      start_time: 17.0
+      duration: 3.0
+      params:
+        angle: 6.28
+        
+    - target: "hexagon1"
+      type: "rotate"
+      start_time: 18.0
+      duration: 3.0
+      params:
+        angle: 6.28
+        
+    # Color changes (28-35s)
+    - target: "circle1"
+      type: "fade_to_color"
+      start_time: 22.0
+      duration: 2.0
+      params:
+        color: "#00FF00"
+        
+    - target: "square1"
+      type: "fade_to_color"
+      start_time: 24.0
+      duration: 2.0
+      params:
+        color: "#FF00FF"
+        
+    # Scale effects (35-45s)
+    - target: "triangle1"
+      type: "scale"
+      start_time: 28.0
+      duration: 2.0
+      params:
+        factor: 1.5
+        
+    - target: "hexagon1"
+      type: "scale"
+      start_time: 30.0
+      duration: 2.0
+      params:
+        factor: 1.8
+        
+    # Gradient text demo (45-55s)
+    - target: "gradient_demo"
+      type: "write"
+      start_time: 35.0
+      duration: 2.5
+      
+    - target: "gradient_demo"
+      type: "rotate"
+      start_time: 38.0
+      duration: 3.0
+      params:
+        angle: 3.14
+        
+    # Clear first scene (55-60s)
+    - target: "main_title"
+      type: "fadeout"
+      start_time: 50.0
+      duration: 2.0
+      
+    - target: "subtitle"
+      type: "fadeout"
+      start_time: 50.5
+      duration: 2.0
+      
+    - target: "demo_text"
+      type: "fadeout"
+      start_time: 51.0
+      duration: 2.0
+      
+    - target: "gradient_demo"
+      type: "fadeout"
+      start_time: 51.5
+      duration: 2.0
+      
+    - target: "circle1"
+      type: "fadeout"
+      start_time: 52.0
+      duration: 1.5
+      
+    - target: "square1"
+      type: "fadeout"
+      start_time: 52.2
+      duration: 1.5
+      
+    - target: "triangle1"
+      type: "fadeout"
+      start_time: 52.4
+      duration: 1.5
+      
+    - target: "hexagon1"
+      type: "fadeout"
+      start_time: 52.6
+      duration: 1.5
+      
+    # Features showcase (60-75s)
+    - target: "features_text"
+      type: "write"
+      start_time: 58.0
+      duration: 3.0
+      
+    - target: "features_text"
+      type: "scale"
+      start_time: 62.0
+      duration: 2.0
+      params:
+        factor: 1.2
+        
+    - target: "features_text"
+      type: "fadeout"
+      start_time: 70.0
+      duration: 2.0
+      
+    # Final thank you (75-90s)
+    - target: "thank_you"
+      type: "write"
+      start_time: 75.0
+      duration: 3.0
+      
+    - target: "thank_you"
+      type: "scale"
+      start_time: 80.0
+      duration: 2.0
+      params:
+        factor: 1.3
+        
+    - target: "thank_you"
+      type: "rotate"
+      start_time: 83.0
+      duration: 2.0
+      params:
+        angle: 1.57
+        
+    - target: "thank_you"
+      type: "fadeout"
+      start_time: 87.0
+      duration: 2.0

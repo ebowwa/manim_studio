@@ -1,0 +1,246 @@
+# 3D Camera System Showcase
+# Demonstrates true 3D camera capabilities with spherical coordinates and cinematic movements
+
+name: "3D Camera Showcase"
+description: "Comprehensive demonstration of 3D camera system with orbital movements and cinematic effects"
+duration: 30.0
+background_color: "#0a0e1a"
+resolution: [1920, 1080]
+fps: 60
+
+# 3D Camera configuration
+camera_type: "3d"
+camera:
+  # Spherical coordinates for intuitive 3D control
+  phi: 1.0471975512  # 60 degrees from vertical (π/3)
+  theta: 0.7853981634  # 45 degrees azimuthal (π/4)
+  distance: 8.0
+  
+  # Camera properties
+  focal_point: [0, 0, 0]
+  up_vector: [0, 0, 1]
+  fov: 50.0
+  zoom: 1.0
+  
+  # Clipping planes
+  near_clip: 0.1
+  far_clip: 50.0
+  
+  # Optional depth of field
+  dof_enabled: false
+  focal_distance: 5.0
+  aperture: 0.1
+  
+  # Movement parameters
+  movement_speed: 1.0
+  rotation_speed: 1.0
+  smooth_factor: 0.2
+
+# 3D Objects for the scene
+objects:
+  # Title text
+  title:
+    type: text
+    text: "3D Camera System"
+    params:
+      gradient: ["#00d4ff", "#0099ff"]
+      scale: 2.0
+      weight: BOLD
+      position: [0, 3, 2]
+  
+  # Central cube
+  central_cube:
+    type: cube
+    params:
+      side_length: 2.0
+      color: "#4a90e2"
+      fill_opacity: 0.8
+      position: [0, 0, 0]
+  
+  # Orbiting spheres
+  sphere_1:
+    type: sphere
+    params:
+      radius: 0.5
+      color: "#ff6b6b"
+      position: [3, 0, 0]
+  
+  sphere_2:
+    type: sphere
+    params:
+      radius: 0.5
+      color: "#4ecdc4"
+      position: [-3, 0, 0]
+  
+  sphere_3:
+    type: sphere
+    params:
+      radius: 0.5
+      color: "#feca57"
+      position: [0, 3, 0]
+  
+  # 3D axes for reference
+  axes:
+    type: axes_3d
+    params:
+      x_range: [-5, 5, 1]
+      y_range: [-5, 5, 1]
+      z_range: [-3, 3, 1]
+      color: "#555555"
+  
+  # Grid floor
+  grid:
+    type: grid_3d
+    params:
+      size: 10
+      color: "#333333"
+      opacity: 0.3
+
+# Animation timeline
+animations:
+  # Title appears
+  - target: title
+    animation_type: write
+    start_time: 0.0
+    duration: 2.0
+  
+  # Axes fade in
+  - target: axes
+    animation_type: create
+    start_time: 1.0
+    duration: 2.0
+  
+  # Grid appears
+  - target: grid
+    animation_type: fadein
+    start_time: 1.5
+    duration: 1.5
+  
+  # Central cube appears with rotation
+  - target: central_cube
+    animation_type: create
+    start_time: 3.0
+    duration: 2.0
+  
+  # Spheres appear
+  - target: sphere_1
+    animation_type: fadein
+    start_time: 5.0
+    duration: 1.0
+  
+  - target: sphere_2
+    animation_type: fadein
+    start_time: 5.5
+    duration: 1.0
+  
+  - target: sphere_3
+    animation_type: fadein
+    start_time: 6.0
+    duration: 1.0
+  
+  # Cube rotation
+  - target: central_cube
+    animation_type: rotate
+    start_time: 7.0
+    duration: 20.0
+    params:
+      angle: 6.28318530718  # 2π
+      axis: [1, 1, 1]
+  
+  # Title update for camera demo
+  - target: title
+    animation_type: transform
+    start_time: 8.0
+    duration: 1.0
+    params:
+      to:
+        type: text
+        text: "Camera Orbit Demo"
+        params:
+          gradient: ["#00d4ff", "#0099ff"]
+          scale: 2.0
+          weight: BOLD
+          position: [0, 3, 2]
+
+# Camera timeline - demonstrating various 3D camera movements
+camera_timeline:
+  # Orbital movements
+  - type: orbit
+    start_time: 8.0
+    duration: 5.0
+    params:
+      center: [0, 0, 0]
+      radius: 8.0
+      revolutions: 0.5
+      axis: "z"
+  
+  # Dolly zoom effect
+  - type: dolly_zoom
+    start_time: 14.0
+    duration: 3.0
+    params:
+      start_distance: 8.0
+      end_distance: 4.0
+      start_fov: 50.0
+      end_fov: 80.0
+  
+  # Fly-through movement
+  - type: fly_through
+    start_time: 18.0
+    duration: 5.0
+    params:
+      waypoints:
+        - [8, 0, 2]
+        - [0, 8, 4]
+        - [-8, 0, 2]
+        - [0, -8, 1]
+        - [8, 0, 2]
+      look_at_points:
+        - [0, 0, 0]
+        - [0, 0, 1]
+        - [0, 0, 0]
+        - [0, 0, -1]
+        - [0, 0, 0]
+      easing: "ease_in_out"
+  
+  # Focus pull between objects
+  - type: focus_pull
+    start_time: 24.0
+    duration: 3.0
+    params:
+      subjects:
+        - [3, 0, 0]   # sphere_1
+        - [0, 0, 0]   # central_cube
+        - [-3, 0, 0]  # sphere_2
+        - [0, 3, 0]   # sphere_3
+  
+  # Final wide shot
+  - type: move_to
+    start_time: 28.0
+    duration: 2.0
+    params:
+      position: [10, 10, 8]
+      focal_point: [0, 0, 0]
+      easing: "ease_out"
+
+# Effects for enhanced visuals
+effects:
+  # Ambient particles
+  - type: particle_system_3d
+    start_time: 5.0
+    params:
+      n_emitters: 2
+      particles_per_second: 5
+      particle_lifetime: 5.0
+      velocity_range: [0.2, 1.0]
+      particle_color: "#ffffff"
+      particle_radius: 0.02
+      gravity: [0, 0, -0.1]
+  
+  # Glow effect on spheres
+  - type: glow_3d
+    start_time: 7.0
+    params:
+      targets: ["sphere_1", "sphere_2", "sphere_3"]
+      intensity: 0.5
+      radius: 0.8

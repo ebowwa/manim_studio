@@ -1,0 +1,143 @@
+scene:
+  name: CAD Visual Test
+  description: Testing CAD features with proper colors and positioning
+  resolution: "1080p"
+  fps: 30
+  duration: 10
+  background_color: "#1a1a1a"
+
+  objects:
+    rounded_square:
+      type: rounded_shape
+      params:
+        shape: square
+        size: 2.0
+        corner_radius: 0.3
+        color: "#FF6B6B"
+        stroke_width: 3
+        position: [-4, 2, 0]
+
+    chamfered_rect:
+      type: chamfered_shape
+      params:
+        shape: rectangle
+        width: 3
+        height: 1.5
+        chamfer_offset: 0.2
+        color: "#4ECDC4"
+        stroke_width: 3
+        position: [0, 2, 0]
+
+    hatched_circle:
+      type: hatched_shape
+      params:
+        shape: circle
+        radius: 1.0
+        hatch_angle: 0.785
+        hatch_spacing: 0.2
+        color: "#FFE66D"
+        stroke_width: 3
+        position: [4, 2, 0]
+
+    dashed_triangle:
+      type: dashed_shape
+      params:
+        shape: triangle
+        radius: 1.2
+        num_dashes: 12
+        dashed_ratio: 0.7
+        color: "#A8E6CF"
+        stroke_width: 3
+        position: [-4, -1, 0]
+
+    linear_dim:
+      type: linear_dimension
+      params:
+        start: [-2, -2.5, 0]
+        end: [2, -2.5, 0]
+        direction: [0, -1, 0]
+        offset: 0.5
+        color: "#FFFFFF"
+        text: "4 units"
+
+    angular_dim:
+      type: angular_dimension
+      params:
+        angle: 1.571
+        radius: 1.5
+        arc_center: [0, -1, 0]
+        start_angle: 0
+        color: "#95E1D3"
+
+    pointer:
+      type: pointer_label
+      params:
+        target: [4, -1, 0]
+        label: "CAD Demo"
+        direction: [1, 1, 0]
+        color: "#F38181"
+
+  animations:
+    # Fade in all objects
+    - target: rounded_square
+      type: fadein
+      start_time: 0
+      duration: 0.5
+      
+    - target: chamfered_rect
+      type: fadein
+      start_time: 0.2
+      duration: 0.5
+      
+    - target: hatched_circle
+      type: fadein
+      start_time: 0.4
+      duration: 0.5
+      
+    - target: dashed_triangle
+      type: fadein
+      start_time: 0.6
+      duration: 0.5
+      
+    - target: linear_dim
+      type: write
+      start_time: 1.0
+      duration: 1.0
+      
+    - target: angular_dim
+      type: create
+      start_time: 1.5
+      duration: 1.0
+      
+    - target: pointer
+      type: fadein
+      start_time: 2.0
+      duration: 0.5
+
+    - target: rounded_square
+      type: rotate
+      start_time: 3.0
+      duration: 2.0
+      params:
+        angle: 6.283
+        
+    - target: chamfered_rect
+      type: scale
+      start_time: 3.5
+      duration: 1.5
+      params:
+        factor: 1.5
+        
+    - target: hatched_circle
+      type: scale
+      start_time: 4.0
+      duration: 1.5
+      params:
+        factor: 0.7
+        
+    - target: dashed_triangle
+      type: rotate
+      start_time: 4.5
+      duration: 2.0
+      params:
+        angle: -3.142

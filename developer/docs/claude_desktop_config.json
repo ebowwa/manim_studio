@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "manim-studio": {
+      "command": "python3",
+      "args": ["/Users/ebowwa/apps/manim_studio/run_mcp_server.py"],
+      "env": {
+        "PYTHONPATH": "/Users/ebowwa/apps/manim_studio/src"
+      }
+    }
+  }
+}
