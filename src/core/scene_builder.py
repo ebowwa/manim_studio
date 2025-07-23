@@ -1,5 +1,7 @@
 """Scene builder that creates scenes from configuration."""
 
+import logging
+import numpy as np
 from typing import Any, Dict, List, Optional, Type, Union
 from manim import *
 from .config import Config, SceneConfig, AnimationConfig, EffectConfig, Camera2DConfig, Camera3DConfig
@@ -89,8 +91,8 @@ class SceneBuilder:
                     )
             
             def construct(self):
-                print(f"[DEBUG] construct() called for scene: {self.scene_config.name}")
-                print(f"[DEBUG] Number of objects: {len(self.scene_config.objects) if hasattr(self.scene_config, 'objects') else 'No objects'}")
+                logging.getLogger(__name__).debug(f"construct() called for scene: {self.scene_config.name}")
+                logging.getLogger(__name__).debug(f"Number of objects: {len(self.scene_config.objects) if hasattr(self.scene_config, 'objects') else 'No objects'}")
                 
                 # Set background
                 self.camera.background_color = self.scene_config.background_color
@@ -109,17 +111,17 @@ class SceneBuilder:
                             self.add(obj)  # Add object to scene!
                 else:
                     # List format (newer style)
-                    print(f"Creating {len(self.scene_config.objects)} objects...")
+                    logging.getLogger(__name__).debug(f"Creating {len(self.scene_config.objects)} objects...")
                     for obj_config in self.scene_config.objects:
                         obj_name = obj_config.get('name', f'object_{len(self.objects)}')
-                        print(f"Creating object: {obj_name}")
+                        logging.getLogger(__name__).debug(f"Creating object: {obj_name}")
                         obj = self.builder.create_object(obj_name, obj_config)
                         if obj:
                             self.objects[obj_name] = obj
                             self.add(obj)  # Add object to scene!
-                            print(f"Added {obj_name} to scene")
+                            logging.getLogger(__name__).debug(f"Added {obj_name} to scene")
                         else:
-                            print(f"Failed to create {obj_name}")
+                            logging.getLogger(__name__).warning(f"Failed to create {obj_name}")
                 
                 # Setup effects
                 for effect_config in self.scene_config.effects:
@@ -152,13 +154,14 @@ class SceneBuilder:
                     anim_data = animations_by_time[start_time]
                     anims = [a[0] for a in anim_data]
                     
-                    if len(anims) == 1:
-                        self.play(anims[0])
-                    else:
-                        self.play(*anims)  # Play multiple animations simultaneously
-                    
-                    # Update current time (use max duration for overlapping animations)
-                    if anim_data:
+                    # Only play if we have valid animations
+                    if anims:
+                        if len(anims) == 1:
+                            self.play(anims[0])
+                        else:
+                            self.play(*anims)  # Play multiple animations simultaneously
+                        
+                        # Update current time (use max duration for overlapping animations)
                         max_duration = max(a[1] for a in anim_data)
                         current_time = start_time + max_duration
                 
@@ -208,11 +211,11 @@ class SceneBuilder:
                 camera.set_field_of_view(camera_config.fov)
             
             # Background color
-            camera.background_color = self.scene_config.background_color
+            camera.background_color = scene_config.background_color
     
     def create_object(self, name: str, config: Dict[str, Any]) -> Optional[Mobject]:
         """Create a Mobject from configuration."""
-        print(f"[DEBUG] create_object called with name={name}, config={config}")
+        logging.getLogger(__name__).debug(f"create_object called with name={name}, config={config}")
         obj_type = config.get('type', 'text')
         layer = config.get('layer', 'main')
         z_offset = config.get('z_offset', 0)
@@ -236,7 +239,7 @@ class SceneBuilder:
             # CAD objects
             mobject = self._create_cad_object(config)
         else:
-            print(f"Unknown object type: {obj_type}")
+            logging.getLogger(__name__).warning(f"Unknown object type: {obj_type}")
             return None
         
         # Register with layer manager
@@ -287,8 +290,9 @@ class SceneBuilder:
         
         try:
             image = self.asset_manager.load_image(asset_name, scale)
-        except (ValueError, FileNotFoundError):
-            # Create placeholder
+        except (ValueError, FileNotFoundError) as e:
+            # Log the actual error and create placeholder
+            logging.getLogger(__name__).warning(f"Failed to load image '{asset_name}': {e}")
             image = self.asset_manager.create_placeholder(asset_name)
         
         # Position
@@ -362,7 +366,7 @@ class SceneBuilder:
         params = config.get('params', {})
         
         if not asset_name:
-            print("Warning: No asset specified for 3D model")
+            logging.getLogger(__name__).warning("No asset specified for 3D model")
             return self.asset_manager._create_3d_placeholder("No asset specified")
         
         # Extract 3D model parameters
@@ -379,7 +383,7 @@ class SceneBuilder:
             )
         except (ValueError, FileNotFoundError, ImportError) as e:
             # Create placeholder for failed loading
-            print(f"Warning: Failed to load 3D model '{asset_name}': {e}")
+            logging.getLogger(__name__).warning(f"Failed to load 3D model '{asset_name}': {e}")
             model = self.asset_manager._create_3d_placeholder(f"Failed: {asset_name}")
         
         # Apply transformations
@@ -410,7 +414,7 @@ class SceneBuilder:
         try:
             from src.components.physics_objects import create_physics_object, create_physics_updater
         except ImportError:
-            print("Warning: Physics objects not available")
+            logging.getLogger(__name__).warning("Physics objects not available")
             return None
             
         obj_type = config.get('type', '').replace('physics.', '')
@@ -429,7 +433,7 @@ class SceneBuilder:
                 
             return mobject
         except ValueError as e:
-            print(f"Warning: {e}")
+            logging.getLogger(__name__).warning(f"{e}")
             return None
     
     def _create_cad_object(self, config: Dict[str, Any]) -> Optional[Mobject]:
@@ -451,7 +455,7 @@ class SceneBuilder:
                 return create_cad_object(obj_type, **params)
                 
         except Exception as e:
-            print(f"Error creating CAD object: {e}")
+            logging.getLogger(__name__).error(f"Error creating CAD object: {e}")
             return None
     
     def _create_visual_array(self, config: Dict[str, Any]) -> Optional[Mobject]:
@@ -459,7 +463,7 @@ class SceneBuilder:
         try:
             from src.components.visual_array import VisualArray, ArrayBuilder
         except ImportError:
-            print("Warning: Visual array components not available")
+            logging.getLogger(__name__).warning("Visual array components not available")
             return None
         
         params = config.get('params', {})
@@ -467,7 +471,7 @@ class SceneBuilder:
         # Extract array values
         values = params.get('values', [])
         if not values:
-            print("Warning: Visual array requires 'values' parameter")
+            logging.getLogger(__name__).warning("Visual array requires 'values' parameter")
             return None
         
         # Use builder pattern if complex configuration
@@ -565,11 +569,85 @@ class SceneBuilder:
         """Create an effect from configuration."""
         effect_class = self.effect_registry.get(effect_config.type)
         if not effect_class:
-            print(f"Unknown effect type: {effect_config.type}")
+            logging.getLogger(__name__).warning(f"Unknown effect type: {effect_config.type}")
             return None
         
         return effect_class(**effect_config.params)
     
+    def _validate_animation_params(self, anim_type: str, params: Dict[str, Any], target_name: str) -> bool:
+        """Validate animation parameters and log detailed errors."""
+        logger = logging.getLogger(__name__)
+        
+        try:
+            if anim_type in ['fadein', 'fade_in']:
+                if 'shift' in params:
+                    shift_val = params['shift']
+                    if not isinstance(shift_val, (list, tuple, np.ndarray)):
+                        logger.error(f"FadeIn shift parameter must be array-like, got {type(shift_val)} for target '{target_name}'")
+                        return False
+                    if isinstance(shift_val, (list, tuple)) and len(shift_val) not in [2, 3]:
+                        logger.error(f"FadeIn shift parameter must have 2 or 3 components, got {len(shift_val)} for target '{target_name}'")
+                        return False
+                    try:
+                        np.array(shift_val, dtype=float)
+                    except (ValueError, TypeError) as e:
+                        logger.error(f"FadeIn shift parameter contains invalid values: {e} for target '{target_name}'")
+                        return False
+            
+            elif anim_type == 'move':
+                if 'to' not in params:
+                    logger.error(f"Move animation missing required 'to' parameter for target '{target_name}'")
+                    return False
+                to_val = params['to']
+                if not isinstance(to_val, (list, tuple, np.ndarray)):
+                    logger.error(f"Move 'to' parameter must be array-like, got {type(to_val)} for target '{target_name}'")
+                    return False
+                if isinstance(to_val, (list, tuple)) and len(to_val) not in [2, 3]:
+                    logger.error(f"Move 'to' parameter must have 2 or 3 components, got {len(to_val)} for target '{target_name}'")
+                    return False
+                try:
+                    np.array(to_val, dtype=float)
+                except (ValueError, TypeError) as e:
+                    logger.error(f"Move 'to' parameter contains invalid values: {e} for target '{target_name}'")
+                    return False
+            
+            elif anim_type == 'scale':
+                if 'factor' not in params:
+                    logger.error(f"Scale animation missing required 'factor' parameter for target '{target_name}'")
+                    return False
+                factor = params['factor']
+                if not isinstance(factor, (int, float)):
+                    logger.error(f"Scale 'factor' parameter must be numeric, got {type(factor)} for target '{target_name}'")
+                    return False
+                if factor <= 0:
+                    logger.error(f"Scale 'factor' parameter must be positive, got {factor} for target '{target_name}'")
+                    return False
+            
+            elif anim_type == 'transform':
+                if 'to' not in params:
+                    logger.error(f"Transform animation missing required 'to' parameter for target '{target_name}'")
+                    return False
+                to_config = params['to']
+                if not isinstance(to_config, dict):
+                    logger.error(f"Transform 'to' parameter must be a dict, got {type(to_config)} for target '{target_name}'")
+                    return False
+                if 'type' not in to_config:
+                    logger.error(f"Transform 'to' parameter missing 'type' field for target '{target_name}'")
+                    return False
+            
+            elif anim_type == 'rotate':
+                if 'angle' in params:
+                    angle = params['angle']
+                    if not isinstance(angle, (int, float)):
+                        logger.error(f"Rotate 'angle' parameter must be numeric, got {type(angle)} for target '{target_name}'")
+                        return False
+            
+            return True
+            
+        except Exception as e:
+            logger.error(f"Unexpected error validating parameters for {anim_type} animation on target '{target_name}': {e}")
+            return False
+
     def create_animation(
         self,
         anim_config: AnimationConfig,
@@ -577,68 +655,90 @@ class SceneBuilder:
     ) -> Optional[Animation]:
         """Create an animation from configuration."""
         target_name = anim_config.target
+        logger = logging.getLogger(__name__)
         
+        # Validate target exists
+        if not target_name:
+            logger.warning(f"Animation has no target specified for {anim_config.animation_type}")
+            return None
+            
         if target_name not in objects:
-            print(f"Target object '{target_name}' not found")
+            logger.warning(f"Target object '{target_name}' not found for {anim_config.animation_type} animation")
             return None
         
         target = objects[target_name]
         anim_type = anim_config.animation_type
-        params = anim_config.params
+        params = anim_config.params.copy()  # Make a copy to avoid modifying original
         duration = anim_config.duration
         
-        # Create animation based on type
-        if anim_type == 'fadein' or anim_type == 'fade_in':
-            # Handle shift parameter properly
-            if 'shift' in params:
-                shift_val = params.pop('shift')
-                # Convert list to numpy array for shift
-                import numpy as np
-                shift_vector = np.array(shift_val) if isinstance(shift_val, list) else shift_val
-                return FadeIn(target, shift=shift_vector, run_time=duration, **params)
+        # Validate parameters
+        if not self._validate_animation_params(anim_type, params, target_name):
+            return None
+        
+        # Create animation based on type with error handling
+        try:
+            if anim_type == 'fadein' or anim_type == 'fade_in':
+                # Handle shift parameter properly
+                if 'shift' in params:
+                    shift_val = params.pop('shift')
+                    # Convert to numpy array for shift (validation already ensures this is safe)
+                    shift_vector = np.array(shift_val, dtype=float)
+                    return FadeIn(target, shift=shift_vector, run_time=duration, **params)
+                else:
+                    return FadeIn(target, run_time=duration, **params)
+            elif anim_type == 'fadeout' or anim_type == 'fade_out':
+                return FadeOut(target, run_time=duration, **params)
+            elif anim_type == 'write':
+                return Write(target, run_time=duration, **params)
+            elif anim_type == 'create':
+                return Create(target, run_time=duration, **params)
+            elif anim_type == 'transform':
+                # Transform requires a target state
+                if 'to' in params:
+                    to_config = params['to']
+                    to_object = self.create_object(f"{target_name}_transformed", to_config)
+                    return Transform(target, to_object, run_time=duration)
+                else:
+                    logging.getLogger(__name__).warning(f"Transform animation missing 'to' parameter for target '{target_name}'")
+                    return None
+            elif anim_type == 'move':
+                if 'to' in params:
+                    return target.animate.move_to(params['to']).set_run_time(duration)
+                else:
+                    logging.getLogger(__name__).warning(f"Move animation missing 'to' parameter for target '{target_name}'")
+                    return None
+            elif anim_type == 'scale':
+                if 'factor' in params:
+                    return target.animate.scale(params['factor']).set_run_time(duration)
+                else:
+                    logging.getLogger(__name__).warning(f"Scale animation missing 'factor' parameter for target '{target_name}'")
+                    return None
+            elif anim_type == 'rotate':
+                angle = params.pop('angle', PI)
+                # Convert degrees to radians if angle is large (likely degrees)
+                if angle > 6.3:  # Larger than 2*PI, probably degrees
+                    angle = angle * PI / 180
+                return Rotate(target, angle, run_time=duration, **params)
+            elif anim_type == 'indicate':
+                scale_factor = params.pop('scale_factor', 1.2)
+                color = params.pop('color', None)
+                return Indicate(target, scale_factor=scale_factor, color=color, run_time=duration, **params)
+            elif anim_type == 'camera_move':
+                # Camera animation - requires scene reference
+                if 'position' in params:
+                    # This is a placeholder - actual camera animation would need scene context
+                    logging.getLogger(__name__).info(f"Camera move animation to {params['position']} - implement in timeline")
+                    return None
+            elif anim_type == 'camera_zoom':
+                # Camera zoom animation
+                if 'zoom' in params:
+                    logging.getLogger(__name__).info(f"Camera zoom animation to {params['zoom']} - implement in timeline")
+                    return None
             else:
-                return FadeIn(target, run_time=duration, **params)
-        elif anim_type == 'fadeout' or anim_type == 'fade_out':
-            return FadeOut(target, run_time=duration, **params)
-        elif anim_type == 'write':
-            return Write(target, run_time=duration, **params)
-        elif anim_type == 'create':
-            return Create(target, run_time=duration, **params)
-        elif anim_type == 'transform':
-            # Transform requires a target state
-            if 'to' in params:
-                to_config = params['to']
-                to_object = self.create_object(f"{target_name}_transformed", to_config)
-                return Transform(target, to_object, run_time=duration)
-        elif anim_type == 'move':
-            if 'to' in params:
-                return target.animate.move_to(params['to']).set_run_time(duration)
-        elif anim_type == 'scale':
-            if 'factor' in params:
-                return target.animate.scale(params['factor']).set_run_time(duration)
-        elif anim_type == 'rotate':
-            angle = params.pop('angle', PI)
-            # Convert degrees to radians if angle is large (likely degrees)
-            if angle > 6.3:  # Larger than 2*PI, probably degrees
-                angle = angle * PI / 180
-            return Rotate(target, angle, run_time=duration, **params)
-        elif anim_type == 'indicate':
-            scale_factor = params.pop('scale_factor', 1.2)
-            color = params.pop('color', None)
-            return Indicate(target, scale_factor=scale_factor, color=color, run_time=duration, **params)
-        elif anim_type == 'camera_move':
-            # Camera animation - requires scene reference
-            if 'position' in params:
-                # This is a placeholder - actual camera animation would need scene context
-                print(f"Camera move animation to {params['position']} - implement in timeline")
+                logging.getLogger(__name__).warning(f"Unknown animation type: {anim_type}")
                 return None
-        elif anim_type == 'camera_zoom':
-            # Camera zoom animation
-            if 'zoom' in params:
-                print(f"Camera zoom animation to {params['zoom']} - implement in timeline")
-                return None
-        else:
-            print(f"Unknown animation type: {anim_type}")
+        except Exception as e:
+            logger.error(f"Error creating animation {anim_type} for target '{target_name}': {e}")
             return None
     
     @classmethod

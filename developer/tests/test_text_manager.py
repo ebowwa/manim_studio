@@ -3,13 +3,13 @@
 Simple test for the new TextManager system
 """
 
+from src.config.manim_config import config
 from manim import *
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
-from config.manim_config import config
-from core.text_manager import TextManager
+from src.core.text_manager import TextManager
 
 
 class TextManagerTest(Scene):

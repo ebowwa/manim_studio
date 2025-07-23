@@ -1,3 +1,4 @@
+from src.config.manim_config import config
 from manim import *
 
 class TestScene(Scene):

@@ -105,7 +105,7 @@ Frame Extraction:
     
     # Clear cache if requested
     if args.clear_cache:
-        from .core import get_cache
+        from src.core import get_cache
         cache = get_cache()
         cache.clear()
         print("Cache cleared.")
@@ -130,7 +130,7 @@ Frame Extraction:
         sys.exit(0)
     
     try:
-        config = Config(config_path)
+        scene_config_loader = Config(config_path)
     except Exception as e:
         print(f"Error loading configuration: {e}")
         sys.exit(1)
@@ -140,14 +140,14 @@ Frame Extraction:
         scene_name = args.scene
     else:
         # If no scene specified, try to get the default or first scene
-        scenes = config.list_scenes()
+        scenes = scene_config_loader.list_scenes()
         if not scenes:
             # Single scene configuration
             # Check if config has 'scene' key
-            if 'scene' in config.data:
-                scene_name = config.data['scene'].get('name', 'Scene')
+            if 'scene' in scene_config_loader.data:
+                scene_name = scene_config_loader.data['scene'].get('name', 'Scene')
             else:
-                scene_name = config.get('name', 'Scene')
+                scene_name = scene_config_loader.get('name', 'Scene')
         else:
             scene_name = scenes[0]
     
@@ -155,18 +155,18 @@ Frame Extraction:
     builder = SceneBuilder.from_config_file(str(config_path))
     
     try:
-        if scene_name in config.list_scenes():
-            scene_config = config.get_scene_config(scene_name)
+        if scene_name in scene_config_loader.list_scenes():
+            scene_config = scene_config_loader.get_scene_config(scene_name)
             SceneClass = builder.build_scene(scene_config)
         else:
             # Single scene configuration (entire config is the scene)
             from src.core.config import SceneConfig
             # Check if config has 'scene' key (single scene format)
-            if 'scene' in config.data:
-                scene_config = SceneConfig.from_dict(config.data['scene'])
+            if 'scene' in scene_config_loader.data:
+                scene_config = SceneConfig.from_dict(scene_config_loader.data['scene'])
             else:
                 # Assume entire config is the scene
-                scene_config = SceneConfig.from_dict(config.data)
+                scene_config = SceneConfig.from_dict(scene_config_loader.data)
             SceneClass = builder.build_scene(scene_config)
     except Exception as e:
         print(f"Error building scene: {e}")
@@ -190,6 +190,7 @@ Frame Extraction:
         manim_config["output_file"] = args.output
     
     # Configure Manim
+    from manim import config
     for key, value in manim_config.items():
         setattr(config, key, value)
     

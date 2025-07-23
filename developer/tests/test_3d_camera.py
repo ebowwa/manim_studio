@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Simple 3D camera test without complex imports"""
 
+from src.config.manim_config import config
 from manim import *
 import numpy as np
 

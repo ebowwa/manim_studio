@@ -95,7 +95,7 @@ class CacheManager:
         return age > self.ttl_seconds
     
     def get(self, cache_key: str) -> Optional[Any]:
-        """Get a value from cache."""
+        """Get a value from cache with proper error handling."""
         if not self.enabled:
             return None
             
@@ -114,55 +114,79 @@ class CacheManager:
                     value = pickle.load(f)
                 
                 # Add to memory cache if it fits
-                value_size = len(pickle.dumps(value))
-                if value_size < self.max_memory_cache_size:
-                    self.memory_cache[cache_key] = value
-                    self.memory_cache_size += value_size
-                    self._evict_memory_cache()
+                try:
+                    value_size = len(pickle.dumps(value))
+                    if value_size < self.max_memory_cache_size:
+                        self.memory_cache[cache_key] = value
+                        self.memory_cache_size += value_size
+                        self._evict_memory_cache()
+                except (pickle.PicklingError, MemoryError) as e:
+                    # Skip memory caching if serialization fails
+                    pass
                 
                 return value
-            except:
+            except (pickle.UnpicklingError, IOError, EOFError) as e:
                 # Invalid cache file, remove it
                 self.delete(cache_key)
                 
         return None
     
     def set(self, cache_key: str, value: Any) -> None:
-        """Set a value in cache."""
+        """Set a value in cache with proper error handling."""
         if not self.enabled:
             return
             
-        # Serialize the value
-        serialized = pickle.dumps(value)
-        size = len(serialized)
-        
-        # Check if we need to make room
-        self._evict_disk_cache(size)
-        
-        # Save to disk
-        cache_path = self._get_cache_path(cache_key)
-        cache_path.parent.mkdir(parents=True, exist_ok=True)
-        
-        with open(cache_path, 'wb') as f:
-            f.write(serialized)
-        
-        # Update metadata
-        self.metadata['entries'][cache_key] = {
-            'size': size,
-            'timestamp': time.time(),
-            'path': str(cache_path)
-        }
-        self.metadata['total_size'] = self.metadata.get('total_size', 0) + size
-        self._save_metadata()
-        
-        # Add to memory cache if it fits
-        if size < self.max_memory_cache_size:
-            self.memory_cache[cache_key] = value
-            self.memory_cache_size += size
-            self._evict_memory_cache()
+        try:
+            # Serialize the value
+            serialized = pickle.dumps(value)
+            size = len(serialized)
+            
+            # Check if we need to make room
+            self._evict_disk_cache(size)
+            
+            # Save to disk
+            cache_path = self._get_cache_path(cache_key)
+            cache_path.parent.mkdir(parents=True, exist_ok=True)
+            
+            try:
+                with open(cache_path, 'wb') as f:
+                    f.write(serialized)
+            except IOError as e:
+                # Failed to write to disk, skip caching
+                return
+            
+            # Update metadata
+            self.metadata['entries'][cache_key] = {
+                'size': size,
+                'timestamp': time.time(),
+                'path': str(cache_path)
+            }
+            self.metadata['total_size'] = self.metadata.get('total_size', 0) + size
+            
+            try:
+                self._save_metadata()
+            except IOError:
+                # Failed to save metadata, clean up the cache file
+                if cache_path.exists():
+                    cache_path.unlink()
+                return
+            
+            # Add to memory cache if it fits
+            if size < self.max_memory_cache_size:
+                try:
+                    self.memory_cache[cache_key] = value
+                    self.memory_cache_size += size
+                    self._evict_memory_cache()
+                except MemoryError:
+                    # Skip memory caching if we're out of memory
+                    pass
+                    
+        except (pickle.PicklingError, AttributeError, MemoryError) as e:
+            # Cannot serialize the value, skip caching
+            return
     
     def delete(self, cache_key: str) -> None:
-        """Delete a cache entry."""
+        """Delete a cache entry with proper error handling."""
         if cache_key in self.memory_cache:
             del self.memory_cache[cache_key]
             
@@ -170,12 +194,21 @@ class CacheManager:
             entry = self.metadata['entries'][cache_key]
             cache_path = Path(entry['path'])
             
-            if cache_path.exists():
-                cache_path.unlink()
+            try:
+                if cache_path.exists():
+                    cache_path.unlink()
+            except (IOError, OSError) as e:
+                # Log but continue with metadata cleanup
+                pass
                 
             self.metadata['total_size'] -= entry['size']
             del self.metadata['entries'][cache_key]
-            self._save_metadata()
+            
+            try:
+                self._save_metadata()
+            except IOError:
+                # Failed to save metadata, but entry is already removed
+                pass
     
     def _evict_memory_cache(self) -> None:
         """Evict entries from memory cache if it's too large."""
@@ -185,13 +218,22 @@ class CacheManager:
         # Sort by access time (simple LRU)
         # In a real implementation, we'd track access times
         keys = list(self.memory_cache.keys())
+        
+        # Track size reduction as we remove items
+        size_removed = 0
         for key in keys[:len(keys)//2]:  # Remove half
+            value = self.memory_cache[key]
+            try:
+                # Calculate size before removing
+                size_removed += len(pickle.dumps(value))
+            except (pickle.PicklingError, TypeError, MemoryError):
+                # If we can't serialize, estimate size as 0 for safety
+                # This prevents the cache size from becoming negative
+                pass
             del self.memory_cache[key]
             
-        # Recalculate size
-        self.memory_cache_size = sum(
-            len(pickle.dumps(v)) for v in self.memory_cache.values()
-        )
+        # Update size incrementally instead of recalculating
+        self.memory_cache_size = max(0, self.memory_cache_size - size_removed)
     
     def _evict_disk_cache(self, needed_size: int) -> None:
         """Evict entries from disk cache to make room."""
@@ -215,15 +257,28 @@ class CacheManager:
             current_size -= entry['size']
     
     def clear(self) -> None:
-        """Clear all cache entries."""
-        if self.cache_dir.exists():
-            shutil.rmtree(self.cache_dir)
-            self.cache_dir.mkdir(parents=True, exist_ok=True)
+        """Clear all cache entries with proper error handling."""
+        try:
+            if self.cache_dir.exists():
+                shutil.rmtree(self.cache_dir)
+                self.cache_dir.mkdir(parents=True, exist_ok=True)
+        except (IOError, OSError) as e:
+            # If we can't remove the directory, try to clean individual files
+            try:
+                for cache_key in list(self.metadata.get('entries', {}).keys()):
+                    self.delete(cache_key)
+            except Exception:
+                pass
             
         self.memory_cache.clear()
         self.memory_cache_size = 0
         self.metadata = {'entries': {}, 'total_size': 0}
-        self._save_metadata()
+        
+        try:
+            self._save_metadata()
+        except IOError:
+            # Can't save metadata, but cache is cleared
+            pass
     
     def get_stats(self) -> Dict[str, Any]:
         """Get cache statistics."""

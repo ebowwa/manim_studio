@@ -7,6 +7,7 @@ import subprocess
 
 # Create a simple Manim script with no external dependencies
 script_content = '''
+from src.config.manim_config import config
 from manim import *
 
 class SimpleTestScene(Scene):

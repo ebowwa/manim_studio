@@ -8,6 +8,7 @@ from typing import Dict, Optional, Union, List, Any
 from manim import ImageMobject, SVGMobject, VGroup, Rectangle, Text, BLUE, WHITE
 from manim import ThreeDVMobject, VectorizedPoint, Sphere
 from .cache import get_cache
+from ..utils.resource_manager import get_resource_manager, managed_resource
 
 # 3D model loading dependencies (optional imports)
 try:
@@ -72,7 +73,7 @@ class AssetManager:
         return self.assets[name]
     
     def load_image(self, name: str, scale: float = 1.0, cache: bool = True) -> ImageMobject:
-        """Load an image asset."""
+        """Load an image asset with proper resource management."""
         if self.use_cache and cache and self.cache_manager:
             cache_key = self.cache_manager._generate_cache_key("image", name, scale)
             cached_image = self.cache_manager.get(cache_key)
@@ -80,15 +81,27 @@ class AssetManager:
                 return cached_image.copy()
         
         path = self.get_asset_path(name)
-        image = ImageMobject(str(path)).scale(scale)
+        resource_manager = get_resource_manager()
         
-        if self.use_cache and cache and self.cache_manager:
-            self.cache_manager.set(cache_key, image.copy())
-        
-        return image
+        try:
+            image = ImageMobject(str(path)).scale(scale)
+            
+            # Register with resource manager
+            resource_id = f"image_{name}_{hash(str(path))}"
+            resource_manager.register_resource(
+                resource_id, image, "image", 
+                size_bytes=path.stat().st_size if path.exists() else 0
+            )
+            
+            if self.use_cache and cache and self.cache_manager:
+                self.cache_manager.set(cache_key, image.copy())
+            
+            return image
+        except Exception as e:
+            raise ValueError(f"Failed to load image {name}: {e}")
     
     def load_svg(self, name: str, scale: float = 1.0, cache: bool = True) -> SVGMobject:
-        """Load an SVG asset."""
+        """Load an SVG asset with proper resource management."""
         if self.use_cache and cache and self.cache_manager:
             cache_key = self.cache_manager._generate_cache_key("svg", name, scale)
             cached_svg = self.cache_manager.get(cache_key)
@@ -96,12 +109,24 @@ class AssetManager:
                 return cached_svg.copy()
         
         path = self.get_asset_path(name)
-        svg = SVGMobject(str(path)).scale(scale)
+        resource_manager = get_resource_manager()
         
-        if self.use_cache and cache and self.cache_manager:
-            self.cache_manager.set(cache_key, svg.copy())
-        
-        return svg
+        try:
+            svg = SVGMobject(str(path)).scale(scale)
+            
+            # Register with resource manager
+            resource_id = f"svg_{name}_{hash(str(path))}"
+            resource_manager.register_resource(
+                resource_id, svg, "svg",
+                size_bytes=path.stat().st_size if path.exists() else 0
+            )
+            
+            if self.use_cache and cache and self.cache_manager:
+                self.cache_manager.set(cache_key, svg.copy())
+            
+            return svg
+        except Exception as e:
+            raise ValueError(f"Failed to load SVG {name}: {e}")
     
     def load_data(self, name: str) -> Dict[str, Any]:
         """Load JSON data asset."""
@@ -113,11 +138,14 @@ class AssetManager:
         
         path = self.get_asset_path(name)
         
-        with open(path, 'r') as f:
-            if path.suffix == '.json':
-                data = json.load(f)
-            else:
-                raise ValueError(f"Unsupported data format: {path.suffix}")
+        try:
+            with open(path, 'r') as f:
+                if path.suffix == '.json':
+                    data = json.load(f)
+                else:
+                    raise ValueError(f"Unsupported data format: {path.suffix}")
+        except (IOError, json.JSONDecodeError) as e:
+            raise ValueError(f"Failed to load data from {path}: {e}")
         
         if self.use_cache and self.cache_manager:
             self.cache_manager.set(cache_key, data)
@@ -132,7 +160,7 @@ class AssetManager:
         center: bool = True,
         **kwargs
     ) -> ThreeDVMobject:
-        """Load a 3D model asset (GLB, OBJ, STL).
+        """Load a 3D model asset (GLB, OBJ, STL) with proper resource management.
         
         Args:
             name: Asset name or filename
@@ -151,56 +179,106 @@ class AssetManager:
                 return cached_model.copy()
         
         path = self.get_asset_path(name)
+        resource_manager = get_resource_manager()
         
         # Determine file format and load accordingly
         suffix = path.suffix.lower()
         
-        if suffix == '.stl':
-            model = self._load_stl(path, scale, center, **kwargs)
-        elif suffix == '.obj':
-            model = self._load_obj(path, scale, center, **kwargs)
-        elif suffix in ['.glb', '.gltf']:
-            model = self._load_glb(path, scale, center, **kwargs)
-        else:
-            raise ValueError(f"Unsupported 3D model format: {suffix}")
-        
-        if self.use_cache and cache and self.cache_manager:
-            self.cache_manager.set(cache_key, model.copy())
-        
-        return model
+        try:
+            if suffix == '.stl':
+                model = self._load_stl(path, scale, center, **kwargs)
+            elif suffix == '.obj':
+                model = self._load_obj(path, scale, center, **kwargs)
+            elif suffix in ['.glb', '.gltf']:
+                model = self._load_glb(path, scale, center, **kwargs)
+            else:
+                raise ValueError(f"Unsupported 3D model format: {suffix}")
+            
+            # Register with resource manager
+            resource_id = f"3d_model_{name}_{hash(str(path))}"
+            resource_manager.register_resource(
+                resource_id, model, "3d_model",
+                size_bytes=path.stat().st_size if path.exists() else 0
+            )
+            
+            if self.use_cache and cache and self.cache_manager:
+                self.cache_manager.set(cache_key, model.copy())
+            
+            return model
+        except Exception as e:
+            raise ValueError(f"Failed to load 3D model {name}: {e}")
     
     def _load_stl(self, path: Path, scale: float = 1.0, center: bool = True, **kwargs) -> ThreeDVMobject:
         """Load STL file using trimesh."""
         if not TRIMESH_AVAILABLE:
             raise ImportError("trimesh is required for STL loading. Install with: pip install trimesh")
         
-        # Load mesh with trimesh
-        mesh = trimesh.load_mesh(str(path))
-        
-        # Convert to Manim ThreeDVMobject
-        return self._trimesh_to_mobject(mesh, scale, center, **kwargs)
+        mesh = None
+        try:
+            # Load mesh with trimesh
+            mesh = trimesh.load_mesh(str(path))
+            
+            # Convert to Manim ThreeDVMobject
+            return self._trimesh_to_mobject(mesh, scale, center, **kwargs)
+        except Exception as e:
+            raise ValueError(f"Failed to load STL file {path}: {e}")
+        finally:
+            # Clean up mesh resources if possible
+            if mesh is not None and hasattr(mesh, 'unload'):
+                try:
+                    mesh.unload()
+                except Exception as cleanup_error:
+                    # Log cleanup errors but don't raise them
+                    import logging
+                    logging.getLogger(__name__).warning(f"Failed to unload mesh resources: {cleanup_error}")
     
     def _load_obj(self, path: Path, scale: float = 1.0, center: bool = True, **kwargs) -> ThreeDVMobject:
         """Load OBJ file using trimesh."""
         if not TRIMESH_AVAILABLE:
             raise ImportError("trimesh is required for OBJ loading. Install with: pip install trimesh")
         
-        # Load mesh with trimesh
-        mesh = trimesh.load_mesh(str(path))
-        
-        # Convert to Manim ThreeDVMobject
-        return self._trimesh_to_mobject(mesh, scale, center, **kwargs)
+        mesh = None
+        try:
+            # Load mesh with trimesh
+            mesh = trimesh.load_mesh(str(path))
+            
+            # Convert to Manim ThreeDVMobject
+            return self._trimesh_to_mobject(mesh, scale, center, **kwargs)
+        except Exception as e:
+            raise ValueError(f"Failed to load OBJ file {path}: {e}")
+        finally:
+            # Clean up mesh resources if possible
+            if mesh is not None and hasattr(mesh, 'unload'):
+                try:
+                    mesh.unload()
+                except Exception as cleanup_error:
+                    # Log cleanup errors but don't raise them
+                    import logging
+                    logging.getLogger(__name__).warning(f"Failed to unload mesh resources: {cleanup_error}")
     
     def _load_glb(self, path: Path, scale: float = 1.0, center: bool = True, **kwargs) -> ThreeDVMobject:
         """Load GLB/GLTF file using pygltflib and trimesh."""
         if not TRIMESH_AVAILABLE:
             raise ImportError("trimesh is required for GLB loading. Install with: pip install trimesh")
         
-        # Load mesh with trimesh (trimesh can handle GLB/GLTF)
-        mesh = trimesh.load_mesh(str(path))
-        
-        # Convert to Manim ThreeDVMobject
-        return self._trimesh_to_mobject(mesh, scale, center, **kwargs)
+        mesh = None
+        try:
+            # Load mesh with trimesh (trimesh can handle GLB/GLTF)
+            mesh = trimesh.load_mesh(str(path))
+            
+            # Convert to Manim ThreeDVMobject
+            return self._trimesh_to_mobject(mesh, scale, center, **kwargs)
+        except Exception as e:
+            raise ValueError(f"Failed to load GLB file {path}: {e}")
+        finally:
+            # Clean up mesh resources if possible
+            if mesh is not None and hasattr(mesh, 'unload'):
+                try:
+                    mesh.unload()
+                except Exception as cleanup_error:
+                    # Log cleanup errors but don't raise them
+                    import logging
+                    logging.getLogger(__name__).warning(f"Failed to unload mesh resources: {cleanup_error}")
     
     def _trimesh_to_mobject(self, mesh, scale: float = 1.0, center: bool = True, **kwargs) -> ThreeDVMobject:
         """Convert trimesh object to Manim ThreeDVMobject."""
@@ -354,13 +432,19 @@ class AssetManager:
                 self.register_asset(asset_name, file_path)
     
     def clear_cache(self) -> None:
-        """Clear the asset cache."""
+        """Clear the asset cache and release managed resources."""
         if self.use_cache and self.cache_manager:
             # Clear only asset-related cache entries
             stats = self.cache_manager.get_stats()
             for entry_key in list(self.cache_manager.metadata.get('entries', {}).keys()):
                 if entry_key.startswith(('image_', 'svg_', 'data_', '3d_model_')):
                     self.cache_manager.delete(entry_key)
+        
+        # Also clear resources from resource manager
+        resource_manager = get_resource_manager()
+        for resource_id in list(resource_manager.resources.keys()):
+            if any(resource_id.startswith(prefix) for prefix in ['image_', 'svg_', '3d_model_']):
+                resource_manager.release_resource(resource_id)
     
     def list_assets(self, asset_type: Optional[str] = None) -> List[str]:
         """List all registered assets."""
