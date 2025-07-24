@@ -85,16 +85,38 @@ python main.py hello_world.yaml --preview
 
 3. **Watch your creation come to life!** 🎉
 
-## 🧪 New: AI-Powered Creation
+## 🧪 Multiple Interface Options
 
-Let AI create animations for you using our MCP interface:
+**Choose your preferred workflow:**
 
+### 🤖 AI-Powered Creation (MCP Interface)
+Let AI create animations for you:
 ```bash
-# Ask AI to create an animation
-manim-studio ai "Create a beautiful visualization of the Pythagorean theorem"
+# Use with Claude Desktop, Cline, or other MCP clients
+# Install the MCP server and get full Manim Studio capabilities
+```
 
-# Or use with Claude Desktop
-# Install the MCP server and Claude will have access to all Manim Studio capabilities
+### 💻 Developer Experience (Neovim Interface)
+Full IDE integration for YAML editing:
+```bash
+# Generate Neovim plugin
+manim-studio --interface nvim-plugin
+
+# Start LSP server
+manim-studio --interface nvim-lsp
+```
+
+**Features:**
+- Auto-completion for object types, animations, and properties
+- Real-time validation with error highlighting
+- Hover documentation for all configuration options
+- Live preview with `<leader>mp`, render with `<leader>mr`
+- Template insertion for objects and animations
+
+### 🖥️ Command Line Interface
+Direct rendering from terminal:
+```bash
+manim-studio scene.yaml --preview
 ```
 
 ## 📚 Examples
@@ -225,6 +247,12 @@ video.render()
 - [Effect Development](docs/effects.md) - Create custom visual effects
 - [Asset Pipeline](docs/assets.md) - Media management best practices
 - [API Reference](docs/api.md) - Full Python API documentation
+
+### Interface Documentation
+- [Neovim Integration](src/interfaces/nvim/README.md) - LSP server, plugin setup, and development workflow
+- [MCP Interface](src/interfaces/mcp/) - AI-powered animation creation
+- [GUI Interface](src/interfaces/gradio/) - Web-based visual editor
+- [API Interface](src/interfaces/api_interface.py) - REST API for external integrations
 
 ### Tutorials
 - [Getting Started Guide](docs/tutorials/getting-started.md)

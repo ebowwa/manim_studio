@@ -92,8 +92,41 @@ Frame Extraction:
         help="Show detailed validation results (warnings and info)"
     )
     
+    parser.add_argument(
+        "--interface",
+        choices=["cli", "nvim-lsp", "nvim-plugin"],
+        default="cli",
+        help="Interface mode: cli=command line, nvim-lsp=start LSP server, nvim-plugin=generate plugin files"
+    )
+    
     args = parser.parse_args()
     
+    # Handle interface-specific modes
+    if args.interface == "nvim-lsp":
+        # Start LSP server
+        try:
+            from src.interfaces.nvim.lsp_server import main as lsp_main
+            import asyncio
+            asyncio.run(lsp_main())
+        except ImportError:
+            print("Error: Neovim LSP interface not available. Install with: pip install pygls")
+            sys.exit(1)
+        return
+    
+    elif args.interface == "nvim-plugin":
+        # Generate Neovim plugin files
+        try:
+            from src.interfaces.nvim.plugin import generate_plugin_config
+            files = generate_plugin_config()
+            print("Generated Neovim plugin files:")
+            for name, path in files.items():
+                print(f"  {name}: {path}")
+        except Exception as e:
+            print(f"Error generating plugin files: {e}")
+            sys.exit(1)
+        return
+    
+    # Continue with CLI mode
     # Configure caching
     cache_config = {
         'enabled': not args.no_cache
